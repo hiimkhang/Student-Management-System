@@ -1,10 +1,24 @@
-#ifndef _HEADER_H_
-#define _HEADER_H_
-
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
 using namespace std;
+
+struct Student {
+    int No, StudentID, SocialID;
+    string studentPassword = "12345678";
+    string Firstname, Lastname;
+    string Gender;
+    string DoB;
+};
+
+
+struct Class {
+    string className;
+    Student* student;
+    Class* pNext;
+};
+
 
 struct YearSchool {
     string year;
@@ -27,19 +41,7 @@ struct Course {
 };
 
 
-struct Class {
-    string className;
-    Student* student;
-    Class* pNext;
-};
 
-struct Student {
-    int No, StudentID, SocialID;
-    string studentPassword = "12345678";
-    string Firstname, Lastname;
-    string Gender;
-    string DoB;
-};
 
 struct Staff {
     string nameStaff;
@@ -47,7 +49,8 @@ struct Staff {
     Staff* pNext;
 };
 
-void loginStaff(Staff*& staff);
+bool loginStaff(Staff*& staff);
+void getData(Staff* &staff, string filename);
+void display(Staff* pHead);
+void deleteList(Staff*& pHead);
 
-
-#endif

@@ -1,8 +1,9 @@
 #include "Header.h"
 
 
-	void getData(Staff * &pHead, string filename) {
+	void getData(Staff* &pHead, string filename) {
 	ifstream in;
+	char t;
 	in.open(filename);
 	if (in) {
 		string nameStaff, staffAccount, staffPassword = "staff";
@@ -32,9 +33,9 @@
 void display(Staff* pHead) {
 	while (pHead) {
 		cout << "Name: " << pHead->nameStaff << endl;
-		cout << "Account" << pHead->staffAccount << endl;
-		cout << "Password" << pHead->staffPassword << endl;
-
+		cout << "Account " << pHead->staffAccount << endl;
+		cout << "Password " << pHead->staffPassword << endl;
+		pHead = pHead->pNext;
 	}
 }
 void deleteList(Staff*& pHead) {
@@ -44,6 +45,21 @@ void deleteList(Staff*& pHead) {
 		delete pCur;
 		pCur = pHead;
 	}
+}
+bool loginStaff(Staff*& staff) {
+	cout << "Your account: ";
+	string account, password;
+	getline(cin, account);
+	cout << "Your password: ";
+	getline(cin, password);
+	while (staff != nullptr && staff->staffAccount != account) {
+		staff = staff->pNext;
+	}
+	if (staff != nullptr) {
+		if (password == staff->staffPassword) return true;
+		else return false;
+	}
+	else return false;
 }
 
 
