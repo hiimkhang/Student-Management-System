@@ -6,10 +6,33 @@
 #include "string.h"
 using namespace std;
 
-struct StudentInfo {
+struct Course {
+
+};
+
+struct Semester {
+    int no;
+    string start_date, end_date, register_start_date, register_end_date;
+    C
+};
+
+struct Class {
+    string classname;
+    Student* student;
+    Class* pNext;
+};
+
+struct YearSchool {
+    string year;
+    Class* classes;
+    YearSchool* pNext;
+
+};
+
+struct Student{
     int No, StudentID, SocialID;
-    char *Firstname, *Lastname; 
-    char Gender[6];
+    string Firstname, Lastname; 
+    string Gender;
     string DoB;
 };
 
