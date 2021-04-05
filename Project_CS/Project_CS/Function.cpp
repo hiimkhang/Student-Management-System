@@ -3,7 +3,7 @@
 
 	void getData(Staff* &pHead, string filename) {
 	ifstream in;
-	char t;
+	string t;
 	in.open(filename);
 	if (in) {
 		string nameStaff, staffAccount, staffPassword = "staff";
@@ -21,6 +21,7 @@
 			getline(in, nameStaff, '_');
 			getline(in, staffAccount, '_');
 			getline(in, staffPassword, '_');
+			getline(in, t, '\n');
 			pCur->nameStaff = nameStaff;
 			pCur->staffAccount = staffAccount;
 			pCur->staffPassword = staffPassword;
