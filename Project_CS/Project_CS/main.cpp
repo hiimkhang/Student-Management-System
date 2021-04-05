@@ -40,7 +40,12 @@ int main() {
 								cin >> choose;
 								if (choose == 'c') break;
 								else if (choose == 'a') {
-
+									//cout << danh sach cac hoc ki
+									cout << "a. Create new semester \n";
+									cout << "b. Exit \n";
+									cout << "Please input the semester (or press a/b): ";
+									cin >> str;
+									if (str == "")
 								}
 								else if (choose == 'b') {
 
