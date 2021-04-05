@@ -36,10 +36,4 @@ struct Student{
     string DoB;
 };
 
-// Function to input First name and Last name of student.
-void inputName (char *name);
-// Function to input student's information using handwork.
-void inputInfo (StudentInfo &SI);
-// Function to input student's information using CSV file.
-void loadInfo (StudentInfo &SI, char *filename);
 #endif
