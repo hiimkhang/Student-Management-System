@@ -9,7 +9,7 @@ int main() {
 		cout << "b. Student \n";
 		cout << "c. Exit \n";
 		cout << "Please input: ";
-		cin >> choice;
+		cin >> cho;
 		switch (choice) {
 		case 'c':
 			cout << "See you later! \n";
@@ -18,89 +18,92 @@ int main() {
 		case'a':
 			do {
 				cout << "a. Login\n";
-				cout << "b. Exit\n";
+				cout << "b. Exit\n";	
 				cout << "Please input your option: ";
 				cin >> choice;
 				switch (choice) {
-				case 'a':
+				case 'a': 
 					// Implement function here;
 					loginStaff(staff);
 					break;
 				case 'b':
 					cout << "See you later!\n";
 				default:
-					cout << "Invalid input, please input again";
-					break;
+						cout << "Invalid input, please input again";
+						break;
+			}
+			do {
+				cout << "a. School year \n";
+				cout << "b. View profile \n";
+				cout << "c. Change password \n";
+				cout << "d. Log out \n";
+				cout << "Please input: ";
+				cin >> choice;
+				if (choice == 'd') break;
+				else if (choice == 'a') {
+					do {
+						//cout << danh sach cac nam;
+						cout << "a. Create new year \n";
+						cout << "b. Exit \n";
+						cout << "Please input the year (or press a/b): ";
+						cin >> str;
+						if (str == "b") break;
+						else if (str == "a") {
+							do {
+								cout << "a. Semester \n";
+								cout << "b. Student \n";
+								cout << "c. Exit \n";
+								cout << "Please input: ";
+<<<<<<< HEAD
+								cin >> choose;
+								if (choose == 'c') break;
+								else if (choose == 'a') {
+									//cout << danh sach cac hoc ki
+									cout << "a. Create new semester \n";
+									cout << "b. Exit \n";
+									cout << "Please input the semester (or press a/b): ";
+									cin >> str;
+									if (str == "")
+=======
+								cin >> choice;
+								if (choice == 'c') break;
+								else if (choice == 'a') {
+
+>>>>>>> 3decbec48ede187a5afb4aff7352b78c908dc0e7
+								}
+								else if (choice == 'b') {
+
+								}
+								else {
+									cout << "Please input a or b or c! \n";
+									cout << "Please input: ";
+									cin >> choice;
+								}
+							} while (choice != 'a' && choice != 'b' && choice != 'c');
+						}
+						else if (str == "year.name") {
+
+						}
+						else {
+							cout << "Error input \n";
+							cout << "Please input again: ";
+							cin >> str;
+						}
+					} while (str != "a" && str != "b" && nam ko co trong list);
 				}
-				do {
-					cout << "a. School year \n";
-					cout << "b. View profile \n";
-					cout << "c. Change password \n";
-					cout << "d. Log out \n";
+				else if (choice == 'b') {
+
+				}
+				else if (choice == 'c') {
+
+				}
+				else {
+					cout << "Please input a or b or c or d! \n";
 					cout << "Please input: ";
 					cin >> choice;
-					if (choice == 'd') break;
-					else if (choice == 'a') {
-						do {
-							//cout << danh sach cac nam;
-							cout << "a. Create new year \n";
-							cout << "b. Exit \n";
-							cout << "Please input the year (or press a/b): ";
-							cin >> str;
-							if (str == "b") break;
-							else if (str == "a") {
-								do {
-									cout << "a. Semester \n";
-									cout << "b. Student \n";
-									cout << "c. Exit \n";
-									cout << "Please input: ";
-										cin >> choose;
-									if (choose == 'c') break;
-									else if (choose == 'a') {
-										//cout << danh sach cac hoc ki
-										cout << "a. Create new semester \n";
-										cout << "b. Exit \n";
-										cout << "Please input the semester (or press a/b): ";
-										cin >> str;
-										if (str == "")
-											cin >> choice;
-										if (choice == 'c') break;
-										else if (choice == 'a') {
-
-										}
-										else if (choice == 'b') {
-
-										}
-										else {
-											cout << "Please input a or b or c! \n";
-											cout << "Please input: ";
-											cin >> choice;
-										}
-									} while (choice != 'a' && choice != 'b' && choice != 'c');
-								}
-							else if (str == "year.name") {
-
-							}
-							else {
-								cout << "Error input \n";
-								cout << "Please input again: ";
-								cin >> str;
-							}
-							} while (str != "a" && str != "b" && nam ko co trong list);
-						}
-					else if (choice == 'b') {
-
-					}
-					else if (choice == 'c') {
-
-					}
-					else {
-						cout << "Please input a or b or c or d! \n";
-						cout << "Please input: ";
-						cin >> choice;
-					}
-					} while (choice != 'a' && choice != 'b' && choice != 'c' && choice != 'd');
 				}
+			} while (choice != 'a' && choice != 'b' && choice != 'c' && choice != 'd');
+		}
 		else if (choice == 'b') {
 
 		}
@@ -109,6 +112,6 @@ int main() {
 		cout << "Please input: ";
 		cin >> choice;
 		}
-			}
-		} while (choice != 'a' && choice != 'b' && choice != 'c');
-	}
+		}
+	} while (choice != 'a' && choice != 'b' && choice != 'c');
+}
