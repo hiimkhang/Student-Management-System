@@ -1,7 +1,7 @@
 #include "Header.h"
 
 
-	void getData(Staff* &pHead, string filename) {
+void getData(Staff* &pHead, string filename) {
 	ifstream in;
 	string t;
 	in.open(filename);

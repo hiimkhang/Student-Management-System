@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _HEADER_H_
+#define _HEADER_H_
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -40,9 +42,6 @@ struct Course {
     Course* pNext;
 };
 
-
-
-
 struct Staff {
     string nameStaff;
     string staffAccount, staffPassword = "staff";
@@ -53,4 +52,6 @@ bool loginStaff(Staff*& staff);
 void getData(Staff* &staff, string filename);
 void display(Staff* pHead);
 void deleteList(Staff*& pHead);
+
+#endif
 
