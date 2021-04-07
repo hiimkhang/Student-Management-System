@@ -28,6 +28,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Staff.txt" />
+    <None Include="Staff.csv" />
   </ItemGroup>
 </Project>

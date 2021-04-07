@@ -26,7 +26,7 @@
     <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Staff.txt" />
+    <None Include="Staff.csv" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

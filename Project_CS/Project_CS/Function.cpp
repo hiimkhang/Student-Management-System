@@ -5,6 +5,7 @@ void getData(Staff* &pHead, string filename) {
 	ifstream in;
 	string t;
 	in.open(filename);
+	getline(in, t, '\n');
 	if (in) {
 		string nameStaff, staffAccount, staffPassword = "staff";
 		char tmp;
@@ -18,10 +19,10 @@ void getData(Staff* &pHead, string filename) {
 				pCur->pNext = new Staff;
 				pCur = pCur->pNext;
 			}
-			getline(in, nameStaff, '_');
-			getline(in, staffAccount, '_');
-			getline(in, staffPassword, '_');
-			getline(in, t, '\n');
+			getline(in, nameStaff, ',');
+			getline(in, staffAccount, ',');
+			getline(in, staffPassword, '\n');
+			//getline(in, t, '\n');
 			pCur->nameStaff = nameStaff;
 			pCur->staffAccount = staffAccount;
 			pCur->staffPassword = staffPassword;
