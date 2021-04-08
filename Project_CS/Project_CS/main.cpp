@@ -3,7 +3,9 @@
 int main() {
 	// load data
 	Staff* staff = nullptr;
-	getData(staff, "Staff.csv");
+	YearSchool* yearSchool = nullptr;
+	getDataStaff(staff, "Staff.csv");
+	getDataYearSchool(yearSchool, "year_school.txt");
 	char choose;
 	string str;
 	do {
@@ -13,15 +15,18 @@ int main() {
 		cout << "Please input: ";
 		cin >> choose;
 		if (choose == 'c') {
-			cout << "See you later! \n";
+			system("cls");
+			cout << "See you later! \n"; 
 			break;
 		}
 		else if (choose == 'a') {
+			system("cls");
 			do {
 				cout << "a. Login \n";
 				cout << "b. Exit \n";
 				cout << "Please input: ";
 				cin >> choose;
+				system("cls");
 				if (choose == 'b') break;
 				else if (choose == 'a') {
 					cin.ignore();
@@ -33,16 +38,20 @@ int main() {
 							cout << "d. Log out \n";
 							cout << "Please input: ";
 							cin >> choose;
+							system("cls");
 							if (choose == 'd') break;
 							else if (choose == 'a') {
 								do {
-									//cout << danh sach cac nam;
+									displayYear(yearSchool);
 									cout << "a. Create new year \n";
 									cout << "b. Exit \n";
 									cout << "Please input the year (or press a/b): ";
 									cin >> str;
 									if (str == "b") break;
 									else if (str == "a") {
+										
+									}
+									else if (str == "year.name") {
 										do {
 											cout << "a. Semester \n";
 											cout << "b. Student \n";
@@ -62,9 +71,6 @@ int main() {
 												cin >> choose;
 											}
 										} while (choose != 'a' && choose != 'b' && choose != 'c');
-									}
-									else if (str == "year.name") {
-
 									}
 									else {
 										cout << "Error input \n";

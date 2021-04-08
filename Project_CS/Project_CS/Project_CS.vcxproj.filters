@@ -30,4 +30,7 @@
   <ItemGroup>
     <None Include="Staff.csv" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="year_school.txt" />
+  </ItemGroup>
 </Project>

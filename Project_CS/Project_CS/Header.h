@@ -25,6 +25,7 @@ struct Class {
 struct YearSchool {
     string year;
     Class* classes;
+    YearSchool* pNext;
 };
 
 struct Semester {
@@ -49,9 +50,10 @@ struct Staff {
 };
 
 bool loginStaff(Staff*& staff);
-void getData(Staff* &staff, string filename);
-void display(Staff* pHead);
+void getDataStaff(Staff* &pHead, string filename);
+void getDataYearSchool(YearSchool*& year_school, string path);
+void displayYear(YearSchool* pHead);
 void deleteList(Staff*& pHead);
-
+void createNewYear(YearSchool*& year_school);
 #endif
 

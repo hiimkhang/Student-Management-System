@@ -1,7 +1,7 @@
 #include "Header.h"
 
 
-void getData(Staff* &pHead, string filename) {
+void getDataStaff(Staff* &pHead, string filename) {
 	ifstream in;
 	string t;
 	in.open(filename);
@@ -22,7 +22,6 @@ void getData(Staff* &pHead, string filename) {
 			getline(in, nameStaff, ',');
 			getline(in, staffAccount, ',');
 			getline(in, staffPassword, '\n');
-			//getline(in, t, '\n');
 			pCur->nameStaff = nameStaff;
 			pCur->staffAccount = staffAccount;
 			pCur->staffPassword = staffPassword;
@@ -32,11 +31,49 @@ void getData(Staff* &pHead, string filename) {
 	}
 	else cout << "ERROR \n";
 }
-void display(Staff* pHead) {
+
+void getDataYearSchool(YearSchool*& pHead, string path) {
+	ifstream in;
+	string t;
+	in.open(path);
+	if (in) {
+		string year;
+		YearSchool* pCur = pHead;
+		while (!in.eof()) {
+			if (pHead == nullptr) {
+				pHead = new YearSchool;
+				pCur = pHead;
+			}
+			else {
+				pCur->pNext = new YearSchool;
+				pCur = pCur->pNext;
+			}
+			getline(in, year, '\n');
+			pCur->year = year;
+			pCur->pNext = nullptr;
+		}
+		in.close();
+	}
+	else cout << "ERROR \n";
+}
+
+void createNewYear(YearSchool*& year_school) {
+	cout << "Please input name of year: ";
+	string y;
+	getline(cin, y);
+	YearSchool* pCur = year_school;
+	while (pCur->pNext != nullptr) {
+		pCur = pCur->pNext;
+	}
+	pCur->pNext = new YearSchool;
+	pCur->pNext->year = y;
+	pCur->pNext->pNext = nullptr;
+
+}
+
+void displayYear(YearSchool* pHead) {
 	while (pHead) {
-		cout << "Name: " << pHead->nameStaff << endl;
-		cout << "Account " << pHead->staffAccount << endl;
-		cout << "Password " << pHead->staffPassword << endl;
+		cout << pHead->year << endl;
 		pHead = pHead->pNext;
 	}
 }
