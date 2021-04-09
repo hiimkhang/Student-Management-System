@@ -48,18 +48,27 @@ struct Course {
 struct Staff {
     string nameStaff;
     string staffAccount, staffPassword = "staff";
+    string teacherCourse = "N/A";
+    string teacherClass = "N/A";
     Staff* pNext;
 };
 
-bool loginStaff(Staff* staff);
 void getDataStaff(Staff* &pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
 void displayYear(SchoolYear* pHead);
 void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 
+// Login Functions
+void changePassStaff(Staff*& staff, SchoolYear *schoolyear);
+bool loginStaff(Staff* staff);
+
 // Display menus function
 void displayLogin(Staff *staff, SchoolYear *schoolyear);
-void loadingSuccess()
+void loadingSuccess();
+void displayLoginStaff(Staff *staff, SchoolYear *schoolyear);
+void displaySchoolYear();
+void displayStaffProfile(Staff* staff);
+
 #endif
 
