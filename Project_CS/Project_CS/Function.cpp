@@ -8,7 +8,7 @@ void getDataStaff(Staff* &pHead, string filename) {
 	getline(in, t, '\n');
 	if (in) {
 		string nameStaff, staffAccount, staffPassword = "staff";
-		char tmp;
+		//char tmp;
 		Staff* pCur = pHead;
 		while (!in.eof()) {
 			if (pHead == nullptr) {
@@ -32,20 +32,20 @@ void getDataStaff(Staff* &pHead, string filename) {
 	else cout << "ERROR \n";
 }
 
-void getDataYearSchool(YearSchool*& pHead, string path) {
+void getDataSchoolYear(SchoolYear*& pHead, string path) {
 	ifstream in;
 	string t;
 	in.open(path);
 	if (in) {
 		string year;
-		YearSchool* pCur = pHead;
+		SchoolYear* pCur = pHead;
 		while (!in.eof()) {
 			if (pHead == nullptr) {
-				pHead = new YearSchool;
+				pHead = new SchoolYear;
 				pCur = pHead;
 			}
 			else {
-				pCur->pNext = new YearSchool;
+				pCur->pNext = new SchoolYear;
 				pCur = pCur->pNext;
 			}
 			getline(in, year, '\n');
@@ -57,23 +57,24 @@ void getDataYearSchool(YearSchool*& pHead, string path) {
 	else cout << "ERROR \n";
 }
 
-void createNewYear(YearSchool*& year_school) {
-	cout << "Please input name of year: ";
+void createNewYear(SchoolYear*& year_school) {
+	cout << "\n\t\tPlease input the School year you want to add (2xxx_2xxx): ";
 	string y;
 	getline(cin, y);
-	YearSchool* pCur = year_school;
+	SchoolYear* pCur = year_school;
 	while (pCur->pNext != nullptr) {
 		pCur = pCur->pNext;
 	}
-	pCur->pNext = new YearSchool;
+	pCur->pNext = new SchoolYear;
 	pCur->pNext->year = y;
 	pCur->pNext->pNext = nullptr;
 
 }
 
-void displayYear(YearSchool* pHead) {
+void displayYear(SchoolYear* pHead) {
+	cout << "\n\t\t List of school year:\n";
 	while (pHead) {
-		cout << pHead->year << endl;
+		cout << "\t\t" << pHead->year << endl;
 		pHead = pHead->pNext;
 	}
 }
@@ -85,20 +86,20 @@ void deleteList(Staff*& pHead) {
 		pCur = pHead;
 	}
 }
-bool loginStaff(Staff*& staff) {
+bool loginStaff(Staff* staff) {
 	cout << "Your account: ";
 	string account, password;
 	getline(cin, account);
 	cout << "Your password: ";
 	getline(cin, password);
-	while (staff != nullptr && staff->staffAccount != account) {
+	while (staff && staff->staffAccount != account) {
 		staff = staff->pNext;
 	}
-	if (staff != nullptr) {
+	if (staff) {
 		if (password == staff->staffPassword) return true;
 		else return false;
 	}
-	else return false;
+	return false;
 }
 
 

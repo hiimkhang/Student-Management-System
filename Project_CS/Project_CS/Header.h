@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <windows.h>
+#include <conio.h>
 using namespace std;
 
 struct Student {
@@ -22,10 +24,10 @@ struct Class {
 };
 
 
-struct YearSchool {
+struct SchoolYear {
     string year;
     Class* classes;
-    YearSchool* pNext;
+    SchoolYear* pNext;
 };
 
 struct Semester {
@@ -49,11 +51,15 @@ struct Staff {
     Staff* pNext;
 };
 
-bool loginStaff(Staff*& staff);
+bool loginStaff(Staff* staff);
 void getDataStaff(Staff* &pHead, string filename);
-void getDataYearSchool(YearSchool*& year_school, string path);
-void displayYear(YearSchool* pHead);
+void getDataSchoolYear(SchoolYear*& school_year, string path);
+void displayYear(SchoolYear* pHead);
 void deleteList(Staff*& pHead);
-void createNewYear(YearSchool*& year_school);
+void createNewYear(SchoolYear*& school_year);
+
+// Display menus function
+void displayLogin(Staff *staff, SchoolYear *schoolyear);
+void loadingSuccess()
 #endif
 
