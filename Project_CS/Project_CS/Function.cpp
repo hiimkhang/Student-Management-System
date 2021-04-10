@@ -258,3 +258,91 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 
 
 
+void changePassStudent(Student*& student, SchoolYear* schoolyear, string path) {
+	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
+	cout << "\n\t\t\t\tEnter your old password: ";
+	string oldPass;
+	string title;
+	string Firstname, Lastname, Gender, studentPassword;
+	int ID;
+	getline(cin, oldPass, '\n');
+
+	while (oldPass == student->studentPassword) {
+		cout << "\n\t\t\t\tEnter your new password: ";
+		string tempPass, newPass;
+		getline(cin, tempPass, '\n');
+
+		cout << "\n\t\t\t\tEnter your new password again: ";
+		getline(cin, newPass, '\n');
+
+		if (tempPass == newPass) {
+			cout << "\n\t\t\t\tLoading...\n";
+			Sleep(3000);
+			cout << "\n\t\t\t\tYour password has been changed successfully!\n";
+			student->studentPassword = newPass;
+			ifstream in;
+			ofstream out;
+			in.open(path);
+			if (in) {
+				out.open("tempStudent.csv");
+				getline(in, title, '\n');
+				out << title << endl;
+				for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+					getline(in, Firstname, ',');
+					out << Firstname << ",";
+					getline(in, Lastname, ',');
+					out << Lastname << ",";
+					getline(in, Gender, ',');
+					out << Gender << ",";
+					in >> ID;
+					out << ID << ",";
+					char z;
+					in >> z;
+					getline(in, studentPassword, '\n');
+					if (ID == student->StudentID) {
+						out << newPass << endl;
+					}
+					else {
+						out << studentPassword << endl;
+					}
+				}
+				out.close();
+				in.close();
+				remove("Student.csv");
+				rename("tempStudent.csv", "Student.csv");
+			}
+			else {
+				cout << "ERROR";
+			}
+			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
+			_getch();
+			system("cls");
+			displayLoginStudent(student, schoolyear);
+			return;
+		}
+
+		cout << "\n\t\t\t\tYour two inputs are not the same. Do you want to insert again?\n\t\t\t\t(y/n): ";
+		char choice; cin >> choice; cin.ignore();
+		if (choice == 'n' || choice == 'N') {
+			cout << "\n\t\t\t\tLoading...\n";
+			Sleep(3000);
+			system("cls");
+			displayLoginStudent(student, schoolyear);
+			return;
+		}
+		else continue;
+	}
+	cout << "\n\t\t\t\tWrong old password! Do you want to insert again?\n\t\t\t\t(y/n): ";
+	char choice; cin >> choice; cin.ignore();
+	if (choice == 'n' || choice == 'N') {
+		cout << "\n\t\t\t\tLoading...\n";
+		Sleep(3000);
+		system("cls");
+		displayLoginStudent(student, schoolyear);
+		return;
+	}
+	else {
+		system("cls");
+		changePassStudent(student, schoolyear, path);
+	}
+}
