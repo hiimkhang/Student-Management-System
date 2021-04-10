@@ -130,7 +130,6 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 			if (in) {
 				out.open("temp.txt");
 				while (!in.eof()) {
-					if ()
 				}
 				out.close();
 				in.close();
