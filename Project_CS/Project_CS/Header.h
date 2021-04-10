@@ -60,7 +60,7 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 
 // Login Functions
-void changePassStaff(Staff*& staff, SchoolYear *schoolyear);
+void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path);
 bool loginStaff(Staff* staff);
 
 // Display menus function

@@ -105,7 +105,7 @@ bool loginStaff(Staff* staff) {
 	return false;
 }
 
-void changePassStaff(Staff*& staff, SchoolYear *schoolyear) {
+void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
 	cout << "\n\t\t\t\tEnter your old password: ";
 	string oldPass;
@@ -124,6 +124,20 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear) {
 			Sleep(3000);
 			cout << "\n\t\t\t\tYour password has been changed successfully!\n";
 			staff->staffPassword = newPass;
+			ifstream in;
+			ofstream out;
+			in.open(path);
+			if (in) {
+				out.open("temp.txt");
+				while (!in.eof()) {
+					if ()
+				}
+				out.close();
+				in.close();
+			}
+			else {
+				cout << "ERROR";
+			}
 			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
 			_getch();
 			system("cls");
@@ -153,7 +167,7 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear) {
 	}
 	else {
 		system("cls");
-		changePassStaff(staff, schoolyear);
+		changePassStaff(staff, schoolyear, path);
 	}
 }
 
