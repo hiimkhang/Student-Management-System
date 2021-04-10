@@ -1,13 +1,18 @@
 #include "Header.h"
 
+
 int main() {
 	// load data
+	string ACCOUNT;
 	Staff* staff = nullptr;
+	Student* student = nullptr;
+	Staff* staff1 = staff;
 	SchoolYear* schoolYear = nullptr;
 	getDataStaff(staff, "Staff.csv");
+	getDataStudent(student, "Student.csv");
 	getDataSchoolYear(schoolYear, "school_year.txt");
 
-	displayLogin(staff, schoolYear);
+	displayLogin(staff, student, schoolYear);
 
 	return 0;
 }

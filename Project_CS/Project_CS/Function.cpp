@@ -1,5 +1,20 @@
 #include "Header.h"
 
+int numberOfLine(string filename) {
+	ifstream in;
+	in.open(filename);
+	string s;
+	int count = 0;
+	while (!in.eof()) {
+		getline(in, s, '\n');
+		if (s != "") {
+			count++;
+		}
+	}
+	in.close();
+	return count;
+}
+
 
 void getDataStaff(Staff* &pHead, string filename) {
 	ifstream in;
@@ -10,7 +25,7 @@ void getDataStaff(Staff* &pHead, string filename) {
 		string nameStaff, staffAccount, staffPassword = "staff";
 		char tmp;
 		Staff* pCur = pHead;
-		while (!in.eof()) {
+		for (int i = 1; i <= numberOfLine(filename) - 1; i++) {
 			if (pHead == nullptr) {
 				pHead = new Staff;
 				pCur = pHead;
@@ -25,6 +40,43 @@ void getDataStaff(Staff* &pHead, string filename) {
 			pCur->nameStaff = nameStaff;
 			pCur->staffAccount = staffAccount;
 			pCur->staffPassword = staffPassword;
+			pCur->pNext = nullptr;
+		}
+		in.close();
+	}
+	else cout << "ERROR \n";
+}
+
+void getDataStudent(Student*& pHead, string filename) {
+	ifstream in;
+	string t;
+	in.open(filename);
+	getline(in, t, '\n');
+	if (in.is_open()) {
+		string Firstname, Lastname, Gender, studentPassword = "student";
+		int StudentID;
+		Student* pCur = pHead;
+		for (int i = 1; i <= numberOfLine(filename) - 1; i++) {
+			if (pHead == nullptr) {
+				pHead = new Student;
+				pCur = pHead;
+			}
+			else {
+				pCur->pNext = new Student;
+				pCur = pCur->pNext;
+			}
+			getline(in, Firstname, ',');
+			getline(in, Lastname, ',');
+			getline(in, Gender, ',');
+			in >> StudentID;
+			char z;
+			in >> z;
+			getline(in, studentPassword, '\n');
+			pCur->Firstname = Firstname;
+			pCur->Lastname = Lastname;
+			pCur->Gender = Gender;
+			pCur->StudentID = StudentID;
+			pCur->studentPassword = studentPassword;
 			pCur->pNext = nullptr;
 		}
 		in.close();
@@ -87,7 +139,7 @@ void deleteList(Staff*& pHead) {
 		pCur = pHead;
 	}
 }
-bool loginStaff(Staff* staff) {
+bool loginStaff(Staff* &staff) {
 	cout << "\n\n\n\n\t\t\t\tAccount: ";
 	string account, password;
 	fflush(stdin);
@@ -95,6 +147,7 @@ bool loginStaff(Staff* staff) {
 	cout << "\n\n\t\t\t\tPassword: ";
 	fflush(stdin);
 	getline(cin, password);
+
 	while (staff && staff->staffAccount != account) {
 		staff = staff->pNext;
 	}
@@ -105,12 +158,28 @@ bool loginStaff(Staff* staff) {
 	return false;
 }
 
+bool loginStudent(Student* student) {
+	cout << "\n\n\n\n\t\t\t\tStudent ID: ";
+	string password;
+	int StudentID;
+	cin >> StudentID;
+	cout << "\n\n\t\t\t\tPassword: ";
+	cin.ignore();
+	getline(cin, password);
+	while (student && student->StudentID != StudentID) {
+		student = student->pNext;
+	}
+	if (student && password == student->studentPassword) return true;
+	return false;
+}
+
+
+
 void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
 	cout << "\n\t\t\t\tEnter your old password: ";
 	string oldPass;
 	getline(cin, oldPass, '\n');
-
 	while (oldPass == staff->staffPassword) {
 		cout << "\n\t\t\t\tEnter your new password: ";
 		string tempPass, newPass;
@@ -126,13 +195,30 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 			staff->staffPassword = newPass;
 			ifstream in;
 			ofstream out;
+			string title;
+			string nameStaff, staffAccount, staffPassword;
 			in.open(path);
 			if (in) {
-				out.open("temp.txt");
-				while (!in.eof()) {
+				out.open("temp.csv");
+				getline(in, title, '\n');
+				out << title << endl;
+				for (int i = 1; i <= numberOfLine(path) - 1 ; i++) {
+					getline(in, nameStaff, ',');
+					out << nameStaff << ",";
+					getline(in, staffAccount, ',');
+					out << staffAccount << ",";
+					getline(in, staffPassword, '\n');
+					if (staffAccount == staff->staffAccount) {
+						out << newPass << endl;
+					}
+					else {
+						out << staffPassword << endl;
+					}
 				}
 				out.close();
 				in.close();
+				remove("Staff.csv");
+				rename("temp.csv", "Staff.csv");
 			}
 			else {
 				cout << "ERROR";
@@ -169,5 +255,6 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 		changePassStaff(staff, schoolyear, path);
 	}
 }
+
 
 

@@ -1,6 +1,4 @@
-#ifndef _HEADER_H_
-#define _HEADER_H_
-
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -8,12 +6,15 @@
 #include <conio.h>
 using namespace std;
 
+static string ACCOUNT{};
+
 struct Student {
     int No, StudentID, SocialID;
     string studentPassword = "12345678";
     string Firstname, Lastname;
     string Gender;
     string DoB;
+    Student* pNext;
 };
 
 
@@ -61,14 +62,22 @@ void createNewYear(SchoolYear*& school_year);
 
 // Login Functions
 void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path);
-bool loginStaff(Staff* staff);
+void changePassStudent(Student*& student, SchoolYear* schoolyear, string path);
+bool loginStaff(Staff* &staff);
+bool loginStudent(Student* student);
+
 
 // Display menus function
-void displayLogin(Staff *staff, SchoolYear *schoolyear);
+void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void loadingSuccess();
 void displayLoginStaff(Staff *staff, SchoolYear *schoolyear);
+void getDataStudent(Student*& pHead, string filename);
 void displaySchoolYear();
-void displayStaffProfile(Staff* staff);
+void displayStaffProfile(Staff* &staff);
+void displayLoginStudent(Student* student, SchoolYear* schoolyear);
+void displayStudentProfile(Student* student);
 
-#endif
+// Others
+int numberOfLine(string filename);
+void changeACCOUNT( string s);
 
