@@ -23,7 +23,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
             case 1:
                 system("cls");
                 displayYear(schoolYear);
-                displaySchoolYear(staff, student,  schoolYear, account);
+                displaySchoolYear(staff, student, schoolYear, account);
                 cin >> choice;
                 switch (choice) {
                 case 1:
@@ -33,7 +33,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
                     cout << "\n\t\t\t\tPress any key to return to previous page...";
                     _getch();
                     system("cls");
-                    displaySchoolYear(staff,student, schoolYear, account);
+                    displaySchoolYear(staff, student, schoolYear, account);
                     cin >> choice;
                 case 2:
                     system("cls");
@@ -58,8 +58,48 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
         }
     case 2:
         system("cls");
-    case 3:
-        cout << "\t\t\t\t    SEE YOU LATER\n";
+        cin.ignore();
+        if (loginStudent(student)) {
+            loadingSuccess();
+            system("cls");
+            displayLoginStudent(staff, student, schoolYear, account);
+            switch (choice) {
+            case 1:
+                system("cls");
+                displayYear(schoolYear);
+                displaySchoolYear(staff, student, schoolYear, account);
+                cin >> choice;
+                switch (choice) {
+                case 1:
+                    createNewYear(schoolYear);
+                    Sleep(2000);
+                    cout << "\n\t\t\t\tAdded.";
+                    cout << "\n\t\t\t\tPress any key to return to previous page...";
+                    _getch();
+                    system("cls");
+                    displaySchoolYear(staff, student, schoolYear, account);
+                    cin >> choice;
+                case 2:
+                    system("cls");
+                    displayLoginStudent(staff, student, schoolYear, account);
+                }
+            case 2:
+                system("cls");
+                displayStudentProfile(student);
+                cout << "\n\t\t\t\tPress any key to return to previous page...";
+                _getch();
+                system("cls");
+                displayLoginStudent(staff, student, schoolYear, account);
+            case 3:
+                system("cls");
+                changePassStudent(staff, student, schoolYear, "Student.csv", account);
+            case 4:
+                system("cls");
+                displayLogin(staff, student, schoolYear);
+            default:
+                cout << "\n\t\t\t\tError.";
+            }
+        }
     }
 }
 
@@ -215,5 +255,15 @@ void displayStaffProfile(Staff* staff, string account) {
     else if (staff->teacherClass != "N/A")
         cout << "\n\t\t\t\tClass incharge: " << staff->teacherClass;
 
+}
+
+void displayStudentProfile(Student * student) {
+    cout << "\n\t\t\t\t\tPROFILE\n";
+    cout << "\n\t\t\t\tFirst name: " << student->Firstname;
+    cout << "\n\t\t\t\tLast name: " << student->Lastname;
+    cout << "\n\t\t\t\tGender: " << student->Gender;
+    cout << "\n\t\t\t\tStudent ID: " << student->StudentID;
+    cout << "\n\t\t\t\tPassword: " << student->studentPassword;
+    cout << "\n\t\t\t\tDate of birth: " << student->DoB;
 }
 
