@@ -63,23 +63,23 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 
 // Login Functions
-void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path);
-void changePassStudent(Student*& student, SchoolYear* schoolyear, string path);
-bool loginStaff(Staff* &staff);
+void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path, string account);
+void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path, string account);
+bool loginStaff(Staff* staff, string& account);
 bool loginStudent(Student* student);
 
 
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void loadingSuccess();
-void displayLoginStaff(Staff *staff, SchoolYear *schoolyear);
+void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
 void getDataStudent(Student*& pHead, string filename);
-void displaySchoolYear();
-void displayStaffProfile(Staff* &staff);
-void displayLoginStudent(Student* student, SchoolYear* schoolyear);
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
+void displayStaffProfile(Staff* staff, string account);
+void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
 void displayStudentProfile(Student* student);
 
 // Others
 int numberOfLine(string filename);
-void changeACCOUNT( string s);
+//void changeACCOUNT( string s);
 

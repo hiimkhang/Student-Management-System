@@ -141,19 +141,21 @@ void deleteList(Staff*& pHead) {
 		pCur = pHead;
 	}
 }
-; bool loginStaff(Staff*& staff) {
+; bool loginStaff(Staff* staff, string &account) {
 	cout << "\n\n\n\n\t\t\t\tAccount: ";
+	string acc;
 	string password;
 	fflush(stdin);
-	getline(cin, account);
+	getline(cin, acc);
 	cout << "\n\n\t\t\t\tPassword: ";
 	fflush(stdin);
 	getline(cin, password);
 
-	while (staff && staff->staffAccount != account) {
+	while (staff && staff->staffAccount != acc) {
 		staff = staff->pNext;
 	}
 	if (staff) {
+		account = acc;
 		if (password == staff->staffPassword) return true;
 		else return false;
 	}
@@ -180,12 +182,16 @@ bool loginStudent(Student* student) {
 
 
 
-void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
+void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path, string account) {
 	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
 	cout << "\n\t\t\t\tEnter your old password: ";
 	string oldPass;
 	getline(cin, oldPass, '\n');
-	while (oldPass == staff->staffPassword) {
+	Staff* pCur = staff;
+	while (pCur && pCur->staffAccount != account) {
+		pCur = pCur->pNext;
+	}
+	while (oldPass == pCur->staffPassword) {
 		cout << "\n\t\t\t\tEnter your new password: ";
 		string tempPass, newPass;
 		getline(cin, tempPass, '\n');
@@ -197,7 +203,7 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 			cout << "\n\t\t\t\tLoading...\n";
 			Sleep(3000);
 			cout << "\n\t\t\t\tYour password has been changed successfully!\n";
-			staff->staffPassword = newPass;
+			pCur->staffPassword = newPass;
 			ifstream in;
 			ofstream out;
 			string title;
@@ -213,7 +219,7 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 					getline(in, staffAccount, ',');
 					out << staffAccount << ",";
 					getline(in, staffPassword, '\n');
-					if (staffAccount == staff->staffAccount) {
+					if (staffAccount == pCur->staffAccount) {
 						out << newPass << endl;
 					}
 					else {
@@ -231,7 +237,7 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
 			_getch();
 			system("cls");
-			displayLoginStaff(staff, schoolyear, account);
+			displayLoginStaff(staff, student, schoolyear, account);
 			return;
 		}
 
@@ -241,7 +247,7 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 			cout << "\n\t\t\t\tLoading...\n";
 			Sleep(2000);
 			system("cls");
-			displayLoginStaff(staff, schoolyear, account);
+			displayLoginStaff(staff,student, schoolyear, account);
 			return;
 		}
 		else continue;
@@ -252,18 +258,18 @@ void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string path) {
 		cout << "\n\t\t\t\tLoading...\n";
 		Sleep(3000);
 		system("cls");
-		displayLoginStaff(staff, schoolyear, account);
+		displayLoginStaff(staff, student, schoolyear, account);
 		return;
 	}
 	else {
 		system("cls");
-		changePassStaff(staff, schoolyear, path);
+		changePassStaff(staff,student, schoolyear, path, account);
 	}
 }
 
 
 
-void changePassStudent(Student*& student, SchoolYear* schoolyear, string path) {
+void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path, string account) {
 	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
 	cout << "\n\t\t\t\tEnter your old password: ";
 	string oldPass;
@@ -322,7 +328,7 @@ void changePassStudent(Student*& student, SchoolYear* schoolyear, string path) {
 			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
 			_getch();
 			system("cls");
-			displayLoginStudent(student, schoolyear);
+			displayLoginStudent(staff, student, schoolyear, account);
 			return;
 		}
 
@@ -332,7 +338,7 @@ void changePassStudent(Student*& student, SchoolYear* schoolyear, string path) {
 			cout << "\n\t\t\t\tLoading...\n";
 			Sleep(3000);
 			system("cls");
-			displayLoginStudent(student, schoolyear);
+			displayLoginStudent(staff, student, schoolyear, account);
 			return;
 		}
 		else continue;
@@ -343,11 +349,11 @@ void changePassStudent(Student*& student, SchoolYear* schoolyear, string path) {
 		cout << "\n\t\t\t\tLoading...\n";
 		Sleep(3000);
 		system("cls");
-		displayLoginStudent(student, schoolyear);
+		displayLoginStudent(staff, student, schoolyear, account);
 		return;
 	}
 	else {
 		system("cls");
-		changePassStudent(student, schoolyear, path);
+		changePassStudent(staff, student, schoolyear, path, account);
 	}
 }

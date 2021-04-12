@@ -13,7 +13,7 @@ int main() {
 	getDataStudent(student, "Student.csv");
 	getDataSchoolYear(schoolYear, "school_year.txt");
 
-	displayLogin(staff, schoolYear);
+	displayLogin(staff, student, schoolYear);
 
 	return 0;
 }
