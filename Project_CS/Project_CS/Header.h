@@ -4,8 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <windows.h>
+#include <Windows.h>
 #include <conio.h>
+#include "Console.h"
+
 using namespace std;
 
 struct Student {
@@ -60,15 +62,18 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 
 // Login Functions
-void changePassStaff(Staff*& staff, SchoolYear *schoolyear);
-bool loginStaff(Staff* staff);
+void changePassStaff(Staff*& staff, SchoolYear *schoolyear, string account);
+bool loginStaff(Staff* staff, string& account);
 
 // Display menus function
 void displayLogin(Staff *staff, SchoolYear *schoolyear);
 void loadingSuccess();
-void displayLoginStaff(Staff *staff, SchoolYear *schoolyear);
-void displaySchoolYear();
-void displayStaffProfile(Staff* staff);
+void displayLoginStaff(Staff *staff, SchoolYear *schoolyear, string account);
+void displaySchoolYear(Staff* staff, SchoolYear* schoolyear, string account);
+void displayStaffProfile(Staff* staff, string account);
+
+// Others
+string checkPass(Staff* staff);
 
 #endif
 

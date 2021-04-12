@@ -19,18 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="displayFunctions.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Console.h" />
     <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Staff.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="year_school.txt" />
+    <Text Include="school_year.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

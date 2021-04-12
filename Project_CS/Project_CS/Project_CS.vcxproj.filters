@@ -24,9 +24,15 @@
     <ClCompile Include="displayFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -34,6 +40,6 @@
     <None Include="Staff.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="year_school.txt" />
+    <Text Include="school_year.txt" />
   </ItemGroup>
 </Project>

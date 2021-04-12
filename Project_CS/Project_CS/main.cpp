@@ -1,11 +1,17 @@
 #include "Header.h"
 
+
 int main() {
 	// load data
+	fixConsoleWindow();
+	setConsoleWindow(800, 600);
 	Staff* staff = nullptr;
 	SchoolYear* schoolYear = nullptr;
 	getDataStaff(staff, "Staff.csv");
 	getDataSchoolYear(schoolYear, "school_year.txt");
+
+
+	/*gotoXY(40, 8); cout << "SYSTEM MENU";*/
 
 	displayLogin(staff, schoolYear);
 
