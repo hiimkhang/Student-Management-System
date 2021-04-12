@@ -22,8 +22,9 @@ void gotoXY(int x, int y) {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void textColor(int x) {
-	HANDLE mau;
-	mau = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(mau, x);
+void Textcolor(int color)
+{
+	HANDLE hConsoleColor;
+	hConsoleColor = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsoleColor, color);
 }

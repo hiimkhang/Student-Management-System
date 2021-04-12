@@ -109,7 +109,7 @@ void getDataSchoolYear(SchoolYear*& pHead, string path) {
 }
 
 void createNewYear(SchoolYear*& year_school) {
-	cout << "\n\t\t\t\tPlease input the School year you want to add (2xxx_2xxx): ";
+	cout << "\n\t\t\tPlease input the School year you want to add (2xxx_2xxx): ";
 	string y;
 	getline(cin, y, '\n');
 	SchoolYear* pCur = year_school;
@@ -158,9 +158,6 @@ void deleteList(Staff*& pHead) {
 		account = acc;
 		if (password == staff->staffPassword) return true;
 		else return false;
-	}
-	else {
-		cout << "Can't find account\n";
 	}
 	return false;
 }

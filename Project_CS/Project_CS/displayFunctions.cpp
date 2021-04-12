@@ -2,14 +2,15 @@
 
 void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
     int choice;
-    cout << "\n\t\t\t\t=======================================================\n";
-    cout << "\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM\n";
-    cout << "\n\t\t\t\t1. Academic staff login";
-    cout << "\n\t\t\t\t2. Student login";
-    cout << "\n\t\t\t\t3. Exit";
+    cout << "\n\t\t\t   =======================================================\n\n";
+    Textcolor(rand() % 16);
+    cout << "\n\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM\n\n\n";
+    Textcolor(7);
+    cout << "\n\t\t\t\t1. Academic staff login\n";
+    cout << "\n\t\t\t\t2. Student login\n";
+    cout << "\n\t\t\t\t3. Exit\n";
     cout << "\n\t\t\t\tEnter your choice: "; cin >> choice;
     string account;
-
 
     switch (choice) {
     case 1:
@@ -54,7 +55,10 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
             }
         }
         else {
-            cout << "Your account or password is incorrect. Try again?";
+            cout << "\n\n\t\t\tYour account or password is incorrect.\n\n\t\t\tTry again after 3 seconds...";
+            Sleep(3000);
+            system("cls");
+            displayLogin(staff, student, schoolYear);
         }
     case 2:
         system("cls");
@@ -100,12 +104,29 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
                 cout << "\n\t\t\t\tError.";
             }
         }
+        else {
+            cout << "\n\n\t\t\tYour account or password is incorrect.\n\n\t\t\tTry again after 3 seconds...";
+            Sleep(3000);
+            system("cls");
+            displayLogin(staff, student, schoolYear);
+        }
+    case 3:
+        system("cls");
+        cout << "\n\n\n\n\n\t\t\t\t\t\tSEE YOU AGAIN!\n\n\n\n\n";
+        break;
+    default:
+        cout << "\n\n\t\t\t\tInvalid input. Please try again...";
+        Sleep(2000);
+        system("cls");
+        displayLogin(staff, student, schoolYear);
     }
 }
 
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, string account) {
-    cout << "\n\t\t\t\t=======================================================\n";
-    cout << "\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM FOR STUDENTS\n";
+    cout << "\n\t\t\t   =======================================================\n\n";
+    Textcolor(rand() % 15 + 1);
+    cout << "\n\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM\n\n\n";
+    Textcolor(7);
     cout << "\n\t\t\t\t1. School year\n";
     cout << "\n\t\t\t\t2. View and edit profile\n";
     cout << "\n\t\t\t\t3. Change password\n";
@@ -134,7 +155,7 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear,
         }
     case 2:
         system("cls");
-        //displayStudentProfile(student);
+        displayStudentProfile(student);
         cout << "\n\t\t\t\tPress any key to return to previous page...";
         _getch();
         system("cls");
@@ -142,20 +163,31 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear,
     case 3:
         system("cls");
         changePassStudent(staff, student, schoolyear, "Student.csv", account);
+    case 4:
+        cout << "\n\n\t\t\t\tLogging out...";
+        Sleep(3000);
+        system("cls");
+        displayLogin(staff, student, schoolyear);
     default:
         cout << "\n\t\t\t\tError.";
+        cout << "\n\t\t\t\tReturn to main menu...";
+        Sleep(2000);
+        system("cls");
+        displayLogin(staff, student, schoolyear);
     }
 }
 void loadingSuccess() {
     system("cls");
-    cout << "\n\n\t\t\t\t\t  Login successfully!!\n\n";
+    cout << "\n\n\n\n\n\n\n\n\n\t\t\t\t\t  Login successfully!!\n\n";
     cout << "\t\t\t\t\tLoading...";
     Sleep(3000);
 }
 
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, string account) {
-    cout << "\n\t\t\t\t=======================================================\n";
-    cout << "\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM\n";
+    cout << "\n\t\t\t   =======================================================\n\n";
+    Textcolor(rand() % 15 + 1);
+    cout << "\n\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM\n\n\n";
+    Textcolor(7);
     cout << "\n\t\t\t\t1. School year\n";
     cout << "\n\t\t\t\t2. View and edit profile\n";
     cout << "\n\t\t\t\t3. Change password\n";
@@ -193,13 +225,16 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, s
         system("cls");
         changePassStaff(staff, student, schoolyear, "Staff.csv",  account);
     case 4:
+        cout << "\n\n\t\t\t\tLogging out...";
+        Sleep(3000);
         system("cls");
         displayLogin(staff, student, schoolyear);
     default:
         cout << "\n\t\t\t\tError.";
+        cout << "\n\t\t\t\tReturn to main menu...";
         Sleep(2000);
         system("cls");
-        displayLoginStaff(staff, student, schoolyear, account);
+        displayLogin(staff, student, schoolyear);
     }
 }
 
@@ -222,9 +257,10 @@ void displaySchoolYear(Staff *staff, Student* student, SchoolYear *schoolyear, s
     case 2:
         system("cls");
         displayLoginStaff(staff, student, schoolyear, account);
+        break;
     default:
         cout << "\n\t\t\t\tInvalid input, please try again...";
-        _getch();
+        Sleep(2000);
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear, account);
@@ -232,7 +268,10 @@ void displaySchoolYear(Staff *staff, Student* student, SchoolYear *schoolyear, s
 }
 
 void displayStaffProfile(Staff* staff, string account) {
-    cout << "\n\t\t\t\t\tPROFILE\n";
+    cout << "\n\t\t\t   =======================================================\n\n";
+    Textcolor(rand() % 15 + 1);
+    cout << "\n\n\t\t\t\t\ttPROFILE\n\n\n";
+    Textcolor(7);
 
     while (staff && staff->staffAccount != account)
         staff = staff->pNext;
@@ -258,7 +297,10 @@ void displayStaffProfile(Staff* staff, string account) {
 }
 
 void displayStudentProfile(Student * student) {
-    cout << "\n\t\t\t\t\tPROFILE\n";
+    cout << "\n\t\t\t   =======================================================\n\n";
+    Textcolor(rand() % 15 + 1);
+    cout << "\n\n\t\t\t\t\ttPROFILE\n\n\n";
+    Textcolor(7);
     cout << "\n\t\t\t\tFirst name: " << student->Firstname;
     cout << "\n\t\t\t\tLast name: " << student->Lastname;
     cout << "\n\t\t\t\tGender: " << student->Gender;
