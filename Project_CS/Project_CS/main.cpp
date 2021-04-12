@@ -6,12 +6,12 @@ int main() {
 	fixConsoleWindow();
 	setConsoleWindow(800, 600);
 	Staff* staff = nullptr;
+	Student* student = nullptr;
+	Staff* staff1 = staff;
 	SchoolYear* schoolYear = nullptr;
 	getDataStaff(staff, "Staff.csv");
+	getDataStudent(student, "Student.csv");
 	getDataSchoolYear(schoolYear, "school_year.txt");
-
-
-	/*gotoXY(40, 8); cout << "SYSTEM MENU";*/
 
 	displayLogin(staff, schoolYear);
 

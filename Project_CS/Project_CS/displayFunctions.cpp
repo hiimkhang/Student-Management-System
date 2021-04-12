@@ -1,6 +1,6 @@
 #include "Header.h"
 
-void displayLogin(Staff *staff, SchoolYear *schoolYear) {
+void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
     int choice;
     cout << "\n\t\t\t\t=======================================================\n";
     cout << "\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM\n";
@@ -9,6 +9,7 @@ void displayLogin(Staff *staff, SchoolYear *schoolYear) {
     cout << "\n\t\t\t\t3. Exit";
     cout << "\n\t\t\t\tEnter your choice: "; cin >> choice;
     string account;
+
 
     switch (choice) {
     case 1:
@@ -19,7 +20,7 @@ void displayLogin(Staff *staff, SchoolYear *schoolYear) {
             system("cls");
             displayLoginStaff(staff, schoolYear, account);
             switch (choice) {
-            case 1: 
+            case 1:
                 system("cls");
                 displayYear(schoolYear);
                 displaySchoolYear(staff, schoolYear, account);
@@ -58,6 +59,49 @@ void displayLogin(Staff *staff, SchoolYear *schoolYear) {
     }
 }
 
+void displayLoginStudent(Student* student, SchoolYear* schoolyear) {
+    cout << "\n\t\t\t\t=======================================================\n";
+    cout << "\n\t\t\t\t\tCOURSE REGISTRATION SYSTEM FOR STUDENTS\n";
+    cout << "\n\t\t\t\t1. School year\n";
+    cout << "\n\t\t\t\t2. View and edit profile\n";
+    cout << "\n\t\t\t\t3. Change password\n";
+    cout << "\n\t\t\t\t4. Log out\n";
+    cout << "\n\t\t\t\tEnter your choice: ";
+    int choice; cin >> choice; cin.ignore();
+    switch (choice) {
+    case 1:
+        system("cls");
+        displayYear(schoolyear);
+        displaySchoolYear();
+        cin >> choice;
+        switch (choice) {
+        case 1:
+            createNewYear(schoolyear);
+            Sleep(2000);
+            cout << "\n\t\t\t\t Added.";
+            cout << "\n\t\t\t\tPress any key to return to previous page...";
+            _getch();
+            system("cls");
+            displaySchoolYear();
+            cin >> choice;
+        case 2:
+            system("cls");
+            displayLoginStudent(student, schoolyear);
+        }
+    case 2:
+        system("cls");
+        displayStudentProfile(student);
+        cout << "\n\t\t\t\tPress any key to return to previous page...";
+        _getch();
+        system("cls");
+        displayLoginStudent(student, schoolyear);
+    case 3:
+        system("cls");
+        changePassStudent(student, schoolyear, "Student.csv");
+    default:
+        cout << "\n\t\t\t\tError.";
+    }
+}
 void loadingSuccess() {
     system("cls");
     cout << "\n\n\t\t\t\t\t  Login successfully!!\n\n";

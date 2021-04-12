@@ -38,6 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Staff.csv" />
+    <None Include="temp.csv" />
+    <None Include="tempStudent.csv" />
+    <None Include="Student.csv" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="school_year.txt" />
