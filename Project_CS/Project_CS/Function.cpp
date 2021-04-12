@@ -23,7 +23,6 @@ void getDataStaff(Staff* &pHead, string filename) {
 	getline(in, t, '\n');
 	if (in.is_open()) {
 		string nameStaff, staffAccount, staffPassword = "staff";
-		char tmp;
 		Staff* pCur = pHead;
 		for (int i = 1; i <= numberOfLine(filename) - 1; i++) {
 			if (pHead == nullptr) {
@@ -139,7 +138,7 @@ void deleteList(Staff*& pHead) {
 		pCur = pHead;
 	}
 }
-bool loginStaff(Staff* &staff) {
+; bool loginStaff(Staff*& staff) {
 	cout << "\n\n\n\n\t\t\t\tAccount: ";
 	string account, password;
 	fflush(stdin);
@@ -154,6 +153,9 @@ bool loginStaff(Staff* &staff) {
 	if (staff) {
 		if (password == staff->staffPassword) return true;
 		else return false;
+	}
+	else {
+		cout << "Can't find account\n";
 	}
 	return false;
 }
