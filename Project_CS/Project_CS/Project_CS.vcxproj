@@ -23,6 +23,7 @@
     <ClCompile Include="displayFunctions.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="semester.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h" />

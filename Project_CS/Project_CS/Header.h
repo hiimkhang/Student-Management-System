@@ -26,18 +26,22 @@ struct Class {
     Class* pNext;
 };
 
+struct Semester {
+    short no, school_year;
+    string start_date, end_date, register_start_date, register_end_date, teacher_name;
+    int ID, number_of_credits;
+    int max_NoS[50];
+    Semester* pNext;
+};
 
 struct SchoolYear {
     string year;
-    Class* classes;
+    Class* classes = nullptr;
     SchoolYear* pNext;
-    Student schoolyear;
+    Semester* semester = nullptr;
 };
 
-struct Semester {
-    int no;
-    string start_date, end_date, register_start_date, register_end_date;
-};
+
 
 struct Course {
     string courseID, courseName;
@@ -59,6 +63,8 @@ struct Staff {
 
 void getDataStaff(Staff* &pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
+void createClassForYear(SchoolYear*& Schoolyear);
+void createSemester(SchoolYear*& Schoolyear);
 void displayYear(SchoolYear* pHead);
 void displayStudentYear(SchoolYear* pHead);
 void deleteList(Staff*& pHead);
