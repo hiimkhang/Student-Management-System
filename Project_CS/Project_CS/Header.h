@@ -31,6 +31,7 @@ struct SchoolYear {
     string year;
     Class* classes;
     SchoolYear* pNext;
+    Student schoolyear;
 };
 
 struct Semester {
@@ -59,14 +60,15 @@ struct Staff {
 void getDataStaff(Staff* &pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
 void displayYear(SchoolYear* pHead);
+void displayStudentYear(SchoolYear* pHead);
 void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path, string account);
-void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path, string account);
+void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path, int ID);
 bool loginStaff(Staff* staff, string& account);
-bool loginStudent(Student* student);
+bool loginStudent(Student* student, int &ID);
 
 
 // Display menus function
@@ -76,8 +78,8 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, s
 void getDataStudent(Student*& pHead, string filename);
 void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
 void displayStaffProfile(Staff* staff, string account);
-void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
-void displayStudentProfile(Student* student);
+void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, int ID);
+void displayStudentProfile(Student* student, int ID);
 
 // Others
 int numberOfLine(string filename);
