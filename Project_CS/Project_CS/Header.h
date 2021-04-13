@@ -61,12 +61,13 @@ struct Staff {
     Staff* pNext;
 };
 
+// Get Input
 void getDataStaff(Staff* &pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
+void getDataStudent(Student*& pHead, string filename);
+void getDataClass(SchoolYear*& Schoolyear);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
-void displayYear(SchoolYear* pHead);
-void displayStudentYear(SchoolYear* pHead);
 void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 
@@ -79,15 +80,16 @@ bool loginStudent(Student* student, int &ID);
 
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
-void loadingSuccess();
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
-void getDataStudent(Student*& pHead, string filename);
 void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
 void displayStaffProfile(Staff* staff, string account);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, int ID);
 void displayStudentProfile(Student* student, int ID, string path);
+void displayYear(SchoolYear* pHead);
+void displayStudentYear(SchoolYear* pHead);
 
 // Others
 int numberOfLine(string filename);
+void loadingSuccess();
 //void changeACCOUNT( string s);
 

@@ -427,7 +427,7 @@ void createSemester(SchoolYear* &Schoolyear) {
 		pcur->register_end_date = register_end_date;
 		cout << "Teacher in charge: ";
 		getline(cin, teacher_name);
-		out << teacher_name << ",";
+		out << teacher_name << endl;
 		pcur->teacher_name = teacher_name;
 		out.close();
 }
