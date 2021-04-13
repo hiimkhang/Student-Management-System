@@ -1,4 +1,6 @@
 #include "header.h"
+
+
 void createSemester(ifstream in, ofstream out, Semester* semester, string path) {
 	out.open(path);
 	if (out) {

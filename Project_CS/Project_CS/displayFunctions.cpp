@@ -1,5 +1,8 @@
 #include "Header.h"
 
+
+
+
 void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
     int choice;
     cout << "\n\t\t\t   =======================================================\n\n";
@@ -12,7 +15,6 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
     cout << "\n\t\t\t\tEnter your choice: "; cin >> choice;
     string account;
     int ID;
-
     switch (choice) {
     case 1:
         system("cls");
@@ -270,9 +272,37 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, s
     while (pCur) {
         if (choice == pCur->year) {
             system("cls");
-            cout << "vo nam" << pCur->year;
+            cout <<"\n\n\n\n\n\t\t\t\t"<< pCur->year;
             Sleep(3000);
             // Viet ham gi do de return, end vong lap.s
+            cout << "1.Semester: \n";
+            cout << "2.Class: \n";
+            cout << "3.Exit \n";
+            cout << "Please input: ";
+            cin >> choice;
+            if (choice == "1") {
+
+            }
+            else if (choice == "2") {
+                getDataClass(pCur);
+                displayClass(schoolyear);
+                cout << "1.Create class \n";
+                cout << "2.Exit \n";
+                cout << "Please input: "
+                    
+                    ;
+                cin >> choice;
+                if (choice == "1") {
+                    createClassForYear(schoolyear);
+                }
+                else if (choice == "2") {
+
+                }
+            }
+            else if (choice == "3") {
+                displayYear(schoolyear);
+                displaySchoolYear(staff, student, schoolyear, account);
+            }
             break;
         }
         pCur = pCur->pNext;
@@ -299,8 +329,6 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, s
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear, account);
     }
-
-
 }
 
 void displayStaffProfile(Staff* staff, string account) {

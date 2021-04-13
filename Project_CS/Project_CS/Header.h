@@ -1,10 +1,13 @@
 #pragma once
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <Windows.h>
 #include <conio.h>
 #include "Console.h"
+
+static const char* s = "22";
 
 using namespace std;
 
@@ -18,7 +21,6 @@ struct Student {
     string DoB;
     Student* pNext;
 };
-
 
 struct Class {
     string className;
@@ -85,6 +87,7 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, s
 void displayStaffProfile(Staff* staff, string account);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, int ID);
 void displayStudentProfile(Student* student, int ID, string path);
+void displayClass(SchoolYear* schoolyear);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year);
 void displayYear(SchoolYear* pHead);
 void displayStudentYear(SchoolYear* pHead);

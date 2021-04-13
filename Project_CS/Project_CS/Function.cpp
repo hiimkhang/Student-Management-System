@@ -1,5 +1,7 @@
 #include "Header.h"
 
+
+
 int numberOfLine(string filename) {
 	ifstream in;
 	in.open(filename);
@@ -372,6 +374,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 }
 void createClassForYear(SchoolYear*& Schoolyear){
     string class_name;
+	cin.ignore();
 	getline(cin, class_name);
 	Schoolyear->classes = nullptr;
 	Class* pcur = Schoolyear->classes;
@@ -382,7 +385,7 @@ void createClassForYear(SchoolYear*& Schoolyear){
 	pcur->className= class_name;
 	pcur->pNext = nullptr;
 	ofstream out;
-	string path = Schoolyear->year + "_classes.txt";
+	string path = "2021_2022_classes.txt";
 	out.open(path, ios::app);
 	out << class_name << endl;
 	out.close();
@@ -430,5 +433,38 @@ void createSemester(SchoolYear* &Schoolyear) {
 		out << teacher_name << endl;
 		pcur->teacher_name = teacher_name;
 		out.close();
+}
+
+void getDataClass(SchoolYear*& Schoolyear) {
+	ifstream in;
+	ofstream out;
+	Class* pCur = Schoolyear->classes;
+	string filename = "2022_2023_classes.txt";
+	out.open(filename);
+	in.open(filename);
+	if (in) {
+		for (int i = 1; i <= numberOfLine(filename); i++) {
+			if (Schoolyear->classes == nullptr) {
+				Schoolyear->classes = new Class;
+				pCur = Schoolyear->classes;
+			}
+			else {
+				pCur->pNext = new Class;
+				pCur = pCur->pNext;
+			}
+			getline(in, pCur->className);
+			pCur->pNext = nullptr;
+		}
+		in.close();
+		out.close();
+	}
+	else cout << "ERROR\n";
+}
+
+void displayClass(SchoolYear* schoolyear) {
+	while (schoolyear->classes != nullptr) {
+		cout << schoolyear->classes->className << endl;
+		schoolyear->classes = schoolyear->classes->pNext;
+	}
 }
 
