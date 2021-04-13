@@ -111,9 +111,14 @@ void getDataSchoolYear(SchoolYear*& pHead, string path) {
 }
 
 void createNewYear(SchoolYear*& year_school) {
+	ofstream out;
+	out.open("school_year.txt", ios::app);
+
 	cout << "\n\t\t\tPlease input the School year you want to add (2xxx_2xxx): ";
 	string y;
 	getline(cin, y, '\n');
+	out << endl;
+	out << y;
 	SchoolYear* pCur = year_school;
 	while (pCur->pNext != nullptr) {
 		pCur = pCur->pNext;
@@ -121,6 +126,7 @@ void createNewYear(SchoolYear*& year_school) {
 	pCur->pNext = new SchoolYear;
 	pCur->pNext->year = y;
 	pCur->pNext->pNext = nullptr;
+	out.close();
 }
 
 void displayYear(SchoolYear* pHead) {
@@ -183,7 +189,6 @@ bool loginStudent(Student* student, int &ID) {
 	}
 	return false;
 }
-
 
 
 void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path, string account) {
@@ -364,5 +369,66 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 		system("cls");
 		changePassStudent(staff, student, schoolyear, path, ID);
 	}
-
 }
+void createClassForYear(SchoolYear*& Schoolyear){
+    string class_name;
+	getline(cin, class_name);
+	Schoolyear->classes = nullptr;
+	Class* pcur = Schoolyear->classes;
+	while (pcur != nullptr) {
+		pcur = pcur->pNext;
+	}
+	pcur = new Class;
+	pcur->className= class_name;
+	pcur->pNext = nullptr;
+	ofstream out;
+	string path = Schoolyear->year + "_classes.txt";
+	out.open(path, ios::app);
+	out << class_name << endl;
+	out.close();
+}
+
+void createSemester(SchoolYear* &Schoolyear) {
+	ofstream out;
+	int no;
+		string start_date, end_date, register_start_date, register_end_date, teacher_name;
+		cout << "\n\t\t\t\tThis is for 1st, 2nd or 3rd semester? ";
+		cin >> no;
+		string path = Schoolyear->year + "_semester.txt";
+		out.open(path, ios::app);
+		while (no < 1 && no > 3) {
+			out << "\n\t\t\t\tError. Please input again: ";
+			cin >> no;
+		}
+		cin.ignore();
+		Semester* pcur = Schoolyear->semester;
+		while (pcur != nullptr) {
+			pcur = pcur->pNext;
+		}
+		pcur = new Semester;
+		string t = "Semester";
+		t.push_back(char(no + 48));
+		out << t << ",";
+		cout << "\n\t\t\t\tStart date: ";
+		getline(cin, start_date);
+		out << start_date << ",";
+		pcur->start_date = start_date;
+		cout << "\n\t\t\t\tEnd date: ";
+		getline(cin, end_date);
+		out << end_date << ",";
+		pcur->end_date = end_date;
+		cout << "\n\t\t\t\tRegister start date: ";
+		getline(cin, register_start_date);
+		out << register_start_date << ",";
+		pcur->register_start_date = register_start_date;
+		cout << "\n\t\t\t\tRegister end date: ";
+		getline(cin, register_end_date);
+		out << register_end_date << ",";
+		pcur->register_end_date = register_end_date;
+		cout << "Teacher in charge: ";
+		getline(cin, teacher_name);
+		out << teacher_name << ",";
+		pcur->teacher_name = teacher_name;
+		out.close();
+}
+
