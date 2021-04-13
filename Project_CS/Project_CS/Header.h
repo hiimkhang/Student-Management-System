@@ -85,6 +85,7 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, s
 void displayStaffProfile(Staff* staff, string account);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, int ID);
 void displayStudentProfile(Student* student, int ID, string path);
+void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year);
 void displayYear(SchoolYear* pHead);
 void displayStudentYear(SchoolYear* pHead);
 
