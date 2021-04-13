@@ -79,7 +79,7 @@ void getDataStudent(Student*& pHead, string filename);
 void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
 void displayStaffProfile(Staff* staff, string account);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, int ID);
-void displayStudentProfile(Student* student, int ID);
+void displayStudentProfile(Student* student, int ID, string path);
 
 // Others
 int numberOfLine(string filename);

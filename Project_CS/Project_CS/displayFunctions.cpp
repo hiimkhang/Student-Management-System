@@ -21,7 +21,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
             loadingSuccess();
             system("cls");
             displayLoginStaff(staff, student, schoolYear, account);
-            switch (choice) {
+            /*switch (choice) {
             case 1:
                 system("cls");
                 displayYear(schoolYear);
@@ -53,7 +53,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
                 changePassStaff(staff, student, schoolYear, "Staff.csv", account);
             default:
                 displayLogin(staff, student, schoolYear);
-            }
+            }*/
         }
         else {
             cout << "\n\n\t\t\tYour account or password is incorrect.\n\n\t\t\tTry again after 3 seconds...";
@@ -61,6 +61,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
             system("cls");
             displayLogin(staff, student, schoolYear);
         }
+        break;
     case 2:
         system("cls");
         cin.ignore();
@@ -90,7 +91,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
                 }
             case 2:
                 system("cls");
-                displayStudentProfile(student, ID);
+                displayStudentProfile(student, ID, "Student.csv");
                 cout << "\n\t\t\t\tPress any key to return to previous page...";
                 _getch();
                 system("cls");
@@ -111,6 +112,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
             system("cls");
             displayLogin(staff, student, schoolYear);
         }
+        break;
     case 3:
         system("cls");
         cout << "\n\n\n\n\n\t\t\t\t\t\tSEE YOU AGAIN!\n\n\n\n\n";
@@ -120,6 +122,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
         Sleep(2000);
         system("cls");
         displayLogin(staff, student, schoolYear);
+        break;
     }
 }
 
@@ -150,31 +153,37 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear,
             system("cls");
             //displaySchoolYear(staff, student, schoolyear, ID);
             cin >> choice;
+            break;
         case 2:
             system("cls");
             displayLoginStudent(staff, student, schoolyear, ID);
+            break;
         }
     case 2:
         system("cls");
-        displayStudentProfile(student, ID);
+        displayStudentProfile(student, ID, "Student.csv");
         cout << "\n\t\t\t\tPress any key to return to previous page...";
         _getch();
         system("cls");
         displayLoginStudent(staff, student, schoolyear, ID);
+        break;
     case 3:
         system("cls");
         changePassStudent(staff, student, schoolyear, "Student.csv", ID);
+        break;
     case 4:
         cout << "\n\n\t\t\t\tLogging out...";
         Sleep(3000);
         system("cls");
         displayLogin(staff, student, schoolyear);
+        break;
     default:
         cout << "\n\t\t\t\tError.";
         cout << "\n\t\t\t\tReturn to main menu...";
         Sleep(2000);
         system("cls");
         displayLogin(staff, student, schoolyear);
+        break;
     }
 }
 void loadingSuccess() {
@@ -211,9 +220,11 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, s
             system("cls");
             displaySchoolYear(staff, student, schoolyear, account);
             cin >> choice;
+            break;
         case 2:
             system("cls");
             displayLoginStaff(staff, student, schoolyear, account);
+            break;
         }
     case 2:
         system("cls");
@@ -222,20 +233,24 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, s
         _getch();
         system("cls");
         displayLoginStaff(staff, student, schoolyear, account);
+        break;
     case 3:
         system("cls");
         changePassStaff(staff, student, schoolyear, "Staff.csv",  account);
+        break;
     case 4:
         cout << "\n\n\t\t\t\tLogging out...";
         Sleep(3000);
         system("cls");
         displayLogin(staff, student, schoolyear);
+        break;
     default:
         cout << "\n\t\t\t\tError.";
         cout << "\n\t\t\t\tReturn to main menu...";
         Sleep(2000);
         system("cls");
         displayLogin(staff, student, schoolyear);
+        break;
     }
 }
 
@@ -255,6 +270,7 @@ void displaySchoolYear(Staff *staff, Student* student, SchoolYear *schoolyear, s
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear, account);
+        break;
     case 2:
         system("cls");
         displayLoginStaff(staff, student, schoolyear, account);
@@ -265,6 +281,7 @@ void displaySchoolYear(Staff *staff, Student* student, SchoolYear *schoolyear, s
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear, account);
+        break;
     }
 }
 
@@ -297,7 +314,7 @@ void displayStaffProfile(Staff* staff, string account) {
 
 }
 
-void displayStudentProfile(Student* student, int ID) {
+void displayStudentProfile(Student* student, int ID, string path) {
     cout << "\n\t\t\t   =======================================================\n\n";
     Textcolor(rand() % 15 + 1);
     cout << "\n\n\t\t\t\t\tPROFILE\n\n\n";
@@ -312,5 +329,56 @@ void displayStudentProfile(Student* student, int ID) {
     cout << "\n\n\t\t\t\tStudent ID: " << student->StudentID;
     cout << "\n\n\t\t\t\tPassword: " << student->studentPassword;
     cout << "\n\n\t\t\t\tDate of birth: " << student->DoB;
+
+    if (student->DoB == "N/A") {
+        cout << "\n\n\t\t\t\tDo you want to update your date of birth?\n\t\t\t\t(y/n): ";
+        string choice; cin >> choice;
+        if (choice == "y" || choice == "Y") {
+            string title;
+            string Firstname, Lastname, Gender, studentPassword;
+            cout << "\n\n\t\t\t\tEnter your Date of birth (dd/mm/yyyy): ";
+            cin >> student->DoB;
+            ifstream in;
+            ofstream out;
+            in.open(path);
+            if (in) {
+                out.open("tempStudent.csv");
+                getline(in, title, '\n');
+                out << title << endl;
+                for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+                    getline(in, Firstname, ',');
+                    out << Firstname << ",";
+                    getline(in, Lastname, ',');
+                    out << Lastname << ",";
+                    getline(in, Gender, ',');
+                    out << Gender << ",";
+                    in >> ID;
+                    out << ID << ",";
+                    char z;
+                    in >> z;
+                    getline(in, studentPassword, ',');
+                    out << studentPassword << ",";
+                    getline(in, student->DoB, '\n');
+                    if (ID == student->StudentID) {
+                        out << student->DoB << endl;
+                        cout << "\n\t\t\t\tUpdate Date of birth successfully!";
+                    }
+                    else {
+                        out << "N/A" << endl;
+                        cout << "\n\t\t\t\tUnable to update Date of birth!";
+                    }
+                }
+                out.close();
+                in.close();
+                remove("Student.csv");
+                rename("tempStudent.csv", "Student.csv");
+            }
+            else {
+                cout << "\n\n\t\t\t\tCan't not open " << path << ", return after 3 seconds..";
+                Sleep(3000);
+                displayStudentProfile(student, ID, path);
+            }
+        }
+    }        
 }
 
