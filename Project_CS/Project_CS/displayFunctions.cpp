@@ -254,13 +254,30 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, s
     }
 }
 
-void displaySchoolYear(Staff *staff, Student* student, SchoolYear *schoolyear, string account) {
-    cout << "\n\t\t\t\t1. Create new year\n";
+//void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year) {
+//    cout << ""
+//}
+
+
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, string account) {
+    cout << "\n\n\n\n\n\t\t\t\t1. Create new year\n";
     cout << "\n\t\t\t\t2. Exit\n";
-    cout << "\n\t\t\t\tEnter your choice: ";
-    int choice; cin >> choice; cin.ignore();
-    switch (choice) {
-    case 1:
+    cout << "\n\t\t\t\tEnter your choice\n\t\t\t\tOr enter the year you want to access into (2xxx_2xxx): ";
+    string choice; 
+    getline(cin, choice);
+    string k;
+    SchoolYear* pCur = schoolyear;
+    while (pCur) {
+        if (choice == pCur->year) {
+            system("cls");
+            cout << "vo nam" << pCur->year;
+            Sleep(3000);
+            // Viet ham gi do de return, end vong lap.s
+            break;
+        }
+        pCur = pCur->pNext;
+    }
+    if (choice == "1") {
         createNewYear(schoolyear);
         cout << "\n\n\t\t\t\tLoading...\n";
         Sleep(2000);
@@ -270,19 +287,20 @@ void displaySchoolYear(Staff *staff, Student* student, SchoolYear *schoolyear, s
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear, account);
-        break;
-    case 2:
+    }
+    else if (choice == "2") {
         system("cls");
         displayLoginStaff(staff, student, schoolyear, account);
-        break;
-    default:
+    }
+    else{
         cout << "\n\t\t\t\tInvalid input, please try again...";
         Sleep(2000);
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear, account);
-        break;
     }
+
+
 }
 
 void displayStaffProfile(Staff* staff, string account) {
