@@ -1,6 +1,7 @@
 #include "Header.h"
 
-string z_ = "100";
+string g_account;
+int g_ID;
 
 int main() {
 	// load data
@@ -14,9 +15,10 @@ int main() {
 	getDataSchoolYear(schoolYear, "school_year.txt");
 	//createClassForYear(schoolYear);
 	//createSemester(schoolYear)
-
+	s = "8";
+	cout << s;
 	displayLogin(staff, student, schoolYear); 
-	cout << z_;
+
 	return 0;
 }
 

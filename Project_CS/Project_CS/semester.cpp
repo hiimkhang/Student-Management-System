@@ -4,7 +4,7 @@
 void createSemester(ifstream in, ofstream out, Semester* semester, string path) {
 	out.open(path);
 	if (out) {
-		int no;
+		//int no;
 		string start_date, end_date, name, register_start_date, register_end_date;
 		out << "\n\t\t\t\tThis is for 1st, 2nd or 3rd semester? ";
 		cin >> semester->no;
