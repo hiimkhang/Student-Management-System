@@ -11,7 +11,6 @@ static const char* s = "22";
 
 using namespace std;
 
-static string ACCOUNT{};
 
 struct Student {
     int No, StudentID, SocialID;
@@ -74,19 +73,19 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 
 // Login Functions
-void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path, string account);
-void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path, int ID);
-bool loginStaff(Staff* staff, string& account);
-bool loginStudent(Student* student, int &ID);
+void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
+void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path);
+bool loginStaff(Staff* staff);
+bool loginStudent(Student* student);
 
 
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
-void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear, string account);
-void displayStaffProfile(Staff* staff, string account);
-void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear, int ID);
-void displayStudentProfile(Student* student, int ID, string path);
+void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear);
+void displayStaffProfile(Staff* staff);
+void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
+void displayStudentProfile(Student*& student, string path);
 void displayClass(SchoolYear* schoolyear);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year);
 void displayYear(SchoolYear* pHead);

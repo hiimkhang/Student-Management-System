@@ -1,6 +1,7 @@
 #include "Header.h"
 
-
+extern string g_account;
+extern int g_ID;
 
 int numberOfLine(string filename) {
 	ifstream in;
@@ -153,7 +154,7 @@ void deleteList(Staff*& pHead) {
 		pCur = pHead;
 	}
 }
-; bool loginStaff(Staff* staff, string &account) {
+; bool loginStaff(Staff* staff) {
 	cout << "\n\n\n\n\t\t\t\tAccount: ";
 	string acc;
 	string password;
@@ -167,14 +168,14 @@ void deleteList(Staff*& pHead) {
 		staff = staff->pNext;
 	}
 	if (staff) {
-		account = acc;
+		g_account = acc;
 		if (password == staff->staffPassword) return true;
 		else return false;
 	}
 	return false;
 }
 
-bool loginStudent(Student* student, int &ID) {
+bool loginStudent(Student* student) {
 	cout << "\n\n\n\n\t\t\t\tStudent ID: ";
 	string password;
 	int StudentID;
@@ -186,20 +187,20 @@ bool loginStudent(Student* student, int &ID) {
 		student = student->pNext;
 	}
 	if (student && password == student->studentPassword) {
-		ID = StudentID;
+		g_ID = StudentID;
 		return true;
 	}
 	return false;
 }
 
 
-void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path, string account) {
+void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path) {
 	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
 	cout << "\n\t\t\t\tEnter your old password: ";
 	string oldPass;
 	getline(cin, oldPass, '\n');
 	Staff* pCur = staff;
-	while (pCur && pCur->staffAccount != account) {
+	while (pCur && pCur->staffAccount != g_account) {
 		pCur = pCur->pNext;
 	}
 	while (oldPass == pCur->staffPassword) {
@@ -248,7 +249,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
 			_getch();
 			system("cls");
-			displayLoginStaff(staff, student, schoolyear, account);
+			displayLoginStaff(staff, student, schoolyear);
 			return;
 		}
 
@@ -258,7 +259,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 			cout << "\n\t\t\t\tLoading...\n";
 			Sleep(2000);
 			system("cls");
-			displayLoginStaff(staff,student, schoolyear, account);
+			displayLoginStaff(staff,student, schoolyear);
 			return;
 		}
 		else continue;
@@ -269,27 +270,28 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 		cout << "\n\t\t\t\tLoading...\n";
 		Sleep(3000);
 		system("cls");
-		displayLoginStaff(staff, student, schoolyear, account);
+		displayLoginStaff(staff, student, schoolyear);
 		return;
 	}
 	else {
 		system("cls");
-		changePassStaff(staff,student, schoolyear, path, account);
+		changePassStaff(staff,student, schoolyear, path);
 	}
 }
 
 
 
-void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path, int ID) {
+void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path) {
 	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
 	cout << "\n\t\t\t\tEnter your old password: ";
 	string oldPass;
 	string title;
-	string Firstname, Lastname, Gender, studentPassword;
+	string Firstname, Lastname, Gender, studentPassword, DoB;
+	int ID;
 	getline(cin, oldPass, '\n');
 
 	Student* pCur = student;
-	while (pCur && pCur->StudentID != ID) {
+	while (pCur && pCur->StudentID != g_ID) {
 		pCur = pCur->pNext;
 	}
 
@@ -323,14 +325,16 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 					in >> ID;
 					out << ID << ",";
 					char z;
-					in >> z;
-					getline(in, studentPassword, '\n');
+					in >> z;		
+					getline(in, studentPassword, ',');
 					if (ID == pCur->StudentID) {
-						out << newPass << endl;
+						out << newPass << ",";
 					}
 					else {
-						out << studentPassword << endl;
+						out << studentPassword << ",";
 					}
+					getline(in, DoB, '\n');
+					out << DoB << "\n";
 				}
 				out.close();
 				in.close();
@@ -343,7 +347,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
 			_getch();
 			system("cls");
-			displayLoginStudent(staff, student, schoolyear, ID);
+			displayLoginStudent(staff, student, schoolyear);
 			return;
 		}
 
@@ -353,7 +357,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 			cout << "\n\t\t\t\tLoading...\n";
 			Sleep(3000);
 			system("cls");
-			displayLoginStudent(staff, student, schoolyear, ID);
+			displayLoginStudent(staff, student, schoolyear);
 			return;
 		}
 		else continue;
@@ -364,12 +368,12 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 		cout << "\n\t\t\t\tLoading...\n";
 		Sleep(3000);
 		system("cls");
-		displayLoginStudent(staff, student, schoolyear, ID);
+		displayLoginStudent(staff, student, schoolyear);
 		return;
 	}
 	else {
 		system("cls");
-		changePassStudent(staff, student, schoolyear, path, ID);
+		changePassStudent(staff, student, schoolyear, path);
 	}
 }
 void createClassForYear(SchoolYear*& Schoolyear){

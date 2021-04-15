@@ -1,6 +1,7 @@
 #include "Header.h"
 
-
+string g_account;
+int g_ID;
 
 int main() {
 	// load data
