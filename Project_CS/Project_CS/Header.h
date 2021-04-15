@@ -9,8 +9,6 @@
 
 
 using namespace std;
-extern string z_;
-
 
 struct Student {
     int No, StudentID, SocialID;
@@ -82,7 +80,7 @@ bool loginStudent(Student* student);
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear);
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* &schoolyear);
 void displayStaffProfile(Staff* staff);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentProfile(Student*& student, string path);

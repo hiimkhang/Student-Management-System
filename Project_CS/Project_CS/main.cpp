@@ -2,6 +2,7 @@
 
 string g_account;
 int g_ID;
+string g_selectyear;
 
 int main() {
 	// load data
@@ -15,8 +16,6 @@ int main() {
 	getDataSchoolYear(schoolYear, "school_year.txt");
 	//createClassForYear(schoolYear);
 	//createSemester(schoolYear)
-	s = "8";
-	cout << s;
 	displayLogin(staff, student, schoolYear); 
 
 	return 0;
