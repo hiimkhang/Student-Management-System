@@ -1,9 +1,10 @@
 #include "Header.h"
-
+//extern string z;
 
 
 
 void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
+    z_ = "50";
     int choice;
     cout << "\n\t\t\t   =======================================================\n\n";
     Textcolor(rand() % 16);

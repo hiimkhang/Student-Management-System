@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <mmsystem.h>
 
-
 #define SIZE			16  
 #define Black			0
 #define DarkBlue		1

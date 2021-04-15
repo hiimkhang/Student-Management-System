@@ -7,11 +7,11 @@
 #include <conio.h>
 #include "Console.h"
 
-static const char* s = "22";
 
 using namespace std;
-
+extern string z_;
 static string ACCOUNT{};
+
 
 struct Student {
     int No, StudentID, SocialID;
@@ -95,5 +95,5 @@ void displayStudentYear(SchoolYear* pHead);
 // Others
 int numberOfLine(string filename);
 void loadingSuccess();
-//void changeACCOUNT( string s);
+
 

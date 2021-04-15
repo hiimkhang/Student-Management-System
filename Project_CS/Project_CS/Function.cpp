@@ -1,5 +1,5 @@
 #include "Header.h"
-
+//extern string z;
 
 
 int numberOfLine(string filename) {
@@ -19,6 +19,7 @@ int numberOfLine(string filename) {
 
 
 void getDataStaff(Staff* &pHead, string filename) {
+	z_ = "5";
 	ifstream in;
 	string t;
 	in.open(filename);
@@ -49,6 +50,7 @@ void getDataStaff(Staff* &pHead, string filename) {
 }
 
 void getDataStudent(Student*& pHead, string filename) {
+	z_ = "10";
 	ifstream in;
 	string t;
 	in.open(filename);
