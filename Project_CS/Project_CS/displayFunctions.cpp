@@ -2,6 +2,8 @@
 
 extern string g_account;
 extern int g_ID;
+extern string g_selectyear;
+
 
 
 void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
@@ -208,26 +210,28 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
 //}
 
 
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear) {
-    cout << "\n\n\t\t\t\t1. Create new year\n";
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear*& schoolyear) {
+    cout << "\n\n\n\n\n\t\t\t\t1. Create new year\n";
     cout << "\n\t\t\t\t2. Exit\n";
     cout << "\n\n\t\t\t\tEnter your choice\n\t\t\t\tOr year (2xxx_2xxx): ";
-    string choice; 
+    string choice, choice1;
     getline(cin, choice);
     string k;
     SchoolYear* pCur = schoolyear;
     while (pCur) {
         if (choice == pCur->year) {
             system("cls");
-            cout <<"\n\n\n\n\n"<< pCur->year;
+            cout <<"\n\n\n\n\n\t\t\t\t"<< pCur->year;
             Sleep(3000);
+            cout << endl;
             // Viet ham gi do de return, end vong lap.s
-            cout << "1.Semester: \n";
-            cout << "2.Class: \n";
-            cout << "3.Exit \n";
-            cout << "Please input: ";
-            cin >> choice;
-            if (choice == "1") {
+            do {
+                cout << "\n\n\t\t\t\t1.Semester \n";
+                cout << "\t\t\t\t2.Class \n";
+                cout << "\t\t\t\t3.Exit \n";
+                cout << "\t\t\t\tPlease input: ";
+                cin >> choice1;
+                if (choice1 == "1") {
 
             }
             else if (choice == "2") {
@@ -236,7 +240,7 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear) {
                 cout << "1.Create class \n";
                 cout << "2.Exit \n";
                 cout << "Please input: "
-               
+                    
                     ;
                 cin >> choice;
                 if (choice == "1") {

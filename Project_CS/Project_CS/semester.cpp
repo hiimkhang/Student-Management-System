@@ -1,5 +1,5 @@
 #include "header.h"
-
+//extern string z;
 
 void createSemester(ifstream in, ofstream out, Semester* semester, string path) {
 	out.open(path);

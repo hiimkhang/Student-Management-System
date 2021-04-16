@@ -7,10 +7,8 @@
 #include <conio.h>
 #include "Console.h"
 
-static const char* s = "22";
 
 using namespace std;
-
 
 struct Student {
     int No, StudentID, SocialID;
@@ -82,7 +80,7 @@ bool loginStudent(Student* student);
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear);
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* &schoolyear);
 void displayStaffProfile(Staff* staff);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentProfile(Student*& student, string path);
@@ -94,5 +92,5 @@ void displayStudentYear(SchoolYear* pHead);
 // Others
 int numberOfLine(string filename);
 void loadingSuccess();
-//void changeACCOUNT( string s);
+
 

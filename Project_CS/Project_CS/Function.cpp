@@ -1,7 +1,9 @@
 #include "Header.h"
+//extern string z;
 
 extern string g_account;
 extern int g_ID;
+extern string g_selectyear;
 
 int numberOfLine(string filename) {
 	ifstream in;
@@ -120,6 +122,14 @@ void createNewYear(SchoolYear*& year_school) {
 	cout << "\n\t\t\t\tEnter school year (2xxx_2xxx): ";
 	string y;
 	getline(cin, y, '\n');
+	SchoolYear* pCur1 = year_school;
+	while (pCur1 != nullptr) {
+		if (pCur1->year == y) {
+			cout << "This year is exsist \n";
+			return;
+		}
+		pCur1 = pCur1->pNext;
+	}
 	out << endl;
 	out << y;
 	SchoolYear* pCur = year_school;
@@ -416,6 +426,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 void createClassForYear(SchoolYear*& Schoolyear){
     string class_name;
 	cin.ignore();
+	cout << "\t\t\t\tPlease input class name: ";
 	getline(cin, class_name);
 	Schoolyear->classes = nullptr;
 	Class* pcur = Schoolyear->classes;
@@ -426,10 +437,12 @@ void createClassForYear(SchoolYear*& Schoolyear){
 	pcur->className= class_name;
 	pcur->pNext = nullptr;
 	ofstream out;
-	string path = "2021_2022_classes.txt";
+	string path = g_selectyear + "_classes.txt";
 	out.open(path, ios::app);
-	out << class_name << endl;
-	out.close();
+	if (out) {
+		out << class_name << endl;
+		out.close();
+	}
 }
 
 void createSemester(SchoolYear* &Schoolyear) {
@@ -480,31 +493,34 @@ void getDataClass(SchoolYear*& Schoolyear) {
 	ifstream in;
 	ofstream out;
 	Class* pCur = Schoolyear->classes;
-	string filename = "2022_2023_classes.txt";
-	out.open(filename);
-	in.open(filename);
-	if (in) {
-		for (int i = 1; i <= numberOfLine(filename); i++) {
-			if (Schoolyear->classes == nullptr) {
-				Schoolyear->classes = new Class;
-				pCur = Schoolyear->classes;
+	string filename = g_selectyear + "_classes.txt";
+	out.open(filename, ios::app);
+	if (out) {
+		in.open(filename);
+		if (in) {
+			for (int i = 1; i <= numberOfLine(filename); i++) {
+				if (Schoolyear->classes == nullptr) {
+					Schoolyear->classes = new Class;
+					pCur = Schoolyear->classes;
+				}
+				else {
+					pCur->pNext = new Class;
+					pCur = pCur->pNext;
+				}
+				getline(in, pCur->className);
+				pCur->pNext = nullptr;
 			}
-			else {
-				pCur->pNext = new Class;
-				pCur = pCur->pNext;
-			}
-			getline(in, pCur->className);
-			pCur->pNext = nullptr;
+			in.close();
+			out.close();
 		}
-		in.close();
-		out.close();
+		else cout << "ERROR\n";
 	}
-	else cout << "ERROR\n";
 }
 
 void displayClass(SchoolYear* schoolyear) {
+	cout << "\t\t\t\tThe list of class: \n";
 	while (schoolyear->classes != nullptr) {
-		cout << schoolyear->classes->className << endl;
+		cout << "\t\t\t\t" << schoolyear->classes->className << endl;
 		schoolyear->classes = schoolyear->classes->pNext;
 	}
 }
