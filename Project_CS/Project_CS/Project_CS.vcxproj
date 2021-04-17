@@ -20,16 +20,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="course.cpp" />
     <ClCompile Include="displayFunctions.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="semester.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h" />
     <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="course.csv" />
     <None Include="Staff.csv" />
     <None Include="Student.csv" />
     <None Include="temp.csv" />
