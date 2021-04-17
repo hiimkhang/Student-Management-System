@@ -14,9 +14,7 @@ int main() {
 	getDataSchoolYear(schoolYear, "school_year.txt");
 	//createClassForYear(schoolYear);
 	//createSemester(schoolYear)
-	s = "8";
-	cout << s;
-	displayLogin(staff, student, schoolYear); 
+	(staff, student, schoolYear); 
 
 	return 0;
 }
