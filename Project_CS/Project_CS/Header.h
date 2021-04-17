@@ -80,7 +80,7 @@ bool loginStudent(Student* student);
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStaffProfile(Staff* staff);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentProfile(Student*& student, string path);
@@ -88,6 +88,7 @@ void displayClass(SchoolYear* schoolyear);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year);
 void displayYear(SchoolYear* pHead);
 void displayStudentYear(SchoolYear* pHead);
+string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear);
 
 // Others
 int numberOfLine(string filename);

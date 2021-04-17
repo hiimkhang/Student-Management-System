@@ -125,7 +125,7 @@ void createNewYear(SchoolYear*& year_school) {
 	SchoolYear* pCur1 = year_school;
 	while (pCur1 != nullptr) {
 		if (pCur1->year == y) {
-			cout << "This year is exsist \n";
+			cout << "This year is exist \n";
 			return;
 		}
 		pCur1 = pCur1->pNext;
@@ -425,8 +425,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 }
 void createClassForYear(SchoolYear*& Schoolyear){
     string class_name;
-	cin.ignore();
-	cout << "\t\t\t\tPlease input class name: ";
+	cout << "\n\n\t\t\t\tPlease input class name: ";
 	getline(cin, class_name);
 	Schoolyear->classes = nullptr;
 	Class* pcur = Schoolyear->classes;
@@ -436,6 +435,8 @@ void createClassForYear(SchoolYear*& Schoolyear){
 	pcur = new Class;
 	pcur->className= class_name;
 	pcur->pNext = nullptr;
+	cout << "\n\n\t\t\t\tCreate successfully!";
+	Sleep(2000);
 	ofstream out;
 	string path = g_selectyear + "_classes.txt";
 	out.open(path, ios::app);
@@ -518,9 +519,10 @@ void getDataClass(SchoolYear*& Schoolyear) {
 }
 
 void displayClass(SchoolYear* schoolyear) {
-	cout << "\t\t\t\tThe list of class: \n";
+	int y = 14;
+	gotoXY(31, 14); cout << "List of classes: ";
 	while (schoolyear->classes != nullptr) {
-		cout << "\t\t\t\t" << schoolyear->classes->className << endl;
+		gotoXY(49, y++); cout << schoolyear->classes->className;
 		schoolyear->classes = schoolyear->classes->pNext;
 	}
 }

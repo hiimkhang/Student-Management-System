@@ -156,7 +156,7 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear);
-        cin >> choice; cin.ignore();
+ /*       cin >> choice; cin.ignore();
         switch (choice) {
         case 1:
             createNewYear(schoolyear);
@@ -172,7 +172,8 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
             system("cls");
             displayLoginStaff(staff, student, schoolyear);
             break;
-        }
+        }*/
+        break;
     case 2:
         system("cls");
         displayStaffProfile(staff);
@@ -210,12 +211,13 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
 //}
 
 
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear*& schoolyear) {
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear) {
     cout << "\n\n\n\n\n\t\t\t\t1. Create new year\n";
     cout << "\n\t\t\t\t2. Exit\n";
     cout << "\n\n\t\t\t\tEnter your choice\n\t\t\t\tOr year (2xxx_2xxx): ";
-    string choice, choice1;
-    getline(cin, choice);
+    string choice;
+   
+    getline(cin, choice, '\n');
     string k;
     SchoolYear* pCur = schoolyear;
 
@@ -238,44 +240,24 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear*& schoolyear) 
     else{
         while (pCur) {
             if (choice == pCur->year) {
+                g_selectyear = choice;
                 system("cls");
-                cout << "\n\n\n\n\n\t\t\t\t" << pCur->year;
-                Sleep(3000);
-                cout << endl;
-                // Viet ham gi do de return, end vong lap.s
-                do {
-                    cout << "\n\n\t\t\t\t1.Semester \n";
-                    cout << "\t\t\t\t2.Class \n";
-                    cout << "\t\t\t\t3.Exit \n";
-                    cout << "\t\t\t\tPlease input: ";
-                    cin >> choice1;
-                    if (choice1 == "1") {
-
-                    }
-                    else if (choice == "2") {
-                        getDataClass(pCur);
-                        displayClass(schoolyear);
-                        cout << "1.Create class \n";
-                        cout << "2.Exit \n";
-                        cout << "Please input: "
-
-                            ;
-                        cin >> choice;
-                        if (choice == "1") {
-                            createClassForYear(schoolyear);
-                        }
-                        else if (choice == "2") {
-
-                        }
-                    }
-                    else if (choice == "3") {
-                        displayYear(schoolyear);
-                        displaySchoolYear(staff, student, schoolyear);
-                    }
-                    break;
-                } while (choice != "3");
+                gotoXY(40, 12); cout << pCur->year;
+                displaySelectedYear(staff, student, schoolyear);
+              
             }
+
+            if (pCur->year == choice)
+                {
+                system("cls");
+                while (1) {
+                    displaySelectedYear(staff, student, schoolyear);
+                    if (displaySelectedYear == "3") break;
+                }
+                }
+
             pCur = pCur->pNext;
+
         }
         if (pCur == nullptr) {
             cout << "\n\t\t\t\tInvalid input, please try again...";
@@ -410,7 +392,56 @@ void displayStudentProfile(Student*& student, string path) {
             }
         }
     }
-    
+}
+
+string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear) {
+    string choice, choice1;
+    gotoXY(31, 14); cout << "1.Semester";
+    gotoXY(31, 16); cout << "2.Class";
+    gotoXY(31, 18); cout << "3.Exit";
+    gotoXY(31, 20); cout << "Please input: ";
+
+    while (schoolyear && schoolyear->year != g_selectyear)
+        schoolyear = schoolyear->pNext;
+
+    cin >> choice1; cin.ignore();
+    if (choice1 == "1") {
+
+    }
+    else if (choice1 == "2") {
+        system("cls");
+        getDataClass(schoolyear);
+        displayClass(schoolyear);
+        cout << "\n\n\t\t\t\t1.Create class \n";
+        cout << "\n\n\t\t\t\t2.Exit \n";
+        cout << "\n\n\t\t\t\tPlease input: ";
+        cin >> choice; cin.ignore();
+        if (choice == "1") {
+            createClassForYear(schoolyear);
+        }
+        else if (choice == "2") {
+            cout << "\n\n\t\t\t\tLoading...";
+            Sleep(2000);
+            system("cls");
+            displaySelectedYear(staff, student, schoolyear);
+        }
+        else {
+            system("cls");
+            displaySelectedYear(staff, student, schoolyear);
+        }
+    }
+    else if (choice1 == "3") {
+        gotoXY(40, 22); cout << "Loading...";
+        Sleep(2000);
+        system("cls");
+        displayYear(schoolyear);
+        displaySchoolYear(staff, student, schoolyear);
+    }
+    else {
+        displaySelectedYear(staff, student, schoolyear);
+    }
+    return choice;
+}
 
 
     /*if (pCur->DoB == "N/A") {
@@ -465,5 +496,5 @@ void displayStudentProfile(Student*& student, string path) {
             }
         }
     }    */    
-}
+
 
