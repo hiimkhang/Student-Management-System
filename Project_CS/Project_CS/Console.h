@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <mmsystem.h>
 
-
 #define SIZE			16  
 #define Black			0
 #define DarkBlue		1
@@ -38,4 +37,6 @@ void Textcolor(int color);
 // Function to move cursor 
 void gotoXY(int x, int y);
 
+// Function to hide the cursor
+void AnTroChuot();
 #endif

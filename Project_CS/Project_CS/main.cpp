@@ -1,6 +1,8 @@
 #include "Header.h"
 
-
+string g_account;
+int g_ID;
+string g_selectyear;
 
 int main() {
 	// load data

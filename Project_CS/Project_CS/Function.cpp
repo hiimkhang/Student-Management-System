@@ -1,6 +1,9 @@
 #include "Header.h"
+//extern string z;
 
-
+extern string g_account;
+extern int g_ID;
+extern string g_selectyear;
 
 int numberOfLine(string filename) {
 	ifstream in;
@@ -116,9 +119,17 @@ void createNewYear(SchoolYear*& year_school) {
 	ofstream out;
 	out.open("school_year.txt", ios::app);
 
-	cout << "\n\t\t\tPlease input the School year you want to add (2xxx_2xxx): ";
+	cout << "\n\t\t\t\tEnter school year (2xxx_2xxx): ";
 	string y;
 	getline(cin, y, '\n');
+	SchoolYear* pCur1 = year_school;
+	while (pCur1 != nullptr) {
+		if (pCur1->year == y) {
+			cout << "This year is exsist \n";
+			return;
+		}
+		pCur1 = pCur1->pNext;
+	}
 	out << endl;
 	out << y;
 	SchoolYear* pCur = year_school;
@@ -132,14 +143,21 @@ void createNewYear(SchoolYear*& year_school) {
 }
 
 void displayYear(SchoolYear* pHead) {
-	cout << "\n\t\t\t\tList of school year: ";
+	int y = 10;
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(Blue);
+	gotoXY(46, 8); cout << "SCHOOL YEAR";
+	Textcolor(7);
+	gotoXY(34, 10); cout << "List of school year: ";
 	if (pHead) {
-		cout << pHead->year;
+		gotoXY(56, y); cout << pHead->year;
 		pHead = pHead->pNext;
+		y++;
 	}
 	while (pHead) {
-		cout << "\n\t\t\t\t\t\t     " << pHead->year;
+		gotoXY(56, y); cout << pHead->year;
 		pHead = pHead->pNext;
+		y++;
 	}
 	cout << endl;
 }
@@ -153,13 +171,17 @@ void deleteList(Staff*& pHead) {
 		pCur = pHead;
 	}
 }
-; bool loginStaff(Staff* staff, string &account) {
-	cout << "\n\n\n\n\t\t\t\tAccount: ";
+; bool loginStaff(Staff* staff) {
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(11);
+	gotoXY(50, 9); cout << "LOGIN";
+	Textcolor(7);
+	gotoXY(31, 12); cout << "Account: ";
 	string acc;
 	string password;
 	fflush(stdin);
 	getline(cin, acc);
-	cout << "\n\n\t\t\t\tPassword: ";
+	gotoXY(31, 14); cout << "Password: ";
 	fflush(stdin);
 	getline(cin, password);
 
@@ -167,53 +189,59 @@ void deleteList(Staff*& pHead) {
 		staff = staff->pNext;
 	}
 	if (staff) {
-		account = acc;
+		g_account = acc;
 		if (password == staff->staffPassword) return true;
 		else return false;
 	}
 	return false;
 }
 
-bool loginStudent(Student* student, int &ID) {
-	cout << "\n\n\n\n\t\t\t\tStudent ID: ";
+bool loginStudent(Student* student) {
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(11);
+	gotoXY(50, 9); cout << "LOGIN";
+	Textcolor(7);
+	gotoXY(31, 12); cout << "Student ID: ";
 	string password;
 	int StudentID;
 	cin >> StudentID;
-	cout << "\n\n\t\t\t\tPassword: ";
+	gotoXY(31, 14); cout << "Password: ";
 	cin.ignore();
 	getline(cin, password);
 	while (student && student->StudentID != StudentID) {
 		student = student->pNext;
 	}
 	if (student && password == student->studentPassword) {
-		ID = StudentID;
+		g_ID = StudentID;
 		return true;
 	}
 	return false;
 }
 
 
-void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path, string account) {
-	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
-	cout << "\n\t\t\t\tEnter your old password: ";
+void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path) {
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(Blue);
+	gotoXY(44, 9); cout << "PASSWORD CHANGING";
+	Textcolor(7);
+	gotoXY(32, 14); cout << "Enter your old password: ";
 	string oldPass;
 	getline(cin, oldPass, '\n');
 	Staff* pCur = staff;
-	while (pCur && pCur->staffAccount != account) {
+	while (pCur && pCur->staffAccount != g_account) {
 		pCur = pCur->pNext;
 	}
 	while (oldPass == pCur->staffPassword) {
-		cout << "\n\t\t\t\tEnter your new password: ";
+		cout << "\n\n\t\t\t\tEnter your new password: "; 
 		string tempPass, newPass;
 		getline(cin, tempPass, '\n');
 
-		cout << "\n\t\t\t\tEnter your new password again: ";
+		cout << "\n\n\t\t\t\tEnter your new password again: ";
 		getline(cin, newPass, '\n'); 
 
 		if (tempPass == newPass) {
-			cout << "\n\t\t\t\tLoading...\n";
+			cout << "\n\n\t\t\t\tLoading...";
 			Sleep(3000);
-			cout << "\n\t\t\t\tYour password has been changed successfully!\n";
 			pCur->staffPassword = newPass;
 			ifstream in;
 			ofstream out;
@@ -243,68 +271,79 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 				rename("temp.csv", "Staff.csv");
 			}
 			else {
-				cout << "ERROR";
+				gotoXY(31, 22); cout << "ERROR";
 			}
-			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
+			cout << "\n\n\n\t\t\t\tYour password has been changed successfully!\n";
+			cout << "\n\n\t\t\t\tPress any key to return back to the previous page...";
 			_getch();
 			system("cls");
-			displayLoginStaff(staff, student, schoolyear, account);
+			displayLoginStaff(staff, student, schoolyear);
 			return;
 		}
-
-		cout << "\n\t\t\t\tYour two inputs are not the same. Do you want to insert again?\n\t\t\t\t(y/n): ";
+		cout << "\n\n\t\t\t\tYour two inputs are not the same.\n\t\t\t\tDo you want to insert again? (y/n): ";
 		char choice; cin >> choice; cin.ignore();
 		if (choice == 'n' || choice == 'N') {
-			cout << "\n\t\t\t\tLoading...\n";
+			cout << "\n\n\t\t\t\tLoading...\n";
 			Sleep(2000);
 			system("cls");
-			displayLoginStaff(staff,student, schoolyear, account);
+			displayLoginStaff(staff,student, schoolyear);
 			return;
 		}
-		else continue;
+		else {
+			system("cls");
+			gotoXY(26, 5); cout << "=======================================================";
+			Textcolor(Blue);
+			gotoXY(44, 9); cout << "PASSWORD CHANGING";
+			Textcolor(7);
+			gotoXY(32, 14); cout << "Enter your old password: " << oldPass;
+			continue;
+		}
 	}
-	cout << "\n\t\t\t\tWrong old password! Do you want to insert again?\n\t\t\t\t(y/n): ";
+	cout << "\n\t\t\t\tWrong old password!\n\t\t\t\tDo you want to insert again? (y/n): ";
 	char choice; cin >> choice; cin.ignore();
 	if (choice == 'n' || choice == 'N') {
 		cout << "\n\t\t\t\tLoading...\n";
 		Sleep(3000);
 		system("cls");
-		displayLoginStaff(staff, student, schoolyear, account);
+		displayLoginStaff(staff, student, schoolyear);
 		return;
 	}
 	else {
 		system("cls");
-		changePassStaff(staff,student, schoolyear, path, account);
+		changePassStaff(staff,student, schoolyear, path);
 	}
 }
 
 
 
-void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path, int ID) {
-	cout << "\n\t\t\t\t\tPASSWORD CHANGING\n";
-	cout << "\n\t\t\t\tEnter your old password: ";
+void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path) {
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(Blue);
+	gotoXY(44, 9); cout << "PASSWORD CHANGING";
+	Textcolor(7);
+	gotoXY(32, 14); cout << "Enter your old password: ";
 	string oldPass;
 	string title;
-	string Firstname, Lastname, Gender, studentPassword;
+	string Firstname, Lastname, Gender, studentPassword, DoB;
+	int ID;
 	getline(cin, oldPass, '\n');
 
 	Student* pCur = student;
-	while (pCur && pCur->StudentID != ID) {
+	while (pCur && pCur->StudentID != g_ID) {
 		pCur = pCur->pNext;
 	}
 
 	while (oldPass == pCur->studentPassword) {
-		cout << "\n\t\t\t\tEnter your new password: ";
+		cout << "\n\n\t\t\t\tEnter your new password: ";
 		string tempPass, newPass;
 		getline(cin, tempPass, '\n');
 
-		cout << "\n\t\t\t\tEnter your new password again: ";
+		cout << "\n\n\t\t\t\tEnter your new password again: ";
 		getline(cin, newPass, '\n');
 
 		if (tempPass == newPass) {
-			cout << "\n\t\t\t\tLoading...\n";
+			cout << "\n\n\t\t\t\tLoading...";
 			Sleep(3000);
-			cout << "\n\t\t\t\tYour password has been changed successfully!\n";
 			pCur->studentPassword = newPass;
 			ifstream in;
 			ofstream out;
@@ -323,14 +362,17 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 					in >> ID;
 					out << ID << ",";
 					char z;
-					in >> z;
-					getline(in, studentPassword, '\n');
+					in >> z;		
+					getline(in, studentPassword, ',');
 					if (ID == pCur->StudentID) {
-						out << newPass << endl;
+						out << newPass << ",";
+						pCur->studentPassword = newPass;
 					}
 					else {
-						out << studentPassword << endl;
+						out << studentPassword << ",";
 					}
+					getline(in, DoB, '\n');
+					out << DoB << "\n";
 				}
 				out.close();
 				in.close();
@@ -340,41 +382,51 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 			else {
 				cout << "ERROR";
 			}
-			cout << "\n\t\t\t\tPress any key to return back to the previous page...";
+			cout << "\n\n\n\t\t\t\tYour password has been changed successfully!\n";
+			cout << "\n\n\t\t\t\tPress any key to return back to the previous page...";
 			_getch();
 			system("cls");
-			displayLoginStudent(staff, student, schoolyear, ID);
+			displayLoginStudent(staff, student, schoolyear);
 			return;
 		}
 
-		cout << "\n\t\t\t\tYour two inputs are not the same. Do you want to insert again?\n\t\t\t\t(y/n): ";
+		cout << "\n\n\t\t\t\tYour two inputs are not the same.\n\t\t\t\tDo you want to insert again? (y/n): ";
 		char choice; cin >> choice; cin.ignore();
 		if (choice == 'n' || choice == 'N') {
-			cout << "\n\t\t\t\tLoading...\n";
-			Sleep(3000);
+			cout << "\n\n\t\t\t\tLoading...\n";
+			Sleep(2000);
 			system("cls");
-			displayLoginStudent(staff, student, schoolyear, ID);
+			displayLoginStudent(staff, student, schoolyear);
 			return;
 		}
-		else continue;
+		else {
+			system("cls");
+			gotoXY(26, 5); cout << "=======================================================";
+			Textcolor(Blue);
+			gotoXY(44, 9); cout << "PASSWORD CHANGING";
+			Textcolor(7);
+			gotoXY(32, 14); cout << "Enter your old password: " << oldPass;
+			continue;
+		}
 	}
-	cout << "\n\t\t\t\tWrong old password! Do you want to insert again?\n\t\t\t\t(y/n): ";
+	cout << "\n\t\t\t\tWrong old password!\n\t\t\t\tDo you want to insert again? (y/n): ";
 	char choice; cin >> choice; cin.ignore();
 	if (choice == 'n' || choice == 'N') {
 		cout << "\n\t\t\t\tLoading...\n";
 		Sleep(3000);
 		system("cls");
-		displayLoginStudent(staff, student, schoolyear, ID);
+		displayLoginStudent(staff, student, schoolyear);
 		return;
 	}
 	else {
 		system("cls");
-		changePassStudent(staff, student, schoolyear, path, ID);
+		changePassStudent(staff, student, schoolyear, path);
 	}
 }
 void createClassForYear(SchoolYear*& Schoolyear){
     string class_name;
 	cin.ignore();
+	cout << "\t\t\t\tPlease input class name: ";
 	getline(cin, class_name);
 	Schoolyear->classes = nullptr;
 	Class* pcur = Schoolyear->classes;
@@ -385,22 +437,24 @@ void createClassForYear(SchoolYear*& Schoolyear){
 	pcur->className= class_name;
 	pcur->pNext = nullptr;
 	ofstream out;
-	string path = "2021_2022_classes.txt";
+	string path = g_selectyear + "_classes.txt";
 	out.open(path, ios::app);
-	out << class_name << endl;
-	out.close();
+	if (out) {
+		out << class_name << endl;
+		out.close();
+	}
 }
 
 void createSemester(SchoolYear* &Schoolyear) {
 	ofstream out;
 	int no;
 		string start_date, end_date, register_start_date, register_end_date, teacher_name;
-		cout << "\n\t\t\t\tThis is for 1st, 2nd or 3rd semester? ";
+		cout << "\nThis is for 1st, 2nd or 3rd semester? ";
 		cin >> no;
 		string path = Schoolyear->year + "_semester.txt";
 		out.open(path, ios::app);
 		while (no < 1 && no > 3) {
-			out << "\n\t\t\t\tError. Please input again: ";
+			out << "\nError. Please input again: ";
 			cin >> no;
 		}
 		cin.ignore();
@@ -412,19 +466,19 @@ void createSemester(SchoolYear* &Schoolyear) {
 		string t = "Semester";
 		t.push_back(char(no + 48));
 		out << t << ",";
-		cout << "\n\t\t\t\tStart date: ";
+		cout << "\nStart date: ";
 		getline(cin, start_date);
 		out << start_date << ",";
 		pcur->start_date = start_date;
-		cout << "\n\t\t\t\tEnd date: ";
+		cout << "\nEnd date: ";
 		getline(cin, end_date);
 		out << end_date << ",";
 		pcur->end_date = end_date;
-		cout << "\n\t\t\t\tRegister start date: ";
+		cout << "\nRegister start date: ";
 		getline(cin, register_start_date);
 		out << register_start_date << ",";
 		pcur->register_start_date = register_start_date;
-		cout << "\n\t\t\t\tRegister end date: ";
+		cout << "\nRegister end date: ";
 		getline(cin, register_end_date);
 		out << register_end_date << ",";
 		pcur->register_end_date = register_end_date;
@@ -439,31 +493,34 @@ void getDataClass(SchoolYear*& Schoolyear) {
 	ifstream in;
 	ofstream out;
 	Class* pCur = Schoolyear->classes;
-	string filename = "2022_2023_classes.txt";
-	out.open(filename);
-	in.open(filename);
-	if (in) {
-		for (int i = 1; i <= numberOfLine(filename); i++) {
-			if (Schoolyear->classes == nullptr) {
-				Schoolyear->classes = new Class;
-				pCur = Schoolyear->classes;
+	string filename = g_selectyear + "_classes.txt";
+	out.open(filename, ios::app);
+	if (out) {
+		in.open(filename);
+		if (in) {
+			for (int i = 1; i <= numberOfLine(filename); i++) {
+				if (Schoolyear->classes == nullptr) {
+					Schoolyear->classes = new Class;
+					pCur = Schoolyear->classes;
+				}
+				else {
+					pCur->pNext = new Class;
+					pCur = pCur->pNext;
+				}
+				getline(in, pCur->className);
+				pCur->pNext = nullptr;
 			}
-			else {
-				pCur->pNext = new Class;
-				pCur = pCur->pNext;
-			}
-			getline(in, pCur->className);
-			pCur->pNext = nullptr;
+			in.close();
+			out.close();
 		}
-		in.close();
-		out.close();
+		else cout << "ERROR\n";
 	}
-	else cout << "ERROR\n";
 }
 
 void displayClass(SchoolYear* schoolyear) {
+	cout << "\t\t\t\tThe list of class: \n";
 	while (schoolyear->classes != nullptr) {
-		cout << schoolyear->classes->className << endl;
+		cout << "\t\t\t\t" << schoolyear->classes->className << endl;
 		schoolyear->classes = schoolyear->classes->pNext;
 	}
 }
