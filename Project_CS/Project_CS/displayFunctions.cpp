@@ -319,6 +319,7 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear*& schoolyear) 
         }
         pCur = pCur->pNext;
     }
+    //loi de quy
     if (choice == "1") {
         createNewYear(schoolyear);
         cout << "\n\n\t\t\t\tLoading...\n";
