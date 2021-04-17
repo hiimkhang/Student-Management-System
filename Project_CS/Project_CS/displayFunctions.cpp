@@ -81,15 +81,17 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
     gotoXY(31, 16); cout << "3. Change password";
     gotoXY(31, 18); cout << "4. Log out";
     gotoXY(31, 20); cout << "Enter your choice: ";
-    int choice; cin >> choice; cin.ignore();
-    switch (choice) {
-    case 1:
+    string choice;
+
+    fflush(stdin);
+    cin >> choice;
+    cin.ignore();
+    if (choice == "1") {
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear);
         cin >> choice;
-        switch (choice) {
-        case 1:
+        if (choice == "1") {
             createNewYear(schoolyear);
             Sleep(2000);
             cout << "\n\n\t\t\t\tAdded.";
@@ -98,39 +100,35 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
             system("cls");
             displaySchoolYear(staff, student, schoolyear);
             cin >> choice;
-            break;
-        case 2:
+            
+        }
+        else  if (choice == "2"){
             system("cls");
             displayLoginStudent(staff, student, schoolyear);
-            break;
+          
         }
-    case 2:
+    }
+    else if (choice == "2") {
         system("cls");
         displayStudentProfile(student, "Student.csv");
         system("cls");
         displayLoginStudent(staff, student, schoolyear);
-        break;
-    case 3:
+        
+    }
+    else if (choice == "3") {
         system("cls");
         changePassStudent(staff, student, schoolyear, "Student.csv");
-        break;
-    case 4:
+      
+    }
+    else if (choice == "4") {
         gotoXY(31, 23); cout << "Logging out...";
         Sleep(3000);
         system("cls");
         displayLogin(staff, student, schoolyear);
-        break;
-    default:
-        gotoXY(31, 22); cout << "Invalid input.";
-        gotoXY(31, 23); cout << "\nReturn to main menu in 3...";
-        Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 2...";
-        Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 1...";
-        Sleep(1000);
-        system("cls");
-        displayLogin(staff, student, schoolyear);
-        break;
+    }
+    else{
+        loadingFail();
+        displayLoginStudent(staff, student, schoolyear);
     }
 }
 void loadingSuccess() {
@@ -138,6 +136,16 @@ void loadingSuccess() {
     gotoXY(40, 15);cout << "Login successfully!!";
     gotoXY(44, 18);cout << "Loading...";
     Sleep(3000);
+}
+void loadingFail() {
+    gotoXY(31, 22); cout << "Invalid input! ";
+    gotoXY(31, 23); cout << "Input again in 3...";
+    Sleep(1000);
+    gotoXY(31, 23); cout << "Input again in 2...";
+    Sleep(1000);
+    gotoXY(31, 23); cout << "Input again in 1...";
+    Sleep(1000);
+    system("cls");
 }
 
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
@@ -193,15 +201,8 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
         displayLogin(staff, student, schoolyear);
         break;
     default:
-        gotoXY(31, 22); cout << "Invalid input.";
-        gotoXY(31, 23); cout << "\nReturn to main menu in 3...";
-        Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 2...";
-        Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 1...";
-        Sleep(1000);
-        system("cls");
-        displayLogin(staff, student, schoolyear);
+        loadingFail();
+        displayLoginStaff(staff, student, schoolyear);
         break;
     }
 }
@@ -247,15 +248,22 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear) {
               
             }
 
-            if (pCur->year == choice)
-                {
-                system("cls");
-                while (1) {
-                    displaySelectedYear(staff, student, schoolyear);
-                    if (displaySelectedYear == "3") break;
-                }
-                }
+                            ;
+                        cin >> choice;
+                        if (choice == "1") {
+                            createClassForYear(schoolyear);
+                        }
+                        else if (choice == "2") {
 
+                        }
+                    }
+                    else if (choice == "3") {
+                        displayYear(schoolyear);
+                        displaySchoolYear(staff, student, schoolyear);
+                    }
+                    break;
+                } while (choice != "3");
+            }
             pCur = pCur->pNext;
 
         }
@@ -280,7 +288,7 @@ void displayStaffProfile(Staff* staff) {
 
     while (staff && staff->staffAccount != g_account)
         staff = staff->pNext;
-           
+
     gotoXY(31, 12); cout << "Name: " << staff->nameStaff;
     gotoXY(31, 14); cout << "Account: " << staff->staffAccount;
     gotoXY(31, 16); cout << "Password: " << staff->staffPassword;
