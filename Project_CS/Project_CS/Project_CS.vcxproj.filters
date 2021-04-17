@@ -27,9 +27,6 @@
     <ClCompile Include="Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="course.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -44,7 +41,7 @@
     <None Include="temp.csv" />
     <None Include="tempStudent.csv" />
     <None Include="Student.csv" />
-    <None Include="course.csv" />
+    <None Include="Course.csv" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="school_year.txt" />

@@ -7,7 +7,7 @@ string g_class;
 
 int main() {
 	// load data
-	inputStudent();
+	//inputStudent();
 	fixConsoleWindow();
 	setConsoleWindow(800, 600);
 	Staff* staff = nullptr;
