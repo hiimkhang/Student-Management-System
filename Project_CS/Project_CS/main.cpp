@@ -3,9 +3,11 @@
 string g_account;
 int g_ID;
 string g_selectyear;
+string g_class;
 
 int main() {
 	// load data
+	inputStudent();
 	fixConsoleWindow();
 	setConsoleWindow(800, 600);
 	Staff* staff = nullptr;

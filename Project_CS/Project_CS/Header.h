@@ -5,6 +5,7 @@
 #include <string>
 #include <Windows.h>
 #include <conio.h>
+#include <direct.h>
 #include "Console.h"
 
 
@@ -69,6 +70,7 @@ void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
+void inputStudent();
 
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
@@ -88,6 +90,8 @@ void displayClass(SchoolYear* schoolyear);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year);
 void displayYear(SchoolYear* pHead);
 void displayStudentYear(SchoolYear* pHead);
+
+void displayStudent(string path);
 
 // Others
 int numberOfLine(string filename);

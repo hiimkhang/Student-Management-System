@@ -4,6 +4,7 @@
 extern string g_account;
 extern int g_ID;
 extern string g_selectyear;
+extern string g_class;
 
 int numberOfLine(string filename) {
 	ifstream in;
@@ -525,3 +526,46 @@ void displayClass(SchoolYear* schoolyear) {
 	}
 }
 
+void inputStudent() {
+	cout << "Please input the link of your file csv: ";
+	string s;
+	getline(cin, s);
+	ifstream in;
+	ofstream out;
+	string t;
+	in.open(s);
+	if (in) {
+		getline(in, t);
+		out.open("Student.csv", ios::app);
+		for (int i = 1; i <= numberOfLine(s) - 1; i++) {
+			getline(in, t);
+			out << t << endl;
+		}
+		out.close();
+		in.close();
+	}
+	in.open(s);
+	if (in) {
+		getline(in, t);
+		g_class = "test.csv";
+		out.open(g_class, ios::app);
+		for (int i = 1; i <= numberOfLine(s) - 1; i++) {
+			getline(in, t);
+			out << t << endl;
+		}
+		out.close();
+		in.close();
+	}
+}
+
+void displayStudent(string path) {
+	ifstream in;
+	in.open(path);
+	string a;
+	if (in) {
+		for (int i = 0; i < numberOfLine(path); i++) {
+			getline(in, a);
+			cout << a;
+		}
+	}
+}

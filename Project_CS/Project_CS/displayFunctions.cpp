@@ -3,6 +3,7 @@
 extern string g_account;
 extern int g_ID;
 extern string g_selectyear;
+extern string g_class;
 
 
 
@@ -252,7 +253,7 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear*& schoolyear) 
                     if (choice1 == "1") {
 
                     }
-                    else if (choice == "2") {
+                    else if (choice1 == "2") {
                         getDataClass(pCur);
                         displayClass(schoolyear);
                         cout << "1.Create class \n";
@@ -268,12 +269,12 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear*& schoolyear) 
 
                         }
                     }
-                    else if (choice == "3") {
+                    else if (choice1 == "3") {
                         displayYear(schoolyear);
                         displaySchoolYear(staff, student, schoolyear);
                     }
                     break;
-                } while (choice != "3");
+                } while (choice1 != "3");
             }
             pCur = pCur->pNext;
         }
