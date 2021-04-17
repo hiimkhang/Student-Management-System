@@ -16,6 +16,7 @@ int main() {
 	getDataSchoolYear(schoolYear, "school_year.txt");
 	//createClassForYear(schoolYear);
 	//createSemester(schoolYear)
+	
 	displayLogin(staff, student, schoolYear); 
 
 	return 0;
