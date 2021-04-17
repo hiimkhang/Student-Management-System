@@ -41,8 +41,6 @@ struct SchoolYear {
     Semester* semester = nullptr;
 };
 
-
-
 struct Course {
     string courseID, courseName;
     string teacherName;
@@ -66,6 +64,7 @@ void getDataStaff(Staff* &pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
 void getDataStudent(Student*& pHead, string filename);
 void getDataClass(SchoolYear*& Schoolyear);
+void getDataSemester(SchoolYear*& Schoolyear);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);
@@ -82,7 +81,7 @@ bool loginStudent(Student* student);
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displaySchoolYear(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStaffProfile(Staff* staff);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentProfile(Student*& student, string path);
@@ -90,11 +89,13 @@ void displayClass(SchoolYear* schoolyear);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year);
 void displayYear(SchoolYear* pHead);
 void displayStudentYear(SchoolYear* pHead);
+string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear);
 
 void displayStudent(string path);
 
 // Others
 int numberOfLine(string filename);
 void loadingSuccess();
+void loadingFail();
 
 

@@ -16,6 +16,7 @@ int main() {
 	getDataStaff(staff, "Staff.csv");
 	getDataStudent(student, "Student.csv");
 	getDataSchoolYear(schoolYear, "school_year.txt");
+	//getDataSemester(schoolYear);
 	//createClassForYear(schoolYear);
 	//createSemester(schoolYear)
 	
