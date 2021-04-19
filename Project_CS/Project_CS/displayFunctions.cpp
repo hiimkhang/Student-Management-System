@@ -284,7 +284,99 @@ void displayStaffProfile(Staff* staff) {
 
 }
 
+void displayStudentProfile(Student*& student, string path) {
+    gotoXY(26, 5); cout << "=======================================================";
+    Textcolor(rand() % 15 + 1);
+    gotoXY(47, 9); cout << "PROFILE";
+    Textcolor(7);
 
+    Student* pCur = student;
+
+    while (pCur && pCur->StudentID != g_ID)
+        pCur = pCur->pNext;
+
+    gotoXY(31, 12); cout << "First name: " << pCur->Firstname;
+    gotoXY(31, 14); cout << "Last name: " << pCur->Lastname;
+    gotoXY(31, 16); cout << "Gender: " << pCur->Gender;
+    gotoXY(31, 18); cout << "Student ID: " << pCur->StudentID;
+    gotoXY(31, 20); cout << "Password: " << pCur->studentPassword;
+    gotoXY(31, 22); cout << "Date of birth: " << pCur->DoB;
+
+    gotoXY(31, 25); cout << "U: Update Date of birth";
+    gotoXY(31, 26); cout << "ESC: Exit";
+
+    string title;
+    string Firstname, Lastname, Gender, studentPassword, DoB, tempDoB;
+    int ID, check = 1;
+    ifstream in;
+    ofstream out;
+
+    AnTroChuot();
+
+    while (check) {
+        if (_kbhit())
+        {
+            switch (_getch())
+            {
+            case 'u':
+
+                gotoXY(55, 25); cout << ": ";
+                gotoXY(57, 25); getline(cin, tempDoB, '\n');
+
+                in.open(path);
+                if (in) {
+                    out.open("tempStudent.csv");
+                    getline(in, title, '\n');
+                    out << title << endl;
+                    for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+                        getline(in, Firstname, ',');
+                        out << Firstname << ",";
+                        getline(in, Lastname, ',');
+                        out << Lastname << ",";
+                        getline(in, Gender, ',');
+                        out << Gender << ",";
+                        in >> ID;
+                        out << ID << ",";
+                        char z;
+                        in >> z;
+                        getline(in, studentPassword, ',');
+                        out << studentPassword << ",";
+                        getline(in, DoB, '\n');
+                        if (ID == pCur->StudentID) {
+                            out << tempDoB << endl;
+                            pCur->DoB = tempDoB;
+                        }
+                        else {
+                            out << DoB << endl;
+                        }
+                    }
+                    out.close();
+                    in.close();
+                    remove("Student.csv");
+                    rename("tempStudent.csv", "Student.csv");
+                    system("cls");
+                    gotoXY(31, 16); cout << "Date of birth updated successfully!";
+                    gotoXY(31, 18); cout << "Return in 2 ...";
+                    Sleep(1000);
+                    gotoXY(31, 18); cout << "Return in 1 ...";
+                    Sleep(1000);
+                    system("cls");
+                    displayStudentProfile(student, path);
+                }
+                else {
+                    cout << "\n\nCan't not open " << path << ", return after 3 seconds..";
+                    Sleep(3000);
+                    displayStudentProfile(pCur, path);
+                }
+                break;
+            case 27:
+                check = 0;
+                break;
+            }
+        }
+    }
+
+}
 
 string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear) {
     string choice, choice1;
