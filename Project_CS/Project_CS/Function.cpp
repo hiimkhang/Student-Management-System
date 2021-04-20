@@ -126,11 +126,17 @@ void createNewYear(SchoolYear*& year_school) {
 	SchoolYear* pCur1 = year_school;
 	while (pCur1 != nullptr) {
 		if (pCur1->year == y) {
-			cout << "This year is exsist \n";
+			cout << "\n\t\t\t\tThis year is already exsisted.";
+			Sleep(2000);
 			return;
 		}
 		pCur1 = pCur1->pNext;
 	}
+	cout << "\n\n\t\t\t\tLoading...\n";
+	Sleep(2000);
+	cout << "\n\t\t\t\tAdded.\n";
+	cout << "\n\t\t\t\tPress any key to return to previous page...";
+	_getch();
 	out << endl;
 	out << y;
 	SchoolYear* pCur = year_school;
@@ -426,7 +432,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 }
 void createClassForYear(SchoolYear*& Schoolyear){
     string class_name;
-	cout << "\t\t\t\tPlease input class name: ";
+	cout << "\n\t\t\t\tPlease input class name: ";
 	getline(cin, class_name);
 	Schoolyear->classes = nullptr;
 	Class* pcur = Schoolyear->classes;
@@ -518,9 +524,18 @@ void getDataClass(SchoolYear*& Schoolyear) {
 }
 
 void displayClass(SchoolYear* schoolyear) {
-	cout << "\t\t\t\tThe list of class: \n";
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(Blue);
+	gotoXY(38, 9); cout << "SCHOOL YEAR: " << g_selectyear;
+	Textcolor(7);
+	cout << "\n\n\t\t\t\tThe list of class: ";
+	if (schoolyear->classes) {
+		cout << schoolyear->classes->className;
+		schoolyear->classes = schoolyear->classes->pNext;
+	}
+
 	while (schoolyear->classes != nullptr) {
-		cout << "\t\t\t\t" << schoolyear->classes->className << endl;
+		cout << "\n\t\t\t\t\t\t   " << schoolyear->classes->className;
 		schoolyear->classes = schoolyear->classes->pNext;
 	}
 }
@@ -543,6 +558,9 @@ void inputStudent() {
 		out.close();
 		in.close();
 	}
+	else {
+		cout << "Can not open " << s;
+	}
 	in.open(s);
 	if (in) {
 		getline(in, t);
@@ -554,6 +572,9 @@ void inputStudent() {
 		}
 		out.close();
 		in.close();
+	}
+	else {
+		cout << "Can not open " << s;
 	}
 }
 
