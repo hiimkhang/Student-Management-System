@@ -142,6 +142,7 @@ void loadingSuccess() {
 }
 
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
+    int choice;
     gotoXY(26, 5); cout << "=======================================================";
     Textcolor(Blue);
     gotoXY(39, 9); cout << "COURSE REGISTRATION SYSTEM";
@@ -151,7 +152,8 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
     gotoXY(31, 16); cout << "3. Change password";
     gotoXY(31, 18); cout << "4. Log out";
     gotoXY(31, 20); cout << "Enter your choice: ";
-    int choice; cin >> choice; cin.ignore();
+    cin >> choice;
+    cin.ignore();
     switch (choice) {
     case 1:
         system("cls");
@@ -201,7 +203,7 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
         gotoXY(31, 23); cout << "\nReturn to main menu in 1...";
         Sleep(1000);
         system("cls");
-        displayLogin(staff, student, schoolyear);
+        displayLoginStaff(staff, student, schoolyear);
         break;
     }
 }
@@ -395,27 +397,7 @@ string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyea
     }
     else if (choice1 == "2") {
         system("cls");
-        getDataClass(schoolyear);
-        displayClass(schoolyear);
-        cout << "\n\n\t\t\t\t1.Create class \n";
-        cout << "\n\n\t\t\t\t2.Exit \n";
-        cout << "\n\n\t\t\t\tPlease input: ";
-        cin >> choice; cin.ignore();
-        if (choice == "1") {
-            createClassForYear(schoolyear);
-            system("cls");
-            displaySelectedYear(staff, student, schoolyear);
-        }
-        else if (choice == "2") {
-            cout << "\n\n\t\t\t\tLoading...";
-            Sleep(2000);
-            system("cls");
-            displaySelectedYear(staff, student, schoolyear);
-        }
-        else {
-            system("cls");
-            displaySelectedYear(staff, student, schoolyear);
-        }
+        displayMenuClass(staff, student, schoolyear);
     }
     else if (choice1 == "3") {
         gotoXY(40, 22); cout << "Loading...";
