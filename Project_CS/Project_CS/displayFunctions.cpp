@@ -8,7 +8,6 @@ extern string g_class;
 
 
 void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
-    int choice;
     gotoXY(26, 5); cout << "=======================================================";
     Textcolor(rand() % 16);
     gotoXY(39, 9); cout << "COURSE REGISTRATION SYSTEM";
@@ -16,11 +15,12 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
     gotoXY(31, 12); cout << "1. Academic staff login";
     gotoXY(31, 14); cout << "2. Student login";
     gotoXY(31, 16); cout << "3. Exit";
-    gotoXY(31, 18); cout << "Enter your choice: "; cin >> choice;
+    gotoXY(31, 18); cout << "Enter your choice: "; 
+    char choice = getchar();
+    cin.ignore(100, '\n');
     switch (choice) {
-    case 1:
+    case '1':
         system("cls");
-        cin.ignore();
         if (loginStaff(staff)) {
             loadingSuccess();
             system("cls");
@@ -38,9 +38,8 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
             displayLogin(staff, student, schoolYear);
         }
         break;
-    case 2:
+    case '2':
         system("cls");
-        cin.ignore();
         if (loginStudent(student)) {
             loadingSuccess();
             system("cls");
@@ -58,14 +57,16 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
             displayLogin(staff, student, schoolYear);
         }
         break;
-    case 3:
+    case '3':
         system("cls");
         gotoXY(31, 15); cout << "THANK YOU FOR USING OUR SYSTEM!\n\t\t\t\t";
         exit(0);
         break;
     default:
-        gotoXY(31, 18); cout << "Invalid input. Please try again...";
-        Sleep(2000);
+        gotoXY(31, 23); cout << "Try again in 2...";
+        Sleep(1000);
+        gotoXY(31, 23); cout << "Try again in 1...";
+        Sleep(1000);
         system("cls");
         displayLogin(staff, student, schoolYear);
         break;
@@ -82,14 +83,16 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
     gotoXY(31, 16); cout << "3. Change password";
     gotoXY(31, 18); cout << "4. Log out";
     gotoXY(31, 20); cout << "Enter your choice: ";
-    int choice; cin >> choice; cin.ignore();
+    char choice = getchar();
+    cin.ignore(100, '\n');
     switch (choice) {
-    case 1:
+    case '1':
         system("cls");
         displaySchoolYear(staff, student, schoolyear);
-        cin >> choice;
+        choice = getchar();
+        cin.ignore(100, '\n');
         switch (choice) {
-        case 1:
+        case '1':
             createNewYear(schoolyear);
             Sleep(2000);
             cout << "\n\n\t\t\t\tAdded.";
@@ -99,22 +102,22 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
             displaySchoolYear(staff, student, schoolyear);
             cin >> choice;
             break;
-        case 2:
+        case '2':
             system("cls");
             displayLoginStudent(staff, student, schoolyear);
             break;
         }
-    case 2:
+    case '2':
         system("cls");
         displayStudentProfile(student, "Student.csv");
         system("cls");
         displayLoginStudent(staff, student, schoolyear);
         break;
-    case 3:
+    case '3':
         system("cls");
         changePassStudent(staff, student, schoolyear, "Student.csv");
         break;
-    case 4:
+    case '4':
         gotoXY(31, 23); cout << "Logging out...";
         Sleep(3000);
         system("cls");
@@ -122,11 +125,11 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
         break;
     default:
         gotoXY(31, 22); cout << "Invalid input.";
-        gotoXY(31, 23); cout << "\nReturn to main menu in 3...";
+        gotoXY(31, 23); cout << "Try again in 3...";
         Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 2...";
+        gotoXY(31, 23); cout << "Try again in 2...";
         Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 1...";
+        gotoXY(31, 23); cout << "Try again in 1...";
         Sleep(1000);
         system("cls");
         displayLogin(staff, student, schoolyear);
@@ -141,7 +144,6 @@ void loadingSuccess() {
 }
 
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
-    int choice;
     gotoXY(26, 5); cout << "=======================================================";
     Textcolor(Blue);
     gotoXY(39, 9); cout << "COURSE REGISTRATION SYSTEM";
@@ -151,10 +153,10 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
     gotoXY(31, 16); cout << "3. Change password";
     gotoXY(31, 18); cout << "4. Log out";
     gotoXY(31, 20); cout << "Enter your choice: ";
-    cin >> choice;
-    cin.ignore();
+    char choice = getchar();
+    cin.ignore(100, '\n');
     switch (choice) {
-    case 1:
+    case '1':
         system("cls");
         displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear);
@@ -175,7 +177,7 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
             displayLoginStaff(staff, student, schoolyear);
             break;
         }*/
-    case 2:
+    case '2':
         system("cls");
         displayStaffProfile(staff);
         cout << "\n\n\t\t\t   Press any key to return to previous page...";
@@ -183,11 +185,11 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
         system("cls");
         displayLoginStaff(staff, student, schoolyear);
         break;
-    case 3:
+    case '3':
         system("cls");
         changePassStaff(staff, student, schoolyear, "Staff.csv");
         break;
-    case 4:
+    case '4':
         gotoXY(31, 23); cout << "Logging out...";
         Sleep(3000);
         system("cls");
@@ -195,11 +197,11 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
         break;
     default:
         gotoXY(31, 22); cout << "Invalid input.";
-        gotoXY(31, 23); cout << "\nReturn to main menu in 3...";
+        gotoXY(31, 23); cout << "Try again in 3...";
         Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 2...";
+        gotoXY(31, 23); cout << "Try again in 2...";
         Sleep(1000);
-        gotoXY(31, 23); cout << "\nReturn to main menu in 1...";
+        gotoXY(31, 23); cout << "Try again in 1...";
         Sleep(1000);
         system("cls");
         displayLoginStaff(staff, student, schoolyear);
@@ -382,7 +384,10 @@ void displayStudentProfile(Student*& student, string path) {
 
 string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear) {
     string choice, choice1;
-    cout << g_selectyear;
+    gotoXY(26, 5); cout << "=======================================================";
+    Textcolor(Blue);
+    gotoXY(38, 8); cout << "SCHOOL YEAR: " << g_selectyear;
+    Textcolor(7);
     gotoXY(31, 14); cout << "1.Semester";
     gotoXY(31, 16); cout << "2.Class";
     gotoXY(31, 18); cout << "3.Exit";

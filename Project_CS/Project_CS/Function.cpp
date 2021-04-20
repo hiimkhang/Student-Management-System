@@ -452,9 +452,12 @@ void createClassForYear(SchoolYear*& Schoolyear){
 			out << class_name << endl;
 			out.close();
 		}
+		cout << "\n\t\t\t\tAdd class " << class_name << " successfully!";
+		Sleep(2000);
 	}
 	else {
-		cout << "The class is exist\n";
+		cout << "\n\t\t\t\tClass " << class_name << " is alreadt exist";
+		Sleep(2000);
 	}
 }
 
@@ -534,7 +537,7 @@ void getDataClass(SchoolYear*& Schoolyear) {
 void displayClass(SchoolYear* schoolyear) {
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(Blue);
-	gotoXY(38, 9); cout << "SCHOOL YEAR: " << g_selectyear;
+	gotoXY(38, 8); cout << "SCHOOL YEAR: " << g_selectyear;
 	Textcolor(7);
 	cout << "\n\n\t\t\t\tThe list of class: ";
 	if (schoolyear->classes) {
