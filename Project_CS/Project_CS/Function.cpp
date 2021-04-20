@@ -145,6 +145,8 @@ void createNewYear(SchoolYear*& year_school) {
 
 void displayYear(SchoolYear* pHead) {
 	int y = 10;
+	pHead = nullptr;
+	getDataSchoolYear(pHead, "school_year.txt");
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(Blue);
 	gotoXY(46, 8); cout << "SCHOOL YEAR";

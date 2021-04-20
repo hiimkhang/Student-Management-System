@@ -86,7 +86,6 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
     switch (choice) {
     case 1:
         system("cls");
-        displayYear(schoolyear);
         displaySchoolYear(staff, student, schoolyear);
         cin >> choice;
         switch (choice) {
@@ -249,6 +248,7 @@ void displaySchoolYear(Staff* staff, Student* student, SchoolYear*& schoolyear) 
             displaySelectedYear(staff, student, schoolyear);
         }
         else {
+            system("cls");
             displaySchoolYear(staff, student, schoolyear);
         }
     }
