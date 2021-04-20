@@ -145,6 +145,7 @@ void loadingSuccess() {
 }
 
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
+    int choice;
     gotoXY(26, 5); cout << "=======================================================";
     Textcolor(Blue);
     gotoXY(39, 9); cout << "COURSE REGISTRATION SYSTEM";
@@ -402,27 +403,7 @@ string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyea
     }
     else if (choice1 == "2") {
         system("cls");
-        getDataClass(schoolyear);
-        displayClass(schoolyear);
-        cout << "\n\n\t\t\t\t1.Create class \n";
-        cout << "\n\n\t\t\t\t2.Exit \n";
-        cout << "\n\n\t\t\t\tPlease input: ";
-        cin >> choice; cin.ignore();
-        if (choice == "1") {
-            createClassForYear(schoolyear);
-            system("cls");
-            displaySelectedYear(staff, student, schoolyear);
-        }
-        else if (choice == "2") {
-            cout << "\n\n\t\t\t\tLoading...";
-            Sleep(2000);
-            system("cls");
-            displaySelectedYear(staff, student, schoolyear);
-        }
-        else {
-            system("cls");
-            displaySelectedYear(staff, student, schoolyear);
-        }
+        displayMenuClass(staff, student, schoolyear);
     }
     else if (choice1 == "3") {
         gotoXY(40, 22); cout << "Loading...";
