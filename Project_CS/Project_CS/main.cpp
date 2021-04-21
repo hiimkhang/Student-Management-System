@@ -4,6 +4,7 @@ string g_account;
 int g_ID;
 string g_selectyear;
 string g_class;
+string g_selectClass;
 
 int main() {
 	// load data

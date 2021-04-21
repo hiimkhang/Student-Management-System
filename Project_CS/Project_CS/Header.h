@@ -17,12 +17,36 @@ struct Student {
     string Firstname, Lastname;
     string Gender;
     string DoB;
+    string studentClass;
     Student* pNext;
+};
+
+
+struct Course {
+    string courseID, courseName;
+    string teacherName;
+    int creditNum;
+    int maxNum_ofStudents = 50;
+    string courseDate;
+    string courseSession;
+    Course* pNext;
+};
+
+
+struct Staff {
+    string nameStaff;
+    string staffAccount, staffPassword = "staff";
+    /*Class* staffClass;*/
+    Course* staffCourse;
+    /*string teacherCourse = "N/A";
+    string teacherClass = "N/A";*/
+    Staff* pNext;
 };
 
 struct Class {
     string className;
     Student* student;
+    Staff* staff;
     Class* pNext;
 };
 
@@ -36,30 +60,12 @@ struct Semester {
 
 struct SchoolYear {
     string year;
-    Class* classes = nullptr;
+    Class* classes;
     SchoolYear* pNext;
     Semester* semester = nullptr;
 };
 
 
-
-struct Course {
-    string courseID, courseName;
-    string teacherName;
-    int creditNum;
-    int maxNum_ofStudents = 50;
-    string courseDate;
-    string courseSession;
-    Course* pNext;
-};
-
-struct Staff {
-    string nameStaff;
-    string staffAccount, staffPassword = "staff";
-    string teacherCourse = "N/A";
-    string teacherClass = "N/A";
-    Staff* pNext;
-};
 
 // Get Input
 void getDataStaff(Staff* &pHead, string filename);
@@ -71,6 +77,7 @@ void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 void inputStudent();
+void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
 
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
@@ -94,6 +101,7 @@ void displayStudentYear(SchoolYear* pHead);
 string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudent(string path);
 void displayCourse(string path);
+void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 
 
 

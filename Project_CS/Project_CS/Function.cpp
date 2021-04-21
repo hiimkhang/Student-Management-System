@@ -5,6 +5,7 @@ extern string g_account;
 extern int g_ID;
 extern string g_selectyear;
 extern string g_class;
+extern string g_selectClass;
 
 int numberOfLine(string filename) {
 	ifstream in;
@@ -60,6 +61,7 @@ void getDataStudent(Student*& pHead, string filename) {
 	if (in.is_open()) {
 		string Firstname, Lastname, Gender, studentPassword = "student", DoB = "N/A";
 		int StudentID;
+		long SocialID;
 		Student* pCur = pHead;
 		for (int i = 1; i <= numberOfLine(filename) - 1; i++) {
 			if (pHead == nullptr) {
@@ -77,13 +79,15 @@ void getDataStudent(Student*& pHead, string filename) {
 			char z;
 			in >> z;
 			getline(in, studentPassword, ',');
-			getline(in, DoB, '\n');
+			getline(in, DoB, ',');
+			in >> SocialID;
 			pCur->Firstname = Firstname;
 			pCur->Lastname = Lastname;
 			pCur->Gender = Gender;
 			pCur->StudentID = StudentID;
 			pCur->studentPassword = studentPassword;
 			pCur->DoB = DoB;
+			pCur->SocialID = SocialID;
 			pCur->pNext = nullptr;
 		}
 		in.close();
@@ -335,6 +339,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 	string title;
 	string Firstname, Lastname, Gender, studentPassword, DoB;
 	int ID;
+	long SocialID;
 	getline(cin, oldPass, '\n');
 
 	Student* pCur = student;
@@ -380,8 +385,10 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 					else {
 						out << studentPassword << ",";
 					}
-					getline(in, DoB, '\n');
-					out << DoB << "\n";
+					getline(in, DoB, ',');
+					out << DoB << ",";
+					in >> SocialID;
+					out << SocialID << "\n";
 				}
 				out.close();
 				in.close();
@@ -456,7 +463,7 @@ void createClassForYear(SchoolYear*& Schoolyear){
 		Sleep(2000);
 	}
 	else {
-		cout << "\n\t\t\t\tClass " << class_name << " is alreadt exist";
+		cout << "\n\t\t\t\tClass " << class_name << " is already exist";
 		Sleep(2000);
 	}
 }
@@ -465,7 +472,7 @@ void createSemester(SchoolYear* &Schoolyear) {
 	ofstream out;
 	int no;
 		string start_date, end_date, register_start_date, register_end_date, teacher_name;
-		cout << "\nThis is for 1st, 2nd or 3rd semester? ";
+		cout << "\nThis is for 1st, 2nd or 3rd semester? (Enter 1/2 or 3):";
 		cin >> no;
 		string path = Schoolyear->year + "_semester.txt";
 		out.open(path, ios::app);
@@ -595,8 +602,9 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 	getDataClass(schoolyear);
 	displayClass(schoolyear);
 	cout << "\n\n\t\t\t\t1.Create class \n";
-	cout << "\n\n\t\t\t\t2.Exit \n";
-	cout << "\n\n\t\t\t\tPlease input: ";
+	cout << "\n\n\t\t\t\t2.Get access in class \n";
+	cout << "\n\n\t\t\t\t3.Exit \n";
+	cout << "\n\n\t\t\t\tEnter your choice: ";
 	cin >> choice; cin.ignore();
 	if (choice == "1") {
 		createClassForYear(schoolyear);
@@ -604,12 +612,44 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 		displayMenuClass(staff, student, schoolyear);
 	}
 	else if (choice == "2") {
+		cout << "\n\n\t\t\t\tEnter the class you want to get access to: ";
+		string class_name;
+		getline(cin, class_name, '\n');
+		getDataClass(schoolyear);
+		Class* pCur = schoolyear->classes;
+		while (pCur && pCur->className != class_name) {
+			pCur = pCur->pNext;
+		}
+		if (pCur) {
+			g_selectClass = class_name;
+			cout << "\n\n\t\t\t\tEntering class " << class_name << "...";
+			Sleep(2000);
+			system("cls");
+			displayStudentInClass(schoolyear, student);
+			//displaySelectedYear(staff, student, schoolyear);
+		}
+		else {
+			cout << "\n\n\t\t\t\tClass " << class_name << " not found..";
+			if (pCur)
+				cout << "\n\n\t\t\t\tpCur->className at the moment is: " << pCur->className;
+			else cout << "\n\n\t\pCur = nullptr. Tai vi luc gan pCur = schoolyear->classes o dong 618 function.cpp"
+				" thi pCur da bang null roi, schoolyear->classes cung bang null luon.";
+			cout << "\n\n\t\t\t\tPress any key to return...";
+			_getch();
+			system("cls");
+			displaySchoolYear(staff, student, schoolyear);
+		}
+		
+	}
+	else if (choice == "3") {
 		cout << "\n\n\t\t\t\tLoading...";
 		Sleep(2000);
 		system("cls");
 		displaySelectedYear(staff, student, schoolyear);
 	}
 	else {
+		cout << "\n\n\t\t\t\tInvalid input. Try again..";
+		Sleep(1800);
 		system("cls");
 		displayMenuClass(staff, student, schoolyear);
 	}
@@ -649,7 +689,8 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 //			cout << a;
 //		}
 //	}
-//}void displayCourse(string path) {
+//}
+// void displayCourse(string path) {
 //	fstream fin;
 //	string a;
 //	fin.open();
