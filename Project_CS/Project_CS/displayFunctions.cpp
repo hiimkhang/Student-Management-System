@@ -474,7 +474,7 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
         gotoXY(78, 14); cout << "Social ID";
 
         int y = 16, No = 0, check = 1;
-        if (!tempClass->student) {
+        if (numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") == 1) {
             gotoXY(05, 16); cout << "N/A";
             gotoXY(10, 16); cout << "N/A";
             gotoXY(24, 16); cout << "N/A";
@@ -482,17 +482,20 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
             gotoXY(51, 16); cout << "N/A";
             gotoXY(61, 16); cout << "N/A";
             gotoXY(78, 16); cout << "N/A";
+
         }
-        while (tempClass->student && tempClass->student->studentClass == g_selectClass) {
-            gotoXY(05, y); cout << No;
-            gotoXY(10, y); cout << tempClass->student->StudentID;
-            gotoXY(24, y); cout << tempClass->student->Firstname;
-            gotoXY(38, y); cout << tempClass->student->Lastname;
-            gotoXY(51, y); cout << tempClass->student->Gender;
-            gotoXY(61, y); cout << tempClass->student->DoB;
-            gotoXY(78, y); cout << tempClass->student->SocialID;
-            y++; No++;
-            tempClass->student = tempClass->student->pNext;
+        else {
+            while (tempClass->student && tempClass->student->studentClass == g_selectClass) {
+                gotoXY(05, y); cout << No;
+                gotoXY(10, y); cout << tempClass->student->StudentID;
+                gotoXY(24, y); cout << tempClass->student->Firstname;
+                gotoXY(38, y); cout << tempClass->student->Lastname;
+                gotoXY(51, y); cout << tempClass->student->Gender;
+                gotoXY(61, y); cout << tempClass->student->DoB;
+                gotoXY(78, y); cout << tempClass->student->SocialID;
+                y++; No++;
+                tempClass->student = tempClass->student->pNext;
+            }
         }
 
         gotoXY(31, y += 2); cout << "T: Add student by typing";

@@ -658,7 +658,11 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 
 void getDataStudentinClass(SchoolYear*& schoolyear) {
 	ifstream in;
-	schoolyear->classes->student = nullptr;
+	SchoolYear* pCur1 = schoolyear;
+	while (pCur1->classes && pCur1->classes->className != g_selectClass) {
+		pCur1->classes = pCur1->classes->pNext;
+	}
+	pCur1->classes->student = nullptr;
 	Student* pCur = nullptr;
 	in.open(g_selectyear + "_" + g_selectClass + ".csv");
 	if (in) {
@@ -667,8 +671,8 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 		char c;
 		getline(in, str);
 		for (int i = 1; i <= numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") - 1; i++) {
-			if (schoolyear->classes->student == nullptr) {
-				schoolyear->classes->student = new Student;
+			if (pCur1->classes->student == nullptr) {
+				pCur1->classes->student = new Student;
 				pCur = schoolyear->classes->student;
 			}
 			else {
