@@ -582,8 +582,7 @@ void inputStudent() {
 	in.open(s);
 	if (in) {
 		getline(in, t);
-		g_class = "test.csv";
-		out.open(g_class, ios::app);
+		out.open(g_selectyear + "_" + g_selectClass + ".csv", ios::app);
 		for (int i = 1; i <= numberOfLine(s) - 1; i++) {
 			getline(in, t);
 			out << t << endl;
@@ -652,6 +651,46 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 		Sleep(1800);
 		system("cls");
 		displayMenuClass(staff, student, schoolyear);
+	}
+}
+
+void getDataStudentinClass(SchoolYear*& schoolyear) {
+	ifstream in;
+	schoolyear->classes->student = nullptr;
+	Student* pCur = nullptr;
+	in.open(g_selectyear + "_" + g_selectClass + ".csv");
+	if (in) {
+		string str;
+		int a;
+		char c;
+		getline(in, str);
+		for (int i = 1; i <= numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") - 1; i++) {
+			if (schoolyear->classes->student == nullptr) {
+				schoolyear->classes->student = new Student;
+				pCur = schoolyear->classes->student;
+			}
+			else {
+				pCur->pNext = new Student;
+				pCur = pCur->pNext;
+			}
+			in >> a;
+			in >> c;
+			pCur->StudentID = a;
+			getline(in, pCur->Firstname, ',');
+			getline(in, pCur->Lastname, ',');
+			getline(in, pCur->Gender, ',');
+			getline(in, pCur->studentPassword, ',');
+			getline(in, pCur->DoB, ',');
+			in >> a;
+			pCur->SocialID = a;
+			getline(in, str, '\n');
+			pCur->studentClass = g_selectClass;
+			pCur->pNext = nullptr;
+		}
+		in.close();
+	}
+	else {
+		cout << "ERROR\n";
 	}
 }
 

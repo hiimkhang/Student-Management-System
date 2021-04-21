@@ -72,6 +72,7 @@ void getDataStaff(Staff* &pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
 void getDataStudent(Student*& pHead, string filename);
 void getDataClass(SchoolYear*& Schoolyear);
+void getDataStudentinClass(SchoolYear*& schoolyear);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);

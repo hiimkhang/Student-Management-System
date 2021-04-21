@@ -406,7 +406,18 @@ string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyea
 }
 
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
-    getDataClass(schoolyear);
+    ofstream out;
+    ifstream in;
+    in.open("student.csv");
+    string str;
+    getline(in, str);
+    in.close();
+    out.open(g_selectyear + "_" + g_selectClass + ".csv", ios::app);
+    if (numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") == 0) {
+        out << str << endl;
+    }
+    out.close();
+    getDataStudentinClass(schoolyear);
     Class* tempClass = schoolyear->classes;
     while (tempClass && tempClass->className != g_selectClass)
         tempClass = tempClass->pNext;
@@ -496,10 +507,12 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
                 switch (_getch()) {
                 case 't':
                     system("cls");
-                    AddStudentIntoClass(schoolyear, student, "2020_2021_20CTT2.txt");
+                    AddStudentIntoClass(schoolyear, student, g_selectyear + "_" + g_selectClass + ".csv");
                     break;
                 case 'f':
-                    // Add bang csv
+                    inputStudent();
+                    system("cls");
+                    displayStudentInClass(schoolyear, student);
                     break;
                 case 27:
                     check = 0;
@@ -522,6 +535,7 @@ void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path
     long SocialID;
     gotoXY(31, 12); cout << "Student ID: ";
     cin >> StudentID;
+    cin.ignore();
     Student* tempStudent = schoolyear->classes->student;
     while (tempStudent && tempStudent->studentClass != g_selectClass)
         tempStudent = tempStudent->pNext;
