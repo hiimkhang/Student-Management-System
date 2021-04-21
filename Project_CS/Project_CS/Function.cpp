@@ -59,7 +59,7 @@ void getDataStudent(Student*& pHead, string filename) {
 	in.open(filename);
 	getline(in, t, '\n');
 	if (in.is_open()) {
-		string Firstname, Lastname, Gender, studentPassword = "student", DoB = "N/A";
+		string Firstname, Lastname, Gender ,studentPassword, DoB = "N/A";
 		int StudentID;
 		long SocialID;
 		Student* pCur = pHead;
@@ -72,15 +72,17 @@ void getDataStudent(Student*& pHead, string filename) {
 				pCur->pNext = new Student;
 				pCur = pCur->pNext;
 			}
-			getline(in, Firstname, ',');
-			getline(in, Lastname, ',');
-			getline(in, Gender, ',');
 			in >> StudentID;
 			char z;
 			in >> z;
-			getline(in, studentPassword, ',');
+			getline(in, Firstname, ',');
+			getline(in, Lastname, ',');
+			getline(in, Gender, ',');
 			getline(in, DoB, ',');
+			getline(in, pCur->studentClass, ',');
 			in >> SocialID;
+			in >> z;
+			getline(in, studentPassword, '\n');
 			pCur->Firstname = Firstname;
 			pCur->Lastname = Lastname;
 			pCur->Gender = Gender;
