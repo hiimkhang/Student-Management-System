@@ -1,5 +1,5 @@
 #pragma once
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -29,6 +29,7 @@ struct Course {
     int maxNum_ofStudents = 50;
     string courseDate;
     string courseSession;
+    Student* studentInCourse;
     Course* pNext;
 };
 
@@ -96,18 +97,15 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
 void displayStudentProfile(Student*& student, string path);
 void displayClass(SchoolYear* schoolyear);
 void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear);
-void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year);
 void displayYear(SchoolYear* pHead);
-void displayStudentYear(SchoolYear* pHead);
 string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displayStudent(string path);
-void displayCourse(string path);
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
-
-
+void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// ch lm
+void displayCourse(string path); // ch lm
 
 // Others
 int numberOfLine(string filename);
 void loadingSuccess();
+char* getTime();
 
 

@@ -700,6 +700,13 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 	}
 }
 
+char* getTime() {
+	time_t now = time(0);
+	char* dt = ctime(&now);
+	return dt;
+}
+
+
 //void getDataCourse(Course* course, string path) {
 //	ifstream in;
 //	string t;
