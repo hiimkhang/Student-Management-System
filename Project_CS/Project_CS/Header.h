@@ -56,6 +56,7 @@ struct Semester {
     string start_date, end_date, register_start_date, register_end_date, teacher_name;
     int ID, number_of_credits;
     int max_NoS[50];
+    Course* course;
     Semester* pNext;
 };
 
@@ -80,6 +81,8 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
+void updateCourse(SchoolYear); // Phat
+void deleteACourse(SchoolYear); // Phat
 
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
@@ -100,8 +103,8 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear);
 void displayYear(SchoolYear* pHead);
 string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
-void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// ch lm
-void displayCourse(string path); // ch lm
+void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
+void displayCourse(string path); // Phat
 
 // Others
 int numberOfLine(string filename);
