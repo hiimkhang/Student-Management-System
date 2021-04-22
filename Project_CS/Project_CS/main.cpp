@@ -22,7 +22,6 @@ int main() {
 	//createSemester(schoolYear)
 	
 	displayLogin(staff, student, schoolYear); 
-
 	return 0;
 }
 
