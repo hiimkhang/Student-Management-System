@@ -118,4 +118,5 @@ void loadingSuccess();
 char* getTime();
 string add0(string date);
 int date_cmp(const char* d1, const char* d2);
+void sortedList(struct Semester** head_ref, struct Semester* new_node);
 

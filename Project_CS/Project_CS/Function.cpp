@@ -7,6 +7,7 @@ extern string g_selectyear;
 extern int g_selectSemester;
 extern string g_selectClass;
 extern int g_selectSemester;
+extern string g_Time;
 
 int numberOfLine(string filename) {
 	ifstream in;
@@ -162,6 +163,9 @@ void displayYear(SchoolYear* pHead) {
 	int y = 10;
 	pHead = nullptr;
 	getDataSchoolYear(pHead, "school_year.txt");
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(Blue);
 	gotoXY(46, 8); cout << "SCHOOL YEAR";
@@ -190,6 +194,9 @@ void deleteList(Staff*& pHead) {
 	}
 }
 ; bool loginStaff(Staff* staff) {
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(11);
 	gotoXY(50, 9); cout << "LOGIN";
@@ -215,6 +222,9 @@ void deleteList(Staff*& pHead) {
 }
 
 bool loginStudent(Student* student) {
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(11);
 	gotoXY(50, 9); cout << "LOGIN";
@@ -238,6 +248,9 @@ bool loginStudent(Student* student) {
 
 
 void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path) {
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(Blue);
 	gotoXY(44, 9); cout << "PASSWORD CHANGING";
@@ -254,7 +267,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 		string tempPass, newPass;
 		getline(cin, tempPass, '\n');
 
-		cout << "\n\n\t\t\t\tEnter your new password again: ";
+		cout << "\n\t\t\t\tEnter your new password again: ";
 		getline(cin, newPass, '\n'); 
 
 		if (tempPass == newPass) {
@@ -309,6 +322,9 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 		}
 		else {
 			system("cls");
+			if (g_Time != "") {
+				gotoXY(26, 4); cout << "Date: " << g_Time;
+			}
 			gotoXY(26, 5); cout << "=======================================================";
 			Textcolor(Blue);
 			gotoXY(44, 9); cout << "PASSWORD CHANGING";
@@ -335,6 +351,9 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 
 
 void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path) {
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(Blue);
 	gotoXY(44, 9); cout << "PASSWORD CHANGING";
@@ -422,6 +441,9 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 		}
 		else {
 			system("cls");
+			if (g_Time != "") {
+				gotoXY(26, 4); cout << "Date: " << g_Time;
+			}
 			gotoXY(26, 5); cout << "=======================================================";
 			Textcolor(Blue);
 			gotoXY(44, 9); cout << "PASSWORD CHANGING";
@@ -589,6 +611,9 @@ void getDataClass(SchoolYear*& Schoolyear) {
 }
 
 void displayClass(SchoolYear* schoolyear) {
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(Blue);
 	gotoXY(38, 8); cout << "SCHOOL YEAR: " << g_selectyear;
@@ -749,7 +774,7 @@ void getDataCourseInSemester(SchoolYear*& schoolyear) {
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
 	if (in) {
 		string str;
-		int a, credits, numberOfStudents;
+		int credits, numberOfStudents;
 		char c;
 		getline(in, str);
 		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
