@@ -640,7 +640,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 			cout << "\n\n\t\t\t\tPress any key to return...";
 			_getch();
 			system("cls");
-			displaySchoolYearForStaff(staff, student, schoolyear);
+			displaySchoolYear(staff, student, schoolyear);
 		}
 		
 	}
@@ -648,7 +648,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 		cout << "\n\n\t\t\t\tLoading...";
 		Sleep(2000);
 		system("cls");
-		displaySelectedYearForStaff(staff, student, schoolyear);
+		displaySelectedYear(staff, student, schoolyear);
 	}
 	else {
 		cout << "\n\n\t\t\t\tInvalid input. Try again..";
@@ -687,11 +687,11 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 			getline(in, pCur->Firstname, ',');
 			getline(in, pCur->Lastname, ',');
 			getline(in, pCur->Gender, ',');
+			getline(in, pCur->studentPassword, ',');
 			getline(in, pCur->DoB, ',');
-			getline(in, pCur->studentClass, ',');
 			in >> a;
 			pCur->SocialID = a;
-			getline(in, pCur->studentPassword, '\n');
+			getline(in, str, '\n');
 			pCur->studentClass = g_selectClass;
 			pCur->pNext = nullptr;
 		}
@@ -714,12 +714,12 @@ void studentInCourse(Course* course) {
 	out.open(filename, ios::app);
 	if (out) {
 		while (pCur != nullptr) {
+			out << pCur->studentInCourse->StudentID << ",";
 			out << pCur->studentInCourse->Firstname << ",";
 			out << pCur->studentInCourse->Lastname << ",";
 			out << pCur->studentInCourse->Gender << ",";
-			out << pCur->studentInCourse->StudentID << ",";
-			out << pCur->studentInCourse->SocialID << ",";
 			out << pCur->studentInCourse->studentClass << ",";
+			out << pCur->studentInCourse->SocialID << ",";
 			out << pCur->studentInCourse->DoB << endl;
 		}
 		out.close();
