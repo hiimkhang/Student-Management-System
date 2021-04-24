@@ -289,9 +289,9 @@ void displayStudentProfile(Student*& student, string path) {
     gotoXY(31, 27); cout << "ESC: Exit";
 
     string title;
-    string Firstname, Lastname, Gender, studentPassword, DoB, tempDoB;
+    string Firstname, Lastname, Gender, studentPassword, DoB, studentClass, tempDoB;
     long SocialID;
-    int ID, check = 1;
+    int ID, socialID, check = 1;
     ifstream in;
     ofstream out;
 
@@ -313,18 +313,16 @@ void displayStudentProfile(Student*& student, string path) {
                     getline(in, title, '\n');
                     out << title << endl;
                     for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+                        in >> ID;
+                        out << ID << ",";
+                        char z;
+                        in >> z;
                         getline(in, Firstname, ',');
                         out << Firstname << ",";
                         getline(in, Lastname, ',');
                         out << Lastname << ",";
                         getline(in, Gender, ',');
                         out << Gender << ",";
-                        in >> ID;
-                        out << ID << ",";
-                        char z;
-                        in >> z;
-                        getline(in, studentPassword, ',');
-                        out << studentPassword << ",";
                         getline(in, DoB, ',');
                         if (ID == pCur->StudentID) {
                             out << tempDoB << ",";
@@ -333,8 +331,12 @@ void displayStudentProfile(Student*& student, string path) {
                         else {
                             out << DoB << ",";
                         }
+                        getline(in, studentClass, ',');
+                        out << studentClass << ",";
                         in >> SocialID;
                         out << SocialID << "\n";
+                        getline(in, studentPassword, ',');
+                        out << studentPassword << "," << endl;
                     }
                     out.close();
                     in.close();

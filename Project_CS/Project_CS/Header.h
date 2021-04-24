@@ -83,6 +83,7 @@ void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
 void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
+void studentInCourse(Course* course);
 
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);

@@ -59,7 +59,7 @@ void getDataStudent(Student*& pHead, string filename) {
 	in.open(filename);
 	getline(in, t, '\n');
 	if (in.is_open()) {
-		string Firstname, Lastname, Gender ,studentPassword, DoB = "N/A";
+		string Firstname, Lastname, Gender ,studentPassword, studentClass, DoB;
 		int StudentID;
 		long SocialID;
 		Student* pCur = pHead;
@@ -79,17 +79,19 @@ void getDataStudent(Student*& pHead, string filename) {
 			getline(in, Lastname, ',');
 			getline(in, Gender, ',');
 			getline(in, DoB, ',');
-			getline(in, pCur->studentClass, ',');
+			getline(in, studentClass, ',');
 			in >> SocialID;
 			in >> z;
 			getline(in, studentPassword, '\n');
+
+			pCur->StudentID = StudentID;
 			pCur->Firstname = Firstname;
 			pCur->Lastname = Lastname;
 			pCur->Gender = Gender;
-			pCur->StudentID = StudentID;
-			pCur->studentPassword = studentPassword;
 			pCur->DoB = DoB;
+			pCur->studentClass = studentClass;
 			pCur->SocialID = SocialID;
+			pCur->studentPassword = studentPassword;
 			pCur->pNext = nullptr;
 		}
 		in.close();
@@ -704,6 +706,25 @@ char* getTime() {
 	time_t now = time(0);
 	char* dt = ctime(&now);
 	return dt;
+}
+void studentInCourse(Course* course) {
+	Course* pCur = course;
+	ofstream out;
+	string filename = course->courseName + "_course.csv";
+	out.open(filename, ios::app);
+	if (out) {
+		while (pCur != nullptr) {
+			out << pCur->studentInCourse->Firstname << ",";
+			out << pCur->studentInCourse->Lastname << ",";
+			out << pCur->studentInCourse->Gender << ",";
+			out << pCur->studentInCourse->StudentID << ",";
+			out << pCur->studentInCourse->SocialID << ",";
+			out << pCur->studentInCourse->studentClass << ",";
+			out << pCur->studentInCourse->DoB << endl;
+		}
+		out.close();
+	}
+	else cout << "\n\n\t\t\t\tERROR. Can't open file...";
 }
 
 
