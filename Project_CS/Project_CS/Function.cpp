@@ -924,6 +924,8 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 			in >> z;
 			in >> midterm_mark;
 			in >> z;
+			in >> other_mark;
+			in >> z;
 			while (schoolyear->semester->course->studentInCourse->StudentID != studentID) {
 				pCur->semester->course->studentInCourse->totalMark = total_mark;
 				pCur->semester->course->studentInCourse->finalMark = final_mark;

@@ -236,7 +236,6 @@ void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& scho
         }
         else {
             system("cls");
-            displaySchoolYear(staff,student, schoolyear);
             displaySchoolYearForStaff(staff, student, schoolyear);
         }
     }
@@ -765,7 +764,7 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
         cout << "\n\n\t\t\t\tLoading...";
         Sleep(2000);
         system("cls");
-        displaySelectedYear(student, schoolyear);
+        displaySchoolYearForStudent(staff, student, schoolyear);
     }
     else {
         cout << "\n\n\t\t\t\tInvalid input. Try again..";
