@@ -90,18 +90,20 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 bool loginStaff(Staff* staff);
 bool loginStudent(Student* student);
 
-
+// khi khoi tao student ko co hoc sinh nho xuong dong
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& schoolyear);
 void displayStaffProfile(Staff* staff);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentProfile(Student*& student, string path);
 void displayClass(SchoolYear* schoolyear);
 void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear);
 void displayYear(SchoolYear* pHead);
-string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear);
+string displaySelectedYearForStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
+string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
 void displayCourse(string path); // Phat
