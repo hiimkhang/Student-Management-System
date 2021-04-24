@@ -4,7 +4,7 @@
 extern string g_account;
 extern int g_ID;
 extern string g_selectyear;
-extern string g_class;
+extern int g_selectSemester;
 extern string g_selectClass;
 
 int numberOfLine(string filename) {
@@ -707,27 +707,122 @@ char* getTime() {
 	char* dt = ctime(&now);
 	return dt;
 }
-void studentInCourse(Course* course) {
-	Course* pCur = course;
+void exportListStudentInCourse(SchoolYear* schoolyear, string name_course) {
+	while (schoolyear->year != g_selectyear) {
+		schoolyear = schoolyear->pNext;
+	}
+	while (schoolyear->semester->no != g_selectSemester) {
+		schoolyear->semester = schoolyear->semester->pNext;
+	}
+	while (schoolyear->semester->course->courseName != name_course) {
+		schoolyear->semester->course = schoolyear->semester->course->pNext;
+	}
 	ofstream out;
-	string filename = course->courseName + "_course.csv";
+	string filename = schoolyear->semester->course->courseName + "_course.csv";
 	out.open(filename, ios::app);
 	if (out) {
-		while (pCur != nullptr) {
-			out << pCur->studentInCourse->StudentID << ",";
-			out << pCur->studentInCourse->Firstname << ",";
-			out << pCur->studentInCourse->Lastname << ",";
-			out << pCur->studentInCourse->Gender << ",";
-			out << pCur->studentInCourse->studentClass << ",";
-			out << pCur->studentInCourse->SocialID << ",";
-			out << pCur->studentInCourse->DoB << endl;
+		while (schoolyear->semester->course->studentInCourse) {
+			out << schoolyear->semester->course->studentInCourse->StudentID << ",";
+			out << schoolyear->semester->course->studentInCourse->Firstname << ",";
+			out << schoolyear->semester->course->studentInCourse->Lastname << ",";
+			out << schoolyear->semester->course->studentInCourse->Gender << ",";
+			out << schoolyear->semester->course->studentInCourse->studentClass << ",";
+			out << schoolyear->semester->course->studentInCourse->SocialID << ",";
+			out << schoolyear->semester->course->studentInCourse->DoB << endl;
+			cout << schoolyear->semester->course->studentInCourse->StudentID << ",";
+			cout << schoolyear->semester->course->studentInCourse->Firstname << ",";
+			cout << schoolyear->semester->course->studentInCourse->Lastname << ",";
+			cout << schoolyear->semester->course->studentInCourse->Gender << ",";
+			cout << schoolyear->semester->course->studentInCourse->studentClass << ",";
+			cout << schoolyear->semester->course->studentInCourse->SocialID << ",";
+			cout << schoolyear->semester->course->studentInCourse->DoB << endl;
 		}
 		out.close();
 	}
 	else cout << "\n\n\t\t\t\tERROR. Can't open file...";
 }
+//void createTemplateScoreboard(string path) {
+//	ofstream out;
+//	out.open(path);
+//	if (out) {
+//		out << "No" << "," << "student ID" << "," << "Student full name" << "," << "Total mark" << "," << "Final mark" << "," << "Midterm mark" << "," << "Other mark" << endl;
+//	else cout << "ERROR";
+//}
+void importScoreboard(string name_course){
+	cout << "Please input the link of your file csv: ";
+	string s;
+	getline(cin, s);
+	ifstream in;
+	ofstream out;
+	string t;
+	in.open(s);
+	if (in) {
+		getline(in, t);
+		out.open(g_selectyear + "_Semester" + to_string(g_selectSemester)+ name_course + ".csv", ios::app);
+		for (int i = 1; i <= numberOfLine(s) - 1; i++) {
+			getline(in, t);
+			out << t << endl;
+		}
+		out.close();
+		in.close();
+	}
+	else {
+		cout << "Can not open " << s;
+	}
+}
 
+void getDataScore(SchoolYear*& schoolyear, string path) {
+	int no, studentID;
+	float total_mark, final_mark, midterm_mark, other_mark;
+	string Student_full_name;
+	ifstream in;
+	SchoolYear* pCur = new SchoolYear;
+	in.open(path);
+	if(in){
+		for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+			if (schoolyear == nullptr) {
+				schoolyear = new SchoolYear;
+				pCur = schoolyear;
+			}
+			else {
+				pCur->pNext = new SchoolYear;
+				pCur = pCur->pNext;
+			}
+			in >> no;
+			char z;
+			in >> z;
+			in >> studentID;
+			getline(in, Student_full_name, ',');
+			in >> total_mark;
+			in >> z;
+			in >> final_mark;
+			in >> z;
+			in >> midterm_mark;
+			in >> z;
+			while (schoolyear->semester->course->studentInCourse->StudentID != studentID) {
+				pCur->semester->course->studentInCourse->totalMark = total_mark;
+				pCur->semester->course->studentInCourse->finalMark = final_mark;
+				pCur->semester->course->studentInCourse->midtermMark = midterm_mark;
+				pCur->semester->course->studentInCourse->otherMark = other_mark;
+				pCur->pNext = nullptr;
+			}
+		}
+	in.close();
+	}
+	else cout << "\t\t\t\t\nERROR \n";
+}
 
+void viewScore(SchoolYear *schoolyear) {
+	cout << schoolyear->semester->course->studentInCourse->Firstname << " ";
+	cout << schoolyear->semester->course->studentInCourse->Lastname << "\t";
+	cout << schoolyear->semester->course->studentInCourse->StudentID << "\t";
+	cout << schoolyear->semester->course->studentInCourse->Gender << "\t";
+	cout << schoolyear->semester->course->studentInCourse->totalMark << "\t";
+	cout << schoolyear->semester->course->studentInCourse->finalMark << "\t";
+	cout << schoolyear->semester->course->studentInCourse->midtermMark << "\t";
+	cout << schoolyear->semester->course->studentInCourse->otherMark << "\t";
+
+}
 //void getDataCourse(Course* course, string path) {
 //	ifstream in;
 //	string t;

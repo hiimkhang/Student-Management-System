@@ -13,6 +13,7 @@ using namespace std;
 
 struct Student {
     int No, StudentID, SocialID;
+    float totalMark, finalMark, midtermMark, otherMark;
     string studentPassword = "12345678";
     string Firstname, Lastname;
     string Gender;
@@ -52,9 +53,8 @@ struct Class {
 };
 
 struct Semester {
-    short no, school_year;
+    int no;
     string start_date, end_date, register_start_date, register_end_date, teacher_name;
-    int ID, number_of_credits;
     int max_NoS[50];
     Course* course;
     Semester* pNext;
@@ -83,8 +83,7 @@ void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
 void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
-void studentInCourse(Course* course);
-
+void exportListStudentInCourse(SchoolYear* schoolyear, string name_course);
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
 void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path);

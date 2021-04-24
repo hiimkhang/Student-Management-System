@@ -3,7 +3,7 @@
 extern string g_account;
 extern int g_ID;
 extern string g_selectyear;
-extern string g_class;
+extern int g_selectSemester;
 extern string g_selectClass;
 
 
