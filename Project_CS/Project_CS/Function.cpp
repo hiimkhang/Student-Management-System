@@ -640,7 +640,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 			cout << "\n\n\t\t\t\tPress any key to return...";
 			_getch();
 			system("cls");
-			displaySchoolYear(staff, student, schoolyear);
+			displaySchoolYearForStaff(staff, student, schoolyear);
 		}
 		
 	}
@@ -648,7 +648,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 		cout << "\n\n\t\t\t\tLoading...";
 		Sleep(2000);
 		system("cls");
-		displaySelectedYear(staff, student, schoolyear);
+		displaySelectedYearForStaff(staff, student, schoolyear);
 	}
 	else {
 		cout << "\n\n\t\t\t\tInvalid input. Try again..";
@@ -687,11 +687,11 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 			getline(in, pCur->Firstname, ',');
 			getline(in, pCur->Lastname, ',');
 			getline(in, pCur->Gender, ',');
-			getline(in, pCur->studentPassword, ',');
 			getline(in, pCur->DoB, ',');
+			getline(in, pCur->studentClass, ',');
 			in >> a;
 			pCur->SocialID = a;
-			getline(in, str, '\n');
+			getline(in, pCur->studentPassword, '\n');
 			pCur->studentClass = g_selectClass;
 			pCur->pNext = nullptr;
 		}
