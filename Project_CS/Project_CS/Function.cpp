@@ -685,11 +685,11 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 			getline(in, pCur->Firstname, ',');
 			getline(in, pCur->Lastname, ',');
 			getline(in, pCur->Gender, ',');
-			getline(in, pCur->studentPassword, ',');
 			getline(in, pCur->DoB, ',');
+			getline(in, pCur->studentClass, ',');
 			in >> a;
 			pCur->SocialID = a;
-			getline(in, str, '\n');
+			getline(in, pCur->studentPassword, '\n');
 			pCur->studentClass = g_selectClass;
 			pCur->pNext = nullptr;
 		}
