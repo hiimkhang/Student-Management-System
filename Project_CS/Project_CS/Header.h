@@ -13,6 +13,7 @@ using namespace std;
 
 struct Student {
     int No, StudentID, SocialID;
+    float totalMark, finalMark, midtermMark, otherMark;
     string studentPassword = "12345678";
     string Firstname, Lastname;
     string Gender;
@@ -53,9 +54,8 @@ struct Class {
 };
 
 struct Semester {
-    short no, school_year;
-    string start_date, end_date, register_start_date, register_end_date;
-    int ID, number_of_credits;
+    int no;
+    string start_date, end_date, register_start_date, register_end_date, teacher_name;
     int max_NoS[50];
     Course* course;
     Semester* pNext;
@@ -87,25 +87,27 @@ void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
 void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
-
+void exportListStudentInCourse(SchoolYear* schoolyear, string name_course);
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
 void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path);
 bool loginStaff(Staff* staff);
 bool loginStudent(Student* student);
 
-
+// khi khoi tao student ko co hoc sinh nho xuong dong
 // Display menus function
 void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displaySchoolYear(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& schoolyear);
 void displayStaffProfile(Staff* staff);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentProfile(Student*& student, string path);
 void displayClass(SchoolYear* schoolyear);
 void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear);
 void displayYear(SchoolYear* pHead);
-string displaySelectedYear(Student* student, SchoolYear* schoolyear);
+string displaySelectedYearForStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
+string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
 void displayCourseInSemester(SchoolYear*& schoolyear); // Phat

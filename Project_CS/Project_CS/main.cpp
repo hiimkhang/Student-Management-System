@@ -3,7 +3,7 @@
 string g_account;
 int g_ID;
 string g_selectyear;
-string g_class;
+int g_selectSemester;
 string g_selectClass;
 int g_selectSemester;
 string g_Time;
