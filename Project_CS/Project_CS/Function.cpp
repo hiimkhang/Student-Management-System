@@ -640,7 +640,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 			cout << "\n\n\t\t\t\tPress any key to return...";
 			_getch();
 			system("cls");
-			displaySchoolYear(staff, student, schoolyear);
+			displaySchoolYearForStaff(staff, student, schoolyear);
 		}
 		
 	}
@@ -648,7 +648,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 		cout << "\n\n\t\t\t\tLoading...";
 		Sleep(2000);
 		system("cls");
-		displaySelectedYear(staff, student, schoolyear);
+		displaySelectedYearForStaff(staff, student, schoolyear);
 	}
 	else {
 		cout << "\n\n\t\t\t\tInvalid input. Try again..";
