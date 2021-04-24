@@ -6,6 +6,7 @@ extern int g_ID;
 extern string g_selectyear;
 extern string g_class;
 extern string g_selectClass;
+extern int g_selectSemester;
 
 int numberOfLine(string filename) {
 	ifstream in;
@@ -470,48 +471,90 @@ void createClassForYear(SchoolYear*& Schoolyear){
 	}
 }
 
-void createSemester(SchoolYear* &Schoolyear) {
-	ofstream out;
+void createSemester(SchoolYear*& Schoolyear) {
+	getDataSemester(Schoolyear);
 	int no;
-		string start_date, end_date, register_start_date, register_end_date, teacher_name;
-		cout << "\nThis is for 1st, 2nd or 3rd semester? (Enter 1/2 or 3):";
-		cin >> no;
-		string path = Schoolyear->year + "_semester.txt";
-		out.open(path, ios::app);
-		while (no < 1 && no > 3) {
-			out << "\nError. Please input again: ";
-			cin >> no;
-		}
-		cin.ignore();
-		Semester* pcur = Schoolyear->semester;
-		while (pcur != nullptr) {
-			pcur = pcur->pNext;
-		}
+	string start_date, end_date, register_start_date, register_end_date;
+	cout << "\n\t\t\t\tEnter no of semester (1/2/3): ";
+	cin >> no; cin.ignore();
+	cout << "\n\t\t\t\tStart date: ";
+	getline(cin, start_date);
+	/*pcur->start_date = start_date;*/
+	cout << "\n\t\t\t\tEnd date: ";
+	getline(cin, end_date);
+	/*out << end_date << ",";
+	pcur->end_date = end_date;*/
+	cout << "\n\t\t\t\tRegister start date: ";
+	getline(cin, register_start_date);
+	/*out << register_start_date << ",";
+	pcur->register_start_date = register_start_date;*/
+	cout << "\n\t\t\t\tRegister end date: ";
+	getline(cin, register_end_date, '\n');
+	/*out << register_end_date << "\n";
+	pcur->register_end_date = register_end_date;*/
+
+
+	Semester* pcur = Schoolyear->semester;
+	while (pcur != nullptr && pcur->no != no) {
+		pcur = pcur->pNext;
+	}
+	if (pcur == nullptr) {
 		pcur = new Semester;
-		string t = "Semester";
-		t.push_back(char(no + 48));
-		out << t << ",";
-		cout << "\nStart date: ";
-		getline(cin, start_date);
-		out << start_date << ",";
-		pcur->start_date = start_date;
-		cout << "\nEnd date: ";
-		getline(cin, end_date);
-		out << end_date << ",";
-		pcur->end_date = end_date;
-		cout << "\nRegister start date: ";
-		getline(cin, register_start_date);
-		out << register_start_date << ",";
-		pcur->register_start_date = register_start_date;
-		cout << "\nRegister end date: ";
-		getline(cin, register_end_date);
-		out << register_end_date << ",";
-		pcur->register_end_date = register_end_date;
-		cout << "Teacher in charge: ";
-		getline(cin, teacher_name);
-		out << teacher_name << endl;
-		pcur->teacher_name = teacher_name;
-		out.close();
+		pcur->no = no;
+		pcur->pNext = nullptr;
+		ofstream out;
+		string path = g_selectyear + "_semester.txt";
+		out.open(path, ios::app);
+		if (out) {
+			out << no << ",";
+			out << start_date << ",";
+			out << end_date << ",";
+			out << register_start_date << ",";
+			out << register_end_date << "\n";
+			out.close();
+		}
+		cout << "\n\t\t\t\tAdd semester " << no << " successfully!";
+		Sleep(2000);
+	}
+	else {
+		cout << "\n\t\t\t\tSemester " << no << " is already exist";
+		Sleep(2000);
+	}
+}
+
+void getDataSemester(SchoolYear*& Schoolyear) {
+	Schoolyear->semester = nullptr;
+	ifstream in;
+	ofstream out;
+	Semester* pCur = Schoolyear->semester;
+	string filename = g_selectyear + "_semester.txt";
+	out.open(filename, ios::app);
+	if (out) {
+		in.open(filename);
+		if (in) {
+			for (int i = 1; i <= numberOfLine(filename); i++) {
+				if (Schoolyear->semester == nullptr) {
+					Schoolyear->semester = new Semester;
+					pCur = Schoolyear->semester;
+				}
+				else {
+					pCur->pNext = new Semester;
+					pCur = pCur->pNext;
+				}
+				in >> pCur->no;
+				char c;
+				in >> c;
+				getline(in, pCur->start_date, ',');
+				getline(in, pCur->end_date, ',');
+				getline(in, pCur->register_start_date, ',');
+				getline(in, pCur->register_end_date, '\n');
+				pCur->pNext = nullptr;
+			}
+			in.close();
+			out.close();
+		}
+		else cout << "ERROR\n";
+	}
 }
 
 void getDataClass(SchoolYear*& Schoolyear) {
@@ -560,8 +603,9 @@ void displayClass(SchoolYear* schoolyear) {
 	}
 }
 
+
 void inputStudent() {
-	cout << "Please input the link of your file csv: ";
+	cout << "\n\n\t\tPlease input the link of your csv.file (Ex:C:\\DocumentsClass\\20CTT1.csv):\n\t\t";
 	string s;
 	getline(cin, s);
 	ifstream in;
@@ -579,7 +623,8 @@ void inputStudent() {
 		in.close();
 	}
 	else {
-		cout << "Can not open " << s;
+		cout << "\n\n\t\tCan not open " << s;
+		Sleep(2000);
 	}
 	in.open(s);
 	if (in) {
@@ -591,9 +636,12 @@ void inputStudent() {
 		}
 		out.close();
 		in.close();
+		cout << "\t\tUpdate students from csv file successfully!";
+		Sleep(2000);
 	}
 	else {
-		cout << "Can not open " << s;
+		cout << "\n\n\t\tCan not open " << s;
+		Sleep(2000);
 	}
 }
 
@@ -613,7 +661,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 		displayMenuClass(staff, student, schoolyear);
 	}
 	else if (choice == "2") {
-		cout << "\n\n\t\t\t\tEnter the class you want to get access to: ";
+		cout << "\n\n\t\t\t\tEnter the class you want to get access into: ";
 		string class_name;
 		getline(cin, class_name, '\n');
 		getDataClass(schoolyear);
@@ -629,24 +677,12 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 			displayStudentInClass(schoolyear, student);
 			//displaySelectedYear(staff, student, schoolyear);
 		}
-		else {
-			cout << "\n\n\t\t\t\tClass " << class_name << " not found..";
-			if (pCur)
-				cout << "\n\n\t\t\t\tpCur->className at the moment is: " << pCur->className;
-			else cout << "\n\n\t\pCur = nullptr. Tai vi luc gan pCur = schoolyear->classes o dong 618 function.cpp"
-				" thi pCur da bang null roi, schoolyear->classes cung bang null luon.";
-			cout << "\n\n\t\t\t\tPress any key to return...";
-			_getch();
-			system("cls");
-			displaySchoolYear(staff, student, schoolyear);
-		}
-		
 	}
 	else if (choice == "3") {
 		cout << "\n\n\t\t\t\tLoading...";
 		Sleep(2000);
 		system("cls");
-		displaySelectedYear(staff, student, schoolyear);
+		displaySelectedYear(student, schoolyear);
 	}
 	else {
 		cout << "\n\n\t\t\t\tInvalid input. Try again..";
@@ -700,10 +736,99 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 	}
 }
 
-char* getTime() {
-	time_t now = time(0);
-	char* dt = ctime(&now);
-	return dt;
+void getDataCourseInSemester(SchoolYear*& schoolyear) {
+	ifstream in;
+	SchoolYear* pCur1 = schoolyear;
+	while (pCur1->semester && pCur1->semester->no != g_selectSemester) {
+		pCur1->semester = pCur1->semester->pNext;
+	}
+	pCur1->semester->course = nullptr;
+	Course* pCur = nullptr;
+	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
+	if (in) {
+		string str;
+		int a, credits, numberOfStudents;
+		char c;
+		getline(in, str);
+		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
+			if (pCur1->semester->course == nullptr) {
+				pCur1->semester->course = new Course;
+				pCur = schoolyear->semester->course;
+			}
+			else {
+				pCur->pNext = new Course;
+				pCur = pCur->pNext;
+			}
+			/*in >> a;
+			in >> c;
+			pCur->StudentID = a;
+			string title = { "Course name,Course ID,teacher name,credits,"
+			"number of students,day,time " };*/
+			getline(in, pCur->courseName, ',');
+			getline(in, pCur->courseID, ',');
+			getline(in, pCur->teacherName, ',');
+			in >> credits;
+			pCur->creditNum = credits;
+			in >> c;
+			in >> numberOfStudents;
+			pCur->numOfStudents = numberOfStudents;
+			in >> c;
+			getline(in, pCur->courseDate, ',');
+			getline(in, pCur->courseSession, '\n');
+			/*in >> a;
+			pCur->SocialID = a;
+			getline(in, str, '\n');
+			pCur->studentClass = g_selectClass;*/
+			pCur->pNext = nullptr;
+		}
+		in.close();
+	}
+	else {
+		cout << "ERROR\n";
+	}
+}
+
+string add0(string date) {
+	int i = 0;
+	string day, month, year;
+	while (date[i] != '/') {
+		day.push_back(date[i]);
+		i++;
+	}
+	i++;
+	while (date[i] != '/') {
+		month.push_back(date[i]);
+		i++;
+	}
+	i++;
+	while (date[i]) {
+		year.push_back(date[i]);
+		i++;
+	}
+	if (day.size() < 2) {
+		day = "0" + day;
+	}
+	if (month.size() < 2) {
+		month = "0" + month;
+	}
+	return day + '/' + month + '/' + year;
+}
+
+int date_cmp(const char* d1, const char* d2)
+{
+	int rc;
+	// compare years
+	rc = strncmp(d1 + 6, d2 + 6, 4);
+	if (rc != 0)
+		return rc;
+
+	// compare months
+	rc = strncmp(d1 + 3, d2 + 3, 2);
+	if (rc != 0)
+		return rc;
+
+	// compare days
+	return strncmp(d1, d2, 2);
 }
 
 

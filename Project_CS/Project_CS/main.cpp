@@ -5,10 +5,13 @@ int g_ID;
 string g_selectyear;
 string g_class;
 string g_selectClass;
+int g_selectSemester;
+string g_Time;
 
 int main() {
 	// load data
 	//inputStudent();
+	
 	fixConsoleWindow();
 	setConsoleWindow(800, 600);
 	Staff* staff = nullptr;

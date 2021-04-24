@@ -27,6 +27,7 @@ struct Course {
     string teacherName;
     int creditNum;
     int maxNum_ofStudents = 50;
+    int numOfStudents;
     string courseDate;
     string courseSession;
     Student* studentInCourse;
@@ -53,7 +54,7 @@ struct Class {
 
 struct Semester {
     short no, school_year;
-    string start_date, end_date, register_start_date, register_end_date, teacher_name;
+    string start_date, end_date, register_start_date, register_end_date;
     int ID, number_of_credits;
     int max_NoS[50];
     Course* course;
@@ -65,6 +66,7 @@ struct SchoolYear {
     Class* classes;
     SchoolYear* pNext;
     Semester* semester = nullptr;
+    Staff* staff;
 };
 
 
@@ -74,7 +76,9 @@ void getDataStaff(Staff* &pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
 void getDataStudent(Student*& pHead, string filename);
 void getDataClass(SchoolYear*& Schoolyear);
+void getDataSemester(SchoolYear*& schoolyear);
 void getDataStudentinClass(SchoolYear*& schoolyear);
+void getDataCourseInSemester(SchoolYear*& schoolyear);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);
@@ -101,14 +105,15 @@ void displayStudentProfile(Student*& student, string path);
 void displayClass(SchoolYear* schoolyear);
 void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear);
 void displayYear(SchoolYear* pHead);
-string displaySelectedYear(Staff* staff, Student* student, SchoolYear* schoolyear);
+string displaySelectedYear(Student* student, SchoolYear* schoolyear);
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
-void displayCourse(string path); // Phat
+void displayCourseInSemester(SchoolYear*& schoolyear); // Phat
 
 // Others
 int numberOfLine(string filename);
 void loadingSuccess();
 char* getTime();
-
+string add0(string date);
+int date_cmp(const char* d1, const char* d2);
 
