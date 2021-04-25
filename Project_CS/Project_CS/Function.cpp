@@ -917,7 +917,7 @@ void importScoreboard(string name_course){
 		in.close();
 	}
 	else {
-		cout << "Can not open " << s;
+		cout << "\n\n\t\t\t\tCan not open " << s;
 	}
 }
 
@@ -965,15 +965,18 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 }
 
 void viewScore(SchoolYear *schoolyear) {
-	cout << schoolyear->semester->course->studentInCourse->Firstname << " ";
-	cout << schoolyear->semester->course->studentInCourse->Lastname << "\t";
-	cout << schoolyear->semester->course->studentInCourse->StudentID << "\t";
-	cout << schoolyear->semester->course->studentInCourse->Gender << "\t";
-	cout << schoolyear->semester->course->studentInCourse->totalMark << "\t";
-	cout << schoolyear->semester->course->studentInCourse->finalMark << "\t";
-	cout << schoolyear->semester->course->studentInCourse->midtermMark << "\t";
-	cout << schoolyear->semester->course->studentInCourse->otherMark << "\t";
-
+	gotoXY(26, 5); cout << "\n\n\t\t\t\tVIEW SCOREBOARD";
+	if (schoolyear == nullptr) cout << "\n\n\t\tThere are currently no student in the course";
+	else {
+		cout << schoolyear->semester->course->studentInCourse->Firstname << " ";
+		cout << schoolyear->semester->course->studentInCourse->Lastname << "\t";
+		cout << schoolyear->semester->course->studentInCourse->StudentID << "\t";
+		cout << schoolyear->semester->course->studentInCourse->Gender << "\t";
+		cout << schoolyear->semester->course->studentInCourse->totalMark << "\t";
+		cout << schoolyear->semester->course->studentInCourse->finalMark << "\t";
+		cout << schoolyear->semester->course->studentInCourse->midtermMark << "\t";
+		cout << schoolyear->semester->course->studentInCourse->otherMark << "\n";
+	}
 }
 //void getDataCourse(Course* course, string path) {
 //	ifstream in;
