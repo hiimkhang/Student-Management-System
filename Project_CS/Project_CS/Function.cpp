@@ -541,7 +541,7 @@ void createSemester(SchoolYear*& Schoolyear) {
 		Sleep(2000);
 	}
 	else {
-		cout << "\n\t\t\t\tSemester " << no << " is already exist";
+		cout << "\n\t\t\t\tSemester " << no << " has already existed!";
 		Sleep(2000);
 	}
 }
