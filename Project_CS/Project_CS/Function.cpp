@@ -685,9 +685,9 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
 	string choice;
 	getDataClass(schoolyear);
 	displayClass(schoolyear);
-	cout << "\n\n\t\t\t\t1.Create class \n";
-	cout << "\n\n\t\t\t\t2.Get access in class \n";
-	cout << "\n\n\t\t\t\t3.Exit \n";
+	cout << "\n\n\t\t\t\t1. Create class \n";
+	cout << "\n\n\t\t\t\t2. Get access in class \n";
+	cout << "\n\n\t\t\t\t3. Exit \n";
 	cout << "\n\n\t\t\t\tEnter your choice: ";
 	cin >> choice; cin.ignore();
 	if (choice == "1") {
@@ -767,11 +767,11 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 		in.close();
 	}
 	else {
-		cout << "ERROR\n";
+		cout << "\t\t\t\t\nERROR\n";
 	}
 }
 
-void getDataCourseInSemester(SchoolYear*& schoolyear) {
+void getDataCoursesInSemester(SchoolYear*& schoolyear) {
 	ifstream in;
 	SchoolYear* pCur1 = schoolyear;
 	while (pCur1->semester && pCur1->semester->no != g_selectSemester) {
@@ -898,7 +898,7 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 		}
 		out.close();
 	}
-	else cout << "\n\n\t\t\t\tERROR. Can't open file...";
+	else cout << "\n\t\t\t\tERROR. Can't open file...";
 }
 //void createTemplateScoreboard(string path) {
 //	ofstream out;
@@ -908,28 +908,28 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 //	else cout << "ERROR";
 //}
 void importScoreboard(SchoolYear*& schoolyear){
-	cout << "Please input the link of your file csv: ";
+	cout << "\n\t\t\t\tPlease input the link of your file csv: ";
 	string s;
 	getline(cin, s);
 	ifstream in;
 	ofstream out;
-	string t;
+	string title;
 	string filename = g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv";
 	in.open(s);
 	if (in) {
-		getline(in, t);
+		getline(in, title);
 		out.open(filename, ios::app);
 		for (int i = 1; i <= numberOfLine(s) - 1; i++) {
-			getline(in, t);
-			out << t << endl;
+			getline(in, title);
+			out << title << endl;
 		}
 		out.close();
 		in.close();
+		getDataScore(schoolyear, filename);
 	}
 	else {
 		cout << "\n\n\t\t\t\tCan not open " << s;
 	}
-	getDataScore(schoolyear, filename);
 }
 
 void getDataScore(SchoolYear*& schoolyear, string path) {
@@ -949,12 +949,24 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 				pCur->pNext = new SchoolYear;
 				pCur = pCur->pNext;
 			}
-			while (schoolyear->year != g_selectyear)
-				schoolyear = schoolyear->pNext;
-			while (schoolyear->semester->no != g_selectSemester)
-				schoolyear->semester = schoolyear->semester->pNext;
-			while (schoolyear->semester->course->courseID != g_selectCourse)
-				schoolyear->semester->course = schoolyear->semester->course->pNext;
+			while (pCur && pCur->year != g_selectyear)
+				pCur = pCur->pNext;
+			if (pCur == nullptr) {
+				cout << "There is no schoolyear match your search";
+				return;
+			}
+			while (pCur->semester && pCur->semester->no != g_selectSemester)
+				pCur->semester = pCur->semester->pNext;
+			if (pCur->semester == nullptr) {
+				cout << "There is no semester match your search";
+				return;
+			}
+			while (pCur->semester->course->courseID != g_selectCourse)
+				pCur->semester->course = pCur->semester->course->pNext;
+			if (pCur->semester->course == nullptr) {
+				cout << "There is no course match your search";
+				return;
+			}
 			in >> no;
 			char z;
 			in >> z;
@@ -968,7 +980,7 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 			in >> z;
 			in >> other_mark;
 			in >> z;
-			while (schoolyear->semester->course->studentInCourse->StudentID != studentID) {
+			while (pCur->semester->course->studentInCourse->StudentID != studentID) {
 				pCur->semester->course->studentInCourse->totalMark = total_mark;
 				pCur->semester->course->studentInCourse->finalMark = final_mark;
 				pCur->semester->course->studentInCourse->midtermMark = midterm_mark;
@@ -983,12 +995,24 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 
 void viewScore(SchoolYear *schoolyear){
 	gotoXY(26, 5); cout << "\n\n\t\t\t\tVIEW SCOREBOARD";
-	while (schoolyear->year != g_selectyear)
+	while (schoolyear && schoolyear->year != g_selectyear)
 		schoolyear = schoolyear->pNext;
-	while (schoolyear->semester->no != g_selectSemester)
+	if (schoolyear == nullptr) {
+		cout << "There is no schoolyear match your search";
+		return;
+	}
+	while (schoolyear->semester && schoolyear->semester->no != g_selectSemester)
 		schoolyear->semester = schoolyear->semester->pNext;
+	if (schoolyear->semester == nullptr) {
+		cout << "There is no semester match your search";
+		return;
+	}
 	while (schoolyear->semester->course->courseID != g_selectCourse)
 		schoolyear->semester->course = schoolyear->semester->course->pNext;
+	if (schoolyear->semester->course == nullptr) {
+		cout << "There is no course match your search";
+		return;
+	}
 	Student* pCur = schoolyear->semester->course->studentInCourse;
 		if (pCur == nullptr) cout << "\n \n\t\tThere are currently no student in the course";
 		else{
@@ -1004,6 +1028,9 @@ void viewScore(SchoolYear *schoolyear){
 				pCur = pCur->pNext;
 			}
 		}
+		cout << "\t\t\t\t\nPress any key to continue";
+		char z;
+		cin >> z;
 }
 
 void enroll(SchoolYear* &schoolyear) {
@@ -1020,7 +1047,7 @@ void getDataStudentInCourse(SchoolYear*& schoolyear) {
 	while (pCur1->semester->course && pCur1->semester->course->courseID != g_selectCourse) {
 		pCur1->semester->course = pCur1->semester->course->pNext;
 	}
-	pCur1->semester->course->studentInCourse = nullptr;
+	pCur1->semester->course->studentInCourse == nullptr;
 	Student* pCur = nullptr;
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv");
 	if (in) {
