@@ -501,28 +501,31 @@ void createSemester(SchoolYear*& Schoolyear) {
 	string start_date, end_date, register_start_date, register_end_date;
 	cout << "\n\t\t\t\tEnter no of semester (1/2/3): ";
 	cin >> no; cin.ignore();
-	cout << "\n\t\t\t\tStart date: ";
+	/*cout << "\n\t\t\t\tStart date: ";
 	getline(cin, start_date);
-	/*pcur->start_date = start_date;*/
 	cout << "\n\t\t\t\tEnd date: ";
 	getline(cin, end_date);
-	/*out << end_date << ",";
-	pcur->end_date = end_date;*/
+
 	cout << "\n\t\t\t\tRegister start date: ";
 	getline(cin, register_start_date);
-	/*out << register_start_date << ",";
-	pcur->register_start_date = register_start_date;*/
+	
 	cout << "\n\t\t\t\tRegister end date: ";
 	getline(cin, register_end_date, '\n');
-	/*out << register_end_date << "\n";
-	pcur->register_end_date = register_end_date;*/
-
+	*/
 
 	Semester* pcur = Schoolyear->semester;
 	while (pcur != nullptr && pcur->no != no) {
 		pcur = pcur->pNext;
 	}
 	if (pcur == nullptr) {
+		cout << "\n\t\t\t\tStart date: ";
+		getline(cin, start_date);
+		cout << "\n\t\t\t\tEnd date: ";
+		getline(cin, end_date);
+		cout << "\n\t\t\t\tRegister start date: ";
+		getline(cin, register_start_date);
+		cout << "\n\t\t\t\tRegister end date: ";
+		getline(cin, register_end_date, '\n');
 		pcur = new Semester;
 		pcur->no = no;
 		pcur->pNext = nullptr;
@@ -789,14 +792,14 @@ void getDataCourseInSemester(SchoolYear*& schoolyear) {
 			/*in >> a;
 			in >> c;
 			pCur->StudentID = a;
-			string title = { "Course name,Course ID,teacher name,credits,"
+			string title = { "Course name,Course ID,credits,teacher name,"
 			"number of students,day,time " };*/
 			getline(in, pCur->courseName, ',');
 			getline(in, pCur->courseID, ',');
-			getline(in, pCur->teacherName, ',');
 			in >> credits;
 			pCur->creditNum = credits;
 			in >> c;
+			getline(in, pCur->teacherName, ',');	
 			in >> numberOfStudents;
 			pCur->numOfStudents = numberOfStudents;
 			in >> c;

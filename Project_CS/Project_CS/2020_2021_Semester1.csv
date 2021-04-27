@@ -1,1 +1,5 @@
-Course name,Course ID,teacher name,credits,number of students,day,time 
+Course name,Course ID,credits,teacher name,credits,number of students,day,time
+Introduction to CS,CS161,4,N.H Minh,47,MON & TUE,7:30 & 7:30
+General Physics I,PH212,4,Van,45,TUE & WED,7:30 & 7:30
+Calculus I,MTH251,4,Vu to,46,WED & FRI,7:30 & 13:30
+Counter Strike,CS:GO,5,Mai Nam Hai,6,EVERYDAY,13:30 & 15:30

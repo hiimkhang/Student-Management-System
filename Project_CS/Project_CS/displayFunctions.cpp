@@ -825,21 +825,24 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     ofstream out;
     ifstream in;
     int y = 16, No = 0, check = 1;
-    /*in.open("student.csv");
-    string str;
-    getline(in, str);
-    in.close();*/
-    string title = { "Course name,Course ID,teacher name,credits,"
-    "number of students,day,time " };
-    out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv", ios::app);
-    if (numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") == 0) {
+  
+    string title = { "Course name,Course ID,credits,teacher name,credits,"
+    "number of students,day,time" };
+
+    string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
+
+    out.open(path, ios::app);
+    if (numberOfLine(path) == 0) {
         out << title << endl;
     }
     out.close();
+
     getDataCourseInSemester(schoolyear);
     Semester* tempSemester = schoolyear->semester;
     while (tempSemester && tempSemester->no != g_selectSemester)
         tempSemester = tempSemester->pNext;
+
+    Course* tempCourse = tempSemester->course; // Will be used to add course later;
 
     if (g_Time != "") {
         gotoXY(26, 4); cout << "Date: " << g_Time;
@@ -857,15 +860,17 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     gotoXY(76, 12); cout << "Day";
     gotoXY(88, 12); cout << "Session";
 
+    gotoXY(02, 14); cout << "===================================================="
+        "===============================================";
 
-    if (numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") == 1) {
-        gotoXY(05, 14); cout << "N/A";
-        gotoXY(30, 14); cout << "N/A";
-        gotoXY(42, 14); cout << "N/A";
-        gotoXY(52, 14); cout << "N/A";
-        gotoXY(70, 14); cout << "N/A";
-        gotoXY(76, 14); cout << "N/A";
-        gotoXY(88, 14); cout << "N/A";
+    if (numberOfLine(path) == 1) {
+        gotoXY(05, 16); cout << "N/A";
+        gotoXY(30, 16); cout << "N/A";
+        gotoXY(42, 16); cout << "N/A";
+        gotoXY(52, 16); cout << "N/A";
+        gotoXY(70, 16); cout << "N/A";
+        gotoXY(76, 16); cout << "N/A";
+        gotoXY(88, 16); cout << "N/A";
     }
     else {
         while (tempSemester->course) {
@@ -880,6 +885,9 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
             tempSemester->course = tempSemester->course->pNext;
         }
     }
+
+    string courseName, courseID, teacherName, DoW, session1, session2;
+    int credit, NoS;
   
     gotoXY(31, y + 4); cout << "1. Add course";
     gotoXY(31, y + 5); cout << "2. Update course information";
@@ -891,6 +899,82 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     switch (choice) {
     case '1':
         // Add course;
+        system("cls");
+        if (g_Time != "") {
+            gotoXY(26, 4); cout << "Date: " << g_Time;
+        }
+        gotoXY(26, 5); cout << "=======================================================";
+        Textcolor(Blue);
+        gotoXY(48, 8); cout << "SEMESTER " << g_selectSemester;
+        gotoXY(46, 10); cout << "ADDING  COURSE";
+        Textcolor(7);
+
+        tempSemester->course = new Course;
+
+        gotoXY(30, 12); cout << "Course name: ";
+        getline(cin, courseName, '\n');
+        gotoXY(30, 14); cout << "Course ID: ";
+        getline(cin, courseID, '\n');
+
+        while (tempCourse && (tempCourse->courseName != courseName 
+            && tempCourse->courseID != courseID))
+            tempCourse = tempCourse->pNext;
+
+        if (tempCourse) {
+            gotoXY(30, 16); cout << "This course already exists!";
+            Sleep(2000);
+            system("cls");
+            displayCourseInSemester(schoolyear);
+            return;
+        }
+
+        gotoXY(30, 16); cout << "Number of credit: ";
+        cin >> credit; cin.ignore();
+        gotoXY(30, 18); cout << "Teacher in charge: ";
+        getline(cin, teacherName, '\n');
+        gotoXY(30, 20); cout << "Number of student: ";
+        cin >> NoS; cin.ignore();
+        gotoXY(30, 23); cout << "(If there is more than one day, separate with &, ex: TUE & WED)";
+        gotoXY(30, 22); cout << "Day of the week: ";
+        getline(cin, DoW, '\n');
+        gotoXY(70, 25); cout << "There are 4 sessions available";
+        gotoXY(80, 26); cout << "07:30"; gotoXY(89, 26); cout << "09:30";
+        gotoXY(80, 27); cout << "13:30"; gotoXY(89, 27); cout << "15:30";
+        gotoXY(30, 25); cout << "First session: ";
+        getline(cin, session1, '\n');
+        cout << endl;
+        while (session1 != "7:30" && session1 != "07:30" &&
+            session1 != "9:30" && session1 != "09:30" &&
+            session1 != "13:30" && session1 != "15:30") {
+            cout << "\t\t\t      Invalid input, try again: ";
+            getline(cin, session1, '\n');
+        }
+        cout << "\n\t\t\t      Second session: ";
+        getline(cin, session2, '\n');
+        cout << endl;
+        while (session2 != "7:30" && session2 != "07:30" &&
+            session2 != "9:30" && session2 != "09:30" &&
+            session2 != "13:30" && session2 != "15:30") {
+            cout << "\t\t\t      Invalid input, try again: ";
+            getline(cin, session2, '\n');
+        }
+
+        out.open(path, ios::app);
+        if (out) {
+            out << courseName << ",";
+            out << courseID << ",";
+            out << credit << ",";
+            out << teacherName << ",";
+            out << NoS << ",";
+            out << DoW << ",";
+            out << session1 + " & " + session2 << "\n";
+            out.close();
+            cout << "\n\t\t\t      Course has been add successfully!";
+        }
+        else cout << "\n\t\t\t      Unable to open file " << path;
+        Sleep(2500);
+        system("cls");
+        displayCourseInSemester(schoolyear);
         break;
     case '2':
         // Update course info;
