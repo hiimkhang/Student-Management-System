@@ -88,6 +88,7 @@ void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path
 void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear, string name_course);
+
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
 void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path);
@@ -111,6 +112,7 @@ string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear*
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
 void displayCourseInSemester(SchoolYear*& schoolyear); // Phat
+void viewScore(SchoolYear* schoolyear);
 
 // Others
 int numberOfLine(string filename);
