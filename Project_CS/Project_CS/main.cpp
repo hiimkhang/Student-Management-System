@@ -4,6 +4,7 @@ string g_account;
 int g_ID;
 string g_selectyear;
 string g_selectClass;
+string g_selectCourse;
 int g_selectSemester;
 string g_Time;
 

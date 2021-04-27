@@ -79,6 +79,7 @@ void getDataClass(SchoolYear*& Schoolyear);
 void getDataSemester(SchoolYear*& schoolyear);
 void getDataStudentinClass(SchoolYear*& schoolyear);
 void getDataCourseInSemester(SchoolYear*& schoolyear);
+void getDataStudentInCourse(SchoolYear*& schoolyear);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);
@@ -88,6 +89,8 @@ void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path
 void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear, string name_course);
+void enroll(SchoolYear* &schoolyear);
+
 
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);

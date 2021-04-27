@@ -6,6 +6,7 @@ extern int g_ID;
 extern string g_selectyear;
 extern int g_selectSemester;
 extern string g_selectClass;
+extern string g_selectCourse;
 extern int g_selectSemester;
 extern string g_Time;
 
@@ -56,6 +57,7 @@ void getDataStaff(Staff* &pHead, string filename) {
 }
 
 void getDataStudent(Student*& pHead, string filename) {
+	pHead = nullptr;
 	ifstream in;
 	string t;
 	in.open(filename);
@@ -361,7 +363,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 	gotoXY(32, 14); cout << "Enter your old password: ";
 	string oldPass;
 	string title;
-	string Firstname, Lastname, Gender, studentPassword, DoB;
+	string Firstname, Lastname, Gender, studentPassword, DoB, studentClass;
 	int ID;
 	long SocialID;
 	getline(cin, oldPass, '\n');
@@ -391,28 +393,31 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 				getline(in, title, '\n');
 				out << title << endl;
 				for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+					in >> ID;
+					out << ID << ",";
+					char z;
+					in >> z;
 					getline(in, Firstname, ',');
 					out << Firstname << ",";
 					getline(in, Lastname, ',');
 					out << Lastname << ",";
 					getline(in, Gender, ',');
 					out << Gender << ",";
-					in >> ID;
-					out << ID << ",";
-					char z;
-					in >> z;		
-					getline(in, studentPassword, ',');
+					getline(in, DoB, ',');
+					out << DoB << ",";
+					getline(in, studentClass, ',');
+					out << studentClass << ",";
+					in >> SocialID;
+					out << SocialID << ",";
+					in >> z;
+					getline(in, studentPassword, '\n');
 					if (ID == pCur->StudentID) {
-						out << newPass << ",";
+						out << newPass << "\n";
 						pCur->studentPassword = newPass;
 					}
 					else {
-						out << studentPassword << ",";
+						out << studentPassword << "\n";
 					}
-					getline(in, DoB, ',');
-					out << DoB << ",";
-					in >> SocialID;
-					out << SocialID << "\n";
 				}
 				out.close();
 				in.close();
@@ -501,28 +506,31 @@ void createSemester(SchoolYear*& Schoolyear) {
 	string start_date, end_date, register_start_date, register_end_date;
 	cout << "\n\t\t\t\tEnter no of semester (1/2/3): ";
 	cin >> no; cin.ignore();
-	cout << "\n\t\t\t\tStart date: ";
+	/*cout << "\n\t\t\t\tStart date: ";
 	getline(cin, start_date);
-	/*pcur->start_date = start_date;*/
 	cout << "\n\t\t\t\tEnd date: ";
 	getline(cin, end_date);
-	/*out << end_date << ",";
-	pcur->end_date = end_date;*/
+
 	cout << "\n\t\t\t\tRegister start date: ";
 	getline(cin, register_start_date);
-	/*out << register_start_date << ",";
-	pcur->register_start_date = register_start_date;*/
+	
 	cout << "\n\t\t\t\tRegister end date: ";
 	getline(cin, register_end_date, '\n');
-	/*out << register_end_date << "\n";
-	pcur->register_end_date = register_end_date;*/
-
+	*/
 
 	Semester* pcur = Schoolyear->semester;
 	while (pcur != nullptr && pcur->no != no) {
 		pcur = pcur->pNext;
 	}
 	if (pcur == nullptr) {
+		cout << "\n\t\t\t\tStart date: ";
+		getline(cin, start_date);
+		cout << "\n\t\t\t\tEnd date: ";
+		getline(cin, end_date);
+		cout << "\n\t\t\t\tRegister start date: ";
+		getline(cin, register_start_date);
+		cout << "\n\t\t\t\tRegister end date: ";
+		getline(cin, register_end_date, '\n');
 		pcur = new Semester;
 		pcur->no = no;
 		pcur->pNext = nullptr;
@@ -789,14 +797,14 @@ void getDataCourseInSemester(SchoolYear*& schoolyear) {
 			/*in >> a;
 			in >> c;
 			pCur->StudentID = a;
-			string title = { "Course name,Course ID,teacher name,credits,"
+			string title = { "Course name,Course ID,credits,teacher name,"
 			"number of students,day,time " };*/
 			getline(in, pCur->courseName, ',');
 			getline(in, pCur->courseID, ',');
-			getline(in, pCur->teacherName, ',');
 			in >> credits;
 			pCur->creditNum = credits;
 			in >> c;
+			getline(in, pCur->teacherName, ',');	
 			in >> numberOfStudents;
 			pCur->numOfStudents = numberOfStudents;
 			in >> c;
@@ -976,6 +984,45 @@ void viewScore(SchoolYear *schoolyear) {
 		cout << schoolyear->semester->course->studentInCourse->finalMark << "\t";
 		cout << schoolyear->semester->course->studentInCourse->midtermMark << "\t";
 		cout << schoolyear->semester->course->studentInCourse->otherMark << "\n";
+	}
+}
+
+void enroll(SchoolYear* &schoolyear) {
+	ofstream out;
+	out.open(g_selectyear + "_semester" + to_string(g_selectSemester) + "_" + g_selectCourse + ".txt");
+	out << g_ID << endl;
+	out.close();
+	getDataStudentinClass(schoolyear);
+}
+
+void getDataStudentInCourse(SchoolYear*& schoolyear) {
+	ifstream in;
+	SchoolYear* pCur1 = schoolyear;
+	while (pCur1->semester->course && pCur1->semester->course->courseName != g_selectCourse) {
+		pCur1->semester->course = pCur1->semester->course->pNext;
+	}
+	pCur1->semester->course->studentInCourse = nullptr;
+	Student* pCur = nullptr;
+	in.open(g_selectyear + "_semester" + to_string(g_selectSemester) + "_" + g_selectCourse + ".txt");
+	if (in) {
+		string str;
+		for (int i = 1; i <= numberOfLine(g_selectyear + "_semester" + to_string(g_selectSemester) + "_" + g_selectCourse + ".txt") - 1; i++) {
+			if (pCur1->semester->course->studentInCourse == nullptr) {
+				pCur1->semester->course->studentInCourse = new Student;
+				pCur = pCur1->semester->course->studentInCourse;
+			}
+			else {
+				pCur->pNext = new Student;
+				pCur = pCur->pNext;
+			}
+			in >> pCur->StudentID;
+			getline(in, str, '\n');
+			pCur->pNext = nullptr;
+		}
+		in.close();
+	}
+	else {
+		cout << "ERROR\n";
 	}
 }
 //void getDataCourse(Course* course, string path) {
