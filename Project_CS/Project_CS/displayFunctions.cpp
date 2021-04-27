@@ -49,6 +49,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
         break;
     case '2':
         system("cls");
+        getDataStudent(student, "student.csv");
         if (loginStudent(student)) {
             loadingSuccess();
             system("cls");

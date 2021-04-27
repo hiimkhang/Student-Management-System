@@ -361,7 +361,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 	gotoXY(32, 14); cout << "Enter your old password: ";
 	string oldPass;
 	string title;
-	string Firstname, Lastname, Gender, studentPassword, DoB;
+	string Firstname, Lastname, Gender, studentPassword, DoB, studentClass;
 	int ID;
 	long SocialID;
 	getline(cin, oldPass, '\n');
@@ -391,28 +391,31 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 				getline(in, title, '\n');
 				out << title << endl;
 				for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+					in >> ID;
+					out << ID << ",";
+					char z;
+					in >> z;
 					getline(in, Firstname, ',');
 					out << Firstname << ",";
 					getline(in, Lastname, ',');
 					out << Lastname << ",";
 					getline(in, Gender, ',');
 					out << Gender << ",";
-					in >> ID;
-					out << ID << ",";
-					char z;
-					in >> z;		
-					getline(in, studentPassword, ',');
+					getline(in, DoB, ',');
+					out << DoB << ",";
+					getline(in, studentClass, ',');
+					out << studentClass;
+					in >> SocialID;
+					out << SocialID << ",";
+					in >> z;
+					getline(in, studentPassword, '\n');
 					if (ID == pCur->StudentID) {
-						out << newPass << ",";
+						out << newPass << "\n";
 						pCur->studentPassword = newPass;
 					}
 					else {
-						out << studentPassword << ",";
+						out << studentPassword << "\n";
 					}
-					getline(in, DoB, ',');
-					out << DoB << ",";
-					in >> SocialID;
-					out << SocialID << "\n";
 				}
 				out.close();
 				in.close();
