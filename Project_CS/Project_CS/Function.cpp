@@ -56,6 +56,7 @@ void getDataStaff(Staff* &pHead, string filename) {
 }
 
 void getDataStudent(Student*& pHead, string filename) {
+	pHead = nullptr;
 	ifstream in;
 	string t;
 	in.open(filename);
@@ -404,7 +405,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 					getline(in, DoB, ',');
 					out << DoB << ",";
 					getline(in, studentClass, ',');
-					out << studentClass;
+					out << studentClass << ",";
 					in >> SocialID;
 					out << SocialID << ",";
 					in >> z;

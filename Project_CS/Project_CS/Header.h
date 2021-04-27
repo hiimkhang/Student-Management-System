@@ -88,6 +88,8 @@ void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path
 void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear, string name_course);
+void enroll(SchoolYear* schoolyear);
+
 
 // Login Functions
 void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
