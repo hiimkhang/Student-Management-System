@@ -80,7 +80,7 @@ void getDataClass(SchoolYear*& Schoolyear);
 void getDataSemester(SchoolYear*& schoolyear);
 void getDataStudentinClass(SchoolYear*& schoolyear);
 void getDataCoursesInSemester(SchoolYear*& schoolyear);
-void getDataStudentInCourse(SchoolYear*& schoolyear);
+void getDataStudentInCourse(Student*& studentincourse);
 void getDataScore(SchoolYear*& schoolyear, string path);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
