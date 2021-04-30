@@ -65,6 +65,7 @@ struct SchoolYear {
     string year;
     Class* classes;
     SchoolYear* pNext;
+    Student* student;
     Semester* semester = nullptr;
     Staff* staff;
 };
@@ -115,12 +116,13 @@ string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear*
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
 void displayCourseInSemester(SchoolYear*& schoolyear); // Phat
+void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
 void viewScore(SchoolYear* schoolyear);
+
 
 // Others
 int numberOfLine(string filename);
 void loadingSuccess();
-char* getTime();
 string add0(string date);
 int date_cmp(const char* d1, const char* d2);
 void sortedList(struct Semester** head_ref, struct Semester* new_node);

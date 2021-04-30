@@ -4,6 +4,7 @@ extern string g_account;
 extern int g_ID;
 extern string g_selectyear;
 extern string g_selectClass;
+extern string g_selectCourse;
 extern int g_selectSemester;
 extern string g_Time;
 
@@ -698,7 +699,13 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
             cout << "\n\n\t\t\t\tEntering semester " << no << "...";
             Sleep(2000);
             system("cls");
-            displayCourseInSemester(schoolyear);
+            if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
+                && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0)
+                displayCourseInSemester(schoolyear);
+            else {
+                system("cls");
+                
+            }
             //displaySelectedYear(staff, student, schoolyear);
         }
         else {
@@ -883,63 +890,129 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     case '3':
         // Delete course;
         break;
+    case '4':
+        system("cls");
+        displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
+        break;
+    default:
+        gotoXY(31, y + 10); cout << "Try again in 2...";
+        Sleep(1000);
+        gotoXY(31, y + 10); cout << "Try again in 1...";
+        Sleep(1000);
+        system("cls");
+        displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
+        break;
     }
 }
 
-    
+void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
+    ofstream out;
+    ifstream in;
+    int y = 16, No = 0, check = 1;
 
+    string title = { "Course name,Course ID,credits,teacher name,credits,"
+    "number of students,day,time" };
 
-    /*if (pCur->DoB == "N/A") { 
-        gotoXY(31, 24); cout << "Do you want to update your date of birth?\n(y/n): ";
+    string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
 
-        string choice; cin >> choice; cin.ignore();
-        if (choice == "y" || choice == "Y") {
-            string title;
-            string Firstname, Lastname, Gender, studentPassword, DoB, tempDoB;
-            int ID;
-            cout << "\n\nEnter your Date of birth (dd/mm/yyyy): ";
-            getline(cin, tempDoB, '\n');
-            ifstream in;
-            ofstream out;
-            in.open(path);
-            if (in) {
-                out.open("tempStudent.csv");
-                getline(in, title, '\n');
-                out << title << endl;
-                for (int i = 1; i <= numberOfLine(path) - 1; i++) {
-                    getline(in, Firstname, ',');
-                    out << Firstname << ",";
-                    getline(in, Lastname, ',');
-                    out << Lastname << ",";
-                    getline(in, Gender, ',');
-                    out << Gender << ",";
-                    in >> ID;
-                    out << ID << ",";
-                    char z;
-                    in >> z;
-                    getline(in, studentPassword, ',');
-                    out << studentPassword << ",";
-                    getline(in, DoB, '\n');
-                    if (ID == pCur->StudentID) {
-                        out << tempDoB << endl;
-                        pCur->DoB = tempDoB;
-                    }
-                    else {
-                        out << DoB << endl;
-                    }
-                }
-                out.close();
-                in.close();
-                remove("Student.csv");
-                rename("tempStudent.csv", "Student.csv");
-                cout << "\n\nDate of birth updated successfully!";
-            }
-            else {
-                cout << "\n\nCan't not open " << path << ", return after 3 seconds..";
-                Sleep(3000);
-                displayStudentProfile(pCur, path);
-            }
+    out.open(path, ios::app);
+    if (numberOfLine(path) == 0) {
+        out << title << endl;
+    }
+    out.close();
+
+    getDataCourseInSemester(schoolyear);
+    Semester* tempSemester = schoolyear->semester;
+    while (tempSemester && tempSemester->no != g_selectSemester)
+        tempSemester = tempSemester->pNext;
+
+    Course* tempCourse = tempSemester->course; // Will be used to add course later;
+
+    if (g_Time != "") {
+        gotoXY(26, 4); cout << "Date: " << g_Time;
+    }
+    gotoXY(26, 5); cout << "=======================================================";
+    Textcolor(Blue);
+    gotoXY(48, 8); cout << "SEMESTER " << g_selectSemester;
+    Textcolor(7);
+
+    gotoXY(05, 12); cout << "Course name";
+    gotoXY(30, 12); cout << "Course ID";
+    gotoXY(42, 12); cout << "Credits";
+    gotoXY(52, 12); cout << "Teacher";
+    gotoXY(70, 12); cout << "NoS";
+    gotoXY(76, 12); cout << "Day";
+    gotoXY(88, 12); cout << "Session";
+
+    gotoXY(02, 14); cout << "===================================================="
+        "===============================================";
+
+    if (numberOfLine(path) == 1) {
+        gotoXY(05, 16); cout << "N/A";
+        gotoXY(30, 16); cout << "N/A";
+        gotoXY(42, 16); cout << "N/A";
+        gotoXY(52, 16); cout << "N/A";
+        gotoXY(70, 16); cout << "N/A";
+        gotoXY(76, 16); cout << "N/A";
+        gotoXY(88, 16); cout << "N/A";
+    }
+    else {
+        while (tempSemester->course) {
+            gotoXY(05, y); cout << tempSemester->course->courseName;
+            gotoXY(30, y); cout << tempSemester->course->courseID;
+            gotoXY(42, y); cout << tempSemester->course->creditNum;
+            gotoXY(52, y); cout << tempSemester->course->teacherName;
+            gotoXY(70, y); cout << tempSemester->course->numOfStudents;
+            gotoXY(76, y); cout << tempSemester->course->courseDate;
+            gotoXY(88, y); cout << tempSemester->course->courseSession;
+            y++; No++;
+            tempSemester->course = tempSemester->course->pNext;
         }
-    }    */    
-
+    }
+    gotoXY(31, y + 4); cout << "1. Export list of student into a csv file";
+    gotoXY(31, y + 5); cout << "2. Import score board";
+    gotoXY(31, y + 6); cout << "3. View scoreboard";
+    gotoXY(31, y + 7); cout << "4. Update a student result";
+    gotoXY(31, y + 8); cout << "5. Exit";
+    gotoXY(31, y + 9); cout << "Enter your choice: ";
+    char choice = getchar();
+    string courseID;
+    int studentID;
+    cin.ignore(100, '\n'); 
+    switch (choice) {
+    case '1': // Sonw
+        gotoXY(73, y + 4); cout << ": Enter course ID: ";
+        getline(cin, courseID, '\n');
+        g_selectCourse = courseID;
+        //displayyy...
+        break;
+    case '2': // Mountain
+        gotoXY(53, y + 5); cout << ": Enter course ID: ";
+        getline(cin, courseID, '\n');
+        g_selectCourse = courseID;
+        break;
+    case '3': // Som
+        gotoXY(50, y + 6); cout << ": Enter course ID: ";
+        getline(cin, courseID, '\n');
+        g_selectCourse = courseID;
+    case '4': // Khang
+        gotoXY(73, y + 4); cout << ": Enter student ID: ";
+        cin >> studentID; cin.ignore();
+        break;
+    case '5':
+        system("cls");
+        Sleep(2000);
+        displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
+        break;
+    default:
+        gotoXY(31, y + 11); cout << "Try again in 2...";
+        Sleep(1000);
+        gotoXY(31, y + 11); cout << "Try again in 1...";
+        Sleep(1000);
+        system("cls");
+        displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
+        break;
+    }
+    
+}
 
