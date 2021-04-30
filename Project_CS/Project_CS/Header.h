@@ -90,7 +90,7 @@ void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
 void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
-void exportListStudentInCourse(SchoolYear* schoolyear, string name_course);
+void exportListStudentInCourse(SchoolYear* schoolyear);
 void enroll(SchoolYear* &schoolyear);
 void importScoreboard(SchoolYear*& schoolyear);
 

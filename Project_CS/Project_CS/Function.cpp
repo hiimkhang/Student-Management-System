@@ -866,19 +866,23 @@ int date_cmp(const char* d1, const char* d2)
 	return strncmp(d1, d2, 2);
 }
 void exportListStudentInCourse(SchoolYear* schoolyear) {
+	cout << "The list of course: \n";
+	
 	while (schoolyear->year != g_selectyear) {
 		schoolyear = schoolyear->pNext;
 	}
 	while (schoolyear->semester->no != g_selectSemester) {
 		schoolyear->semester = schoolyear->semester->pNext;
 	}
+	getDataCoursesInSemester(schoolyear);
 	while (schoolyear->semester->course->courseID != g_selectCourse) {
 		schoolyear->semester->course = schoolyear->semester->course->pNext;
 	}
 	ofstream out;
-	string filename = g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv";
+	string filename = g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv";
 	out.open(filename, ios::app);
-	Student *pCur = schoolyear->semester->course->studentInCourse;
+	getDataStudentInCourse(schoolyear);
+	Student* pCur = schoolyear->semester->course->studentInCourse;
 	if (out) {
 		while (pCur) {
 			out << pCur->StudentID << ",";
@@ -914,7 +918,7 @@ void importScoreboard(SchoolYear*& schoolyear){
 	ifstream in;
 	ofstream out;
 	string title;
-	string filename = g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv";
+	string filename = g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv";
 	in.open(s);
 	if (in) {
 		getline(in, title);
@@ -1049,7 +1053,7 @@ void getDataStudentInCourse(SchoolYear*& schoolyear) {
 	}
 	pCur1->semester->course->studentInCourse == nullptr;
 	Student* pCur = nullptr;
-	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv");
+	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv");
 	if (in) {
 		string str;
 		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv") - 1; i++) {

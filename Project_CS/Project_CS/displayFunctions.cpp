@@ -706,7 +706,7 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
                 displayCourseInSemester(schoolyear);
             else {
                 system("cls");
-                
+                displayCourseWhenDayExceed(schoolyear);
             }
             //displaySelectedYear(staff, student, schoolyear);
         }
@@ -922,8 +922,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         out << title << endl;
     }
     out.close();
-
-    getDataCourseInSemester(schoolyear);
+    getDataCoursesInSemester(schoolyear);
     Semester* tempSemester = schoolyear->semester;
     while (tempSemester && tempSemester->no != g_selectSemester)
         tempSemester = tempSemester->pNext;
@@ -986,7 +985,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         gotoXY(73, y + 4); cout << ": Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
-        //displayyy...
+        exportListStudentInCourse(schoolyear);
         break;
     case '2': // Mountain
         gotoXY(53, y + 5); cout << ": Enter course ID: ";
