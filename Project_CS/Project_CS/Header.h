@@ -79,8 +79,9 @@ void getDataStudent(Student*& pHead, string filename);
 void getDataClass(SchoolYear*& Schoolyear);
 void getDataSemester(SchoolYear*& schoolyear);
 void getDataStudentinClass(SchoolYear*& schoolyear);
-void getDataCourseInSemester(SchoolYear*& schoolyear);
+void getDataCoursesInSemester(SchoolYear*& schoolyear);
 void getDataStudentInCourse(SchoolYear*& schoolyear);
+void getDataScore(SchoolYear*& schoolyear, string path);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);
@@ -91,6 +92,7 @@ void updateCourse(SchoolYear); // Phat
 void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear, string name_course);
 void enroll(SchoolYear* &schoolyear);
+void importScoreboard(SchoolYear*& schoolyear);
 
 
 // Login Functions

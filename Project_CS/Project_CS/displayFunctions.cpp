@@ -222,11 +222,6 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
     }
 }
 
-//void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear, string& year) {
-//    cout << ""
-//}
-
-
 void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& schoolyear) {
     displayYear(schoolyear);
     cout << "\n\n\n\n\n\t\t\t\t1. Create new year\n";
@@ -284,6 +279,13 @@ void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& sc
             displaySelectedYearForStudent(staff, student, schoolyear);
         }
         else {
+            gotoXY(31, 22); cout << "Invalid input.";
+            gotoXY(31, 23); cout << "Try again in 3...";
+            Sleep(1000);
+            gotoXY(31, 23); cout << "Try again in 2...";
+            Sleep(1000);
+            gotoXY(31, 23); cout << "Try again in 1...";
+            Sleep(1000);
             system("cls");
             displaySchoolYearForStudent(staff, student, schoolyear);
         }
@@ -675,9 +677,9 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
         schoolyear->semester = schoolyear->semester->pNext;
     }
 
-    cout << "\n\n\n\t\t\t\t1.Create semester (maximum 3) \n";
-    cout << "\n\n\t\t\t\t2.Get access in semester \n";
-    cout << "\n\n\t\t\t\t3.Exit \n";
+    cout << "\n\n\n\t\t\t\t1. Create semester (maximum 3) \n";
+    cout << "\n\n\t\t\t\t2. Get access in semester \n";
+    cout << "\n\n\t\t\t\t3. Exit \n";
     cout << "\n\n\t\t\t\tEnter your choice: ";
     cin >> choice; cin.ignore();
     if (choice == "1") {
@@ -745,7 +747,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     }
     out.close();
 
-    getDataCourseInSemester(schoolyear);
+    getDataCoursesInSemester(schoolyear);
     Semester* tempSemester = schoolyear->semester;
     while (tempSemester && tempSemester->no != g_selectSemester)
         tempSemester = tempSemester->pNext;
@@ -800,8 +802,9 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     gotoXY(31, y + 4); cout << "1. Add course";
     gotoXY(31, y + 5); cout << "2. Update course information";
     gotoXY(31, y + 6); cout << "3. Delete course";
-    gotoXY(31, y + 7); cout << "4. Exit";
-    gotoXY(31, y + 8); cout << "Enter your choice: ";
+    gotoXY(31, y + 7); cout << "4. Import scoreboard";
+    gotoXY(31, y + 8); cout << "5. Exit";
+    gotoXY(31, y + 9); cout << "Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -891,18 +894,17 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
         // Delete course;
         break;
     case '4':
-        system("cls");
-        displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
+        importScoreboard(schoolyear);
+        viewScore(schoolyear);
+    case '5':
+        cout << "Wait for a second";
+        Sleep(2000);
         break;
     default:
-        gotoXY(31, y + 10); cout << "Try again in 2...";
-        Sleep(1000);
-        gotoXY(31, y + 10); cout << "Try again in 1...";
-        Sleep(1000);
-        system("cls");
-        displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
+        cout << "Invalid input!";
         break;
     }
+
 }
 
 void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
