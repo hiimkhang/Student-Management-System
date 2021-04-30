@@ -3,8 +3,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include <Windows.h>
 #include <conio.h>
+#include <stdio.h>
 #include <direct.h>
 #include "Console.h"
 
@@ -88,11 +91,12 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
-void updateCourse(SchoolYear); // Phat
-void deleteACourse(SchoolYear); // Phat
+//void updateCourse(SchoolYear); // Phat
+//void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear);
 void enroll(SchoolYear* &schoolyear);
 void importScoreboard(SchoolYear*& schoolyear);
+void updateCourseInfo(SchoolYear*& schoolyear);
 
 
 // Login Functions
@@ -122,10 +126,12 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
 void viewScore(SchoolYear* schoolyear);
 
 
+
 // Others
 int numberOfLine(string filename);
 void loadingSuccess();
 string add0(string date);
 int date_cmp(const char* d1, const char* d2);
 void sortedList(struct Semester** head_ref, struct Semester* new_node);
+void editCourse(SchoolYear*& schoolyear, string path, int choice);
 

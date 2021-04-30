@@ -152,7 +152,7 @@ void createNewYear(SchoolYear*& year_school) {
 	out << endl;
 	out << y;
 	SchoolYear* pCur = year_school;
-	while (pCur->pNext != nullptr) {
+	while (pCur && pCur->pNext != nullptr) {
 		pCur = pCur->pNext;
 	}
 	pCur->pNext = new SchoolYear;
@@ -264,7 +264,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 	while (pCur && pCur->staffAccount != g_account) {
 		pCur = pCur->pNext;
 	}
-	while (oldPass == pCur->staffPassword) {
+	while (pCur && oldPass == pCur->staffPassword) {
 		cout << "\n\n\t\t\t\tEnter your new password: "; 
 		string tempPass, newPass;
 		getline(cin, tempPass, '\n');
@@ -373,7 +373,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 		pCur = pCur->pNext;
 	}
 
-	while (oldPass == pCur->studentPassword) {
+	while (pCur && oldPass == pCur->studentPassword) {
 		cout << "\n\n\t\t\t\tEnter your new password: ";
 		string tempPass, newPass;
 		getline(cin, tempPass, '\n');
@@ -504,8 +504,12 @@ void createSemester(SchoolYear*& Schoolyear) {
 	getDataSemester(Schoolyear);
 	int no;
 	string start_date, end_date, register_start_date, register_end_date;
-	cout << "\n\t\t\t\tEnter no of semester (1/2/3): ";
+	cout << "\n\t\t\t\tEnter semester (1/2/3): ";
 	cin >> no; cin.ignore();
+	while (!(no > 0 && no < 4)) {
+		cout << "\n\t\t\t\tInvalid input\n\t\t\t\tEnter semester (1/2/3): ";
+		cin >> no; cin.ignore();
+	}
 	/*cout << "\n\t\t\t\tStart date: ";
 	getline(cin, start_date);
 	cout << "\n\t\t\t\tEnd date: ";
@@ -527,9 +531,9 @@ void createSemester(SchoolYear*& Schoolyear) {
 		getline(cin, start_date);
 		cout << "\n\t\t\t\tEnd date: ";
 		getline(cin, end_date);
-		cout << "\n\t\t\t\tRegister start date: ";
+		cout << "\n\t\t\t\tCourses register start date: ";
 		getline(cin, register_start_date);
-		cout << "\n\t\t\t\tRegister end date: ";
+		cout << "\n\t\t\t\tCourses register end date: ";
 		getline(cin, register_end_date, '\n');
 		pcur = new Semester;
 		pcur->no = no;
@@ -733,7 +737,7 @@ void getDataStudentinClass(SchoolYear*& schoolyear) {
 	while (pCur1->classes && pCur1->classes->className != g_selectClass) {
 		pCur1->classes = pCur1->classes->pNext;
 	}
-	pCur1->classes->student = nullptr;
+	if (pCur1->classes) pCur1->classes->student = nullptr;
 	Student* pCur = nullptr;
 	in.open(g_selectyear + "_" + g_selectClass + ".csv");
 	if (in) {
@@ -1092,6 +1096,375 @@ void getDataStudentInCourse(Student*& studentincourse) {
 void updateStudentResult(SchoolYear *schoolyear) {
 
 }
+
+void updateCourseInfo(SchoolYear*& schoolyear) {
+	ifstream in;
+	ofstream out;
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(Blue);
+	gotoXY(48, 8); cout << "UPDATE COURSE " << g_selectCourse;
+	Textcolor(7);
+	getDataCoursesInSemester(schoolyear);
+
+	string courseName, courseID, teacherName, DoW, session1, session2, title;
+	string courseName1, courseID1, teacherName1, DoW1, session1t, session2t;
+	string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
+	int credit, NoS, credit1, NoS1;
+
+	Course* pCur = schoolyear->semester->course;
+	while (pCur && pCur->courseID != g_selectCourse)
+		pCur = pCur->pNext;
+
+	out.open(path, ios::app);
+	if (numberOfLine(path) == 0) {
+		out << title << endl;
+	}
+	out.close();
+	
+	gotoXY(30, 12); cout << "1. Course name: " << pCur->courseName;
+	gotoXY(30, 14); cout << "2. Course ID: " << pCur->courseID;
+	gotoXY(30, 16); cout << "3. Number of credit: " << pCur->creditNum;
+	gotoXY(30, 18); cout << "4. Teacher in charge: " << pCur->teacherName;
+	gotoXY(30, 20); cout << "5. Number of student: " << pCur->numOfStudents;
+	gotoXY(30, 22); cout << "6. Day of the week: " << pCur->courseDate;
+	gotoXY(30, 24); cout << "7. Session: " << pCur->courseSession;
+	gotoXY(30, 26); cout << "8. Exit";
+	gotoXY(30, 28); cout << "Enter the section you want to update: ";
+	char choice = getchar(), comma;
+	cin.ignore(100, '\n');
+	switch (choice) {
+	case '1':
+		gotoXY(30, 30); cout << "Enter new course name: ";
+		getline(cin, courseName1, '\n');
+		in.open(path);
+		if (in) {
+			out.open("tempSemester.csv");
+			getline(in, title, '\n');
+			out << title << endl;
+			for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+				getline(in, courseName, ',');
+				if (courseName == pCur->courseName)
+					out << courseName1 << ",";
+				else out << courseName << ",";
+				getline(in, courseID, ',');
+				out << courseID << ",";
+				in >> credit;
+				in >> comma;
+				out << credit << ",";
+				getline(in, teacherName, ',');
+				out << teacherName << ",";
+				//Course name,Course ID,credits,teacher name,number of students,day,time
+				in >> NoS;
+				in >> comma;
+				out << NoS << ",";
+				getline(in, DoW, ',');
+				out << DoW << ",";
+				getline(in, session1, '\n');
+				out << session1 << "\n";
+			}
+			out.close();
+			in.close();
+			remove(path.c_str());
+			rename("tempSemester.csv", path.c_str());
+		}
+		else {
+			cout << "Can not open file directory.";
+		}
+		cout << "\n\t\t\t\t      Course name has been changed successfully!\n";
+		Sleep(2000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	case '2':
+		gotoXY(30, 30); cout << "Enter new course ID: ";
+		getline(cin, courseID1, '\n');
+		in.open(path);
+		if (in) {
+			out.open("tempSemester.csv");
+			getline(in, title, '\n');
+			out << title << endl;
+			for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+				getline(in, courseName, ',');
+				out << courseName << ",";
+				getline(in, courseID, ',');
+				if (courseName == pCur->courseName)
+					out << courseID1 << ",";
+				else out << courseID << ",";
+				in >> credit;
+				in >> comma;
+				out << credit << ",";
+				getline(in, teacherName, ',');
+				out << teacherName << ",";
+				in >> NoS;
+				in >> comma;
+				out << NoS << ",";
+				getline(in, DoW, ',');
+				out << DoW << ",";
+				getline(in, session1, '\n');
+				out << session1 << "\n";
+			}
+			out.close();
+			in.close();
+			remove(path.c_str());
+			rename("tempSemester.csv", path.c_str());
+		}
+		else {
+			cout << "Can not open file directory.";
+		}
+		cout << "\n\t\t\t\t      Course ID has been changed successfully!\n";
+		Sleep(2000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	case '3':
+		gotoXY(30, 30); cout << "Enter new number of credit: ";
+		cin >> credit1; cin.ignore();
+		in.open(path);
+		if (in) {
+			out.open("tempSemester.csv");
+			getline(in, title, '\n');
+			out << title << endl;
+			for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+				getline(in, courseName, ',');
+				out << courseName << ",";
+				getline(in, courseID, ',');
+				out << courseID << ",";
+				in >> credit;
+				if (courseName == pCur->courseName)
+					out << credit1 << ",";
+				else out << credit << ",";
+				in >> comma;
+				getline(in, teacherName, ',');
+				out << teacherName << ",";
+				in >> NoS;
+				in >> comma;
+				out << NoS << ",";
+				getline(in, DoW, ',');
+				out << DoW << ",";
+				getline(in, session1, '\n');
+				out << session1 << "\n";
+			}
+			out.close();
+			in.close();
+			remove(path.c_str());
+			rename("tempSemester.csv", path.c_str());
+		}
+		else {
+			cout << "Can not open file directory.";
+		}
+		cout << "\n\t\t\t\t      Number of credit has been changed successfully!\n";
+		Sleep(2000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	case '4':
+		gotoXY(30, 30); cout << "Enter new teacher in charge's name: ";
+		getline(cin, teacherName1, '\n');
+		in.open(path);
+		if (in) {
+			out.open("tempSemester.csv");
+			getline(in, title, '\n');
+			out << title << endl;
+			for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+				getline(in, courseName, ',');
+				out << courseName << ",";
+				getline(in, courseID, ',');
+				out << courseID << ",";
+				in >> credit;
+				in >> comma;
+				out << credit << ",";
+				getline(in, teacherName, ',');
+				if (courseName == pCur->courseName)
+					out << teacherName1 << ",";
+				else out << teacherName << ",";
+				//Course name,Course ID,credits,teacher name,number of students,day,time
+				in >> NoS;
+				in >> comma;
+				out << NoS << ",";
+				getline(in, DoW, ',');
+				out << DoW << ",";
+				getline(in, session1, '\n');
+				out << session1 << "\n";
+			}
+			out.close();
+			in.close();
+			remove(path.c_str());
+			rename("tempSemester.csv", path.c_str());
+		}
+		else {
+			cout << "Can not open file directory.";
+		}
+		cout << "\n\t\t\t\t      Teacher in charged has been changed successfully!\n";
+		Sleep(2000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	case '5':
+		gotoXY(30, 30); cout << "Enter new number of students: ";
+		cin >> NoS1; cin.ignore();
+		in.open(path);
+		if (in) {
+			out.open("tempSemester.csv");
+			getline(in, title, '\n');
+			out << title << endl;
+			for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+				getline(in, courseName, ',');
+				out << courseName << ",";
+				getline(in, courseID, ',');
+				out << courseID << ",";
+				in >> credit;
+				in >> comma;
+				out << credit << ",";
+				getline(in, teacherName, ',');
+				out << teacherName << ",";
+				//Course name,Course ID,credits,teacher name,number of students,day,time
+				in >> NoS;
+				if (courseName == pCur->courseName)
+					out << NoS1 << ",";
+				else out << NoS << ",";
+				in >> comma;
+				getline(in, DoW, ',');
+				out << DoW << ",";
+				getline(in, session1, '\n');
+				out << session1 << "\n";
+			}
+			out.close();
+			in.close();
+			remove(path.c_str());
+			rename("tempSemester.csv", path.c_str());
+		}
+		else {
+			cout << "Can not open file directory.";
+		}
+		cout << "\n\t\t\t      Number of students has been changed successfully!\n";
+		Sleep(2000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	case '6':
+		gotoXY(30, 31); cout << "(If there is more than one day, separate with &, ex: TUE & WED)";
+		gotoXY(30, 30); cout << "Enter new day of the week the course takes part in: ";
+		getline(cin, DoW1, '\n');
+		in.open(path);
+		if (in) {
+			out.open("tempSemester.csv");
+			getline(in, title, '\n');
+			out << title << endl;
+			for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+				getline(in, courseName, ',');
+				out << courseName << ",";
+				getline(in, courseID, ',');
+				out << courseID << ",";
+				in >> credit;
+				in >> comma;
+				out << credit << ",";
+				getline(in, teacherName, ',');
+				out << teacherName << ",";
+				in >> NoS;
+				in >> comma;
+				out << NoS << ",";
+				getline(in, DoW, ',');
+				if (courseName == pCur->courseName)
+					out << DoW1 << ",";
+				else out << DoW << ",";
+				getline(in, session1, '\n');
+				out << session1 << "\n";
+			}
+			out.close();
+			in.close();
+			remove(path.c_str());
+			rename("tempSemester.csv", path.c_str());
+		}
+		else {
+			cout << "Can not open file directory.";
+		}
+		cout << "\n\t\t\t\t      New schedule has been changed successfully!\n";
+		Sleep(2000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	case '7':
+		gotoXY(70, 30); cout << "There are 4 sessions available";
+		gotoXY(80, 31); cout << "07:30"; gotoXY(89, 31); cout << "09:30";
+		gotoXY(80, 32); cout << "13:30"; gotoXY(89, 32); cout << "15:30";
+		gotoXY(30, 30); cout << "Enter new session 1: ";
+		getline(cin, session1t, '\n');
+		gotoXY(30, 32); cout << "Enter new session 2: ";
+		getline(cin, session2t, '\n');
+		in.open(path);
+		if (in) {
+			out.open("tempSemester.csv");
+			getline(in, title, '\n');
+			out << title << endl;
+			for (int i = 1; i <= numberOfLine(path) - 1; i++) {
+				getline(in, courseName, ',');
+				out << courseName << ",";
+				getline(in, courseID, ',');
+				out << courseID << ",";
+				in >> credit;
+				in >> comma;
+				out << credit << ",";
+				getline(in, teacherName, ',');
+				out << teacherName << ",";
+				in >> NoS;
+				in >> comma;
+				out << NoS << ",";
+				getline(in, DoW, ',');
+				out << DoW << ",";
+				getline(in, session1, '\n');
+				if (courseName == pCur->courseName)
+					out << session1t << " & " << session2t << "\n";
+				else out << session1 << "\n";
+			}
+			out.close();
+			in.close();
+			remove(path.c_str());
+			rename("tempSemester.csv", path.c_str());
+		}
+		else {
+			cout << "Can not open file directory.";
+		}
+		cout << "\n\t\t\t\t      New session has been changed successfully!\n";
+		Sleep(2000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	case '8':
+		Sleep(1000);
+		system("cls");
+		displayCourseInSemester(schoolyear);
+		break;
+	default:
+		gotoXY(30, 30); cout << "Invalid input";
+		gotoXY(30, 32); cout << "Try again in 2...";
+		Sleep(1000);
+		gotoXY(30, 32); cout << "Try again in 1...";
+		Sleep(1000);
+		system("cls");
+		updateCourseInfo(schoolyear);
+		break;
+	}
+
+
+	out.open(path, ios::app);
+	if (out) {
+		out << courseName << ",";
+		out << courseID << ",";
+		out << credit << ",";
+		out << teacherName << ",";
+		out << NoS << ",";
+		out << DoW << ",";
+		out << session1 + " & " + session2 << "\n";
+		out.close();
+		cout << "\n\t\t\t      Course has been add successfully!";
+	}
+	else cout << "\n\t\t\t      Unable to open file " << path;
+}
+
+
 //void getDataCourse(Course* course, string path) {
 //	ifstream in;
 //	string t;
