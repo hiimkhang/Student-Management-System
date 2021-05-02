@@ -11,7 +11,6 @@ string g_Time = "24/04/2021";
 int main() {
 	// load data
 	//inputStudent();
-	
 	fixConsoleWindow();
 	setConsoleWindow(800, 600);
 	Staff* staff = nullptr;

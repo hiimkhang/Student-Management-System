@@ -924,12 +924,16 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 //	else cout << "ERROR";
 //}
 void importScoreboard(SchoolYear*& schoolyear){
-	cout << "\n\t\t\t\tPlease input the link of your file csv: ";
+	cout << "\n\t\t\t chon duong link de xuat ra file dung de nhap diem: \n";
 	string s;
 	getline(cin, s);
 	ifstream in;
 	ofstream out;
 	string title;
+	out.open(s, ios::app);
+	out << "No,StudentID,Student FullName,Total Mark,Final Mark,Midterm Mark,Other Mark\n";
+	cout << "\t\t\tVui long nhap diem vai file moi tao: va bam f khi nhap xong "
+	out.close();
 	string filename = g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv";
 	in.open(s);
 	if (in) {
@@ -1061,10 +1065,19 @@ void getDataStudentInCourse(Student*& studentincourse) {
 	studentincourse = nullptr;
 	ifstream in;
 	Student* pCur = nullptr;
+	ofstream out;
+	out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv", ios::app);
+	if (numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") == 0) {
+		string s;
+		in.open("Student.csv");
+		getline(in, s);
+		out << s << endl;
+		in.close();
+	}
+	out.close();
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv");
 	if (in) {
-		string str;
-		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv") - 1; i++) {
+		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") - 1; i++) {
 			if (studentincourse == nullptr) {
 				studentincourse = new Student;
 				pCur = studentincourse;

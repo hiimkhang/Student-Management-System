@@ -1041,15 +1041,23 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         exportListStudentInCourse(schoolyear);
+        system("cls");
+        displayCourseWhenDayExceed(schoolyear);
         break;
     case '2': // Mountain
         gotoXY(53, y + 5); cout << ": Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
+        importScoreboard(schoolyear);
+        system("cls");
+        displayCourseWhenDayExceed(schoolyear);
         break;
     case '3': // Som
         gotoXY(50, y + 6); cout << ": Enter course ID: ";
         getline(cin, courseID, '\n');
+        viewScore(schoolyear);
+        system("cls");
+        displayCourseWhenDayExceed(schoolyear);
         g_selectCourse = courseID;
     case '4': // Khang
         gotoXY(73, y + 4); cout << ": Enter student ID: ";
