@@ -1055,10 +1055,10 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     case '3': // Som
         gotoXY(50, y + 6); cout << ": Enter course ID: ";
         getline(cin, courseID, '\n');
+        g_selectCourse = courseID;
         viewScore(schoolyear);
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
-        g_selectCourse = courseID;
     case '4': // Khang
         gotoXY(73, y + 4); cout << ": Enter student ID: ";
         cin >> studentID; cin.ignore();
