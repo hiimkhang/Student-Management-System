@@ -91,6 +91,7 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
+void updateStudentResult(SchoolYear* schoolyear);
 //void updateCourse(SchoolYear); // Phat
 //void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear);
