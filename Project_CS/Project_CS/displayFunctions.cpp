@@ -24,7 +24,7 @@ void displayLogin(Staff *staff, Student* student, SchoolYear *schoolYear) {
     if (g_Time == "") {
         gotoXY(31, 25); cout << "You should set date first!";
     }
-    gotoXY(31, 20); cout << "Enter your choice: "; 
+    gotoXY(31, 20); cout << char(26) << " Enter your choice: "; 
     string date;
     char choice = getchar();
     cin.ignore(100, '\n');
@@ -183,7 +183,7 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
     gotoXY(31, 14); cout << "2. View and edit profile";
     gotoXY(31, 16); cout << "3. Change password";
     gotoXY(31, 18); cout << "4. Log out";
-    gotoXY(31, 20); cout << "Enter your choice: ";
+    gotoXY(31, 20); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -227,7 +227,7 @@ void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& scho
     cout << "\n\n\n\n\n\t\t\t\t1. Create new school year\n";
     cout << "\n\t\t\t\t2. Access into a school year\n";
     cout << "\n\t\t\t\t3. Exit\n";
-    cout << "\n\n\t\t\t\tEnter your choice: ";
+    cout << "\n\n\t\t\t\t" << char(26) << " Enter your choice: ";
     string year;
     char choice = getchar();
     cin.ignore(100, '\n');
@@ -240,7 +240,7 @@ void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& scho
         displaySchoolYearForStaff(staff, student, schoolyear);
         break;
     case '2':
-        cout << "\n\t\t\t\tEnter the schoolyear (ex: 2020_2021): ";
+        cout << "\n\t\t\t\t" << char(26) << "Enter the schoolyear (ex: 2020_2021): ";
         getline(cin, year, '\n');
         while (pCur && pCur->year != year) {
             pCur = pCur->pNext;
@@ -872,11 +872,11 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
             return;
         }
 
-        gotoXY(30, 16); cout << "Number of credit: ";
+        gotoXY(30, 16); cout << "Number of credits: ";
         cin >> credit; cin.ignore();
         gotoXY(30, 18); cout << "Teacher in charge: ";
         getline(cin, teacherName, '\n');
-        gotoXY(30, 20); cout << "Number of student: ";
+        gotoXY(30, 20); cout << "Number of students: ";
         cin >> NoS; cin.ignore();
         gotoXY(30, 23); cout << "(If there is more than one day, separate with &, ex: TUE & WED)";
         gotoXY(30, 22); cout << "Day of the week: ";
@@ -913,7 +913,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
             out << DoW << ",";
             out << session1 + " & " + session2 << "\n";
             out.close();
-            cout << "\n\t\t\t      Course has been add successfully!";
+            cout << "\n\t\t\t      Course has been added successfully!";
         }
         else cout << "\n\t\t\t      Unable to open file " << path;
         Sleep(2500);
@@ -1026,7 +1026,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     }
 
     gotoXY(45, y + 4); cout << "1. Export list of student into a csv file";
-    gotoXY(45, y + 5); cout << "2. Import score board";
+    gotoXY(45, y + 5); cout << "2. Import scoreboard";
     gotoXY(45, y + 6); cout << "3. View scoreboard";
     gotoXY(45, y + 7); cout << "4. Update a student result";
     gotoXY(45, y + 8); cout << "5. Exit";
