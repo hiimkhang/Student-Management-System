@@ -124,6 +124,8 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
 void displayCourseInSemester(SchoolYear*& schoolyear); // Phat
 void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
+void displayCourseForStudent(SchoolYear*& schoolyear);
+void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void viewScore(SchoolYear* schoolyear);
 
 
