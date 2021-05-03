@@ -1041,6 +1041,8 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         exportListStudentInCourse(schoolyear);
+        cout << "bam nut bat ky de thoat \n";
+        _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
         break;

@@ -888,15 +888,16 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 	cout << "\n\n\t\tPlease input the link of your csv.file (Ex:C:\\DocumentsClass\\20CTT1.csv):\n\t\t";
 	string s;
 	getline(cin, s);
-	out.open(s, ios::app);
+	out.open(s);
 	if (numberOfLine(s) == 0) {
 		in.open("Student.csv");
 		getline(in, s);
+		out << s << endl;
+		cout << s << endl;
 	}
 	in.close();
 	Student* pCur = schoolyear->semester->course->studentInCourse;
 	if (out) {
-		out << s << endl;
 		while (pCur) {
 			out << pCur->StudentID << ",";
 			out << pCur->Firstname << ",";
@@ -911,7 +912,9 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 			cout << pCur->Gender << ",";
 			cout << pCur->DoB << ",";
 			cout << pCur->studentClass << ",";
-			cout << pCur->SocialID << "\n";		}
+			cout << pCur->SocialID << "\n";		
+			pCur = pCur->pNext;
+		}
 		out.close();
 	}
 	else cout << "\n\t\t\t\tERROR. Can't open file...";
@@ -1218,6 +1221,8 @@ void getDataStudentInCourse(Student*& studentincourse) {
 	out.close();
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv");
 	if (in) {
+		string str;
+		getline(in, str);
 		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") - 1; i++) {
 			if (studentincourse == nullptr) {
 				studentincourse = new Student;
