@@ -1074,7 +1074,6 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         break;
     case '5':
         system("cls");
-        Sleep(2000);
         displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
         break;
     default:
