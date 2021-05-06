@@ -23,6 +23,7 @@ struct Student {
     string DoB;
     string studentClass;
     Student* pNext;
+    /*Course* courseOfStudent;*/
 };
 
 
@@ -39,15 +40,15 @@ struct Course {
 };
 
 
-struct Staff {
-    string nameStaff;
-    string staffAccount, staffPassword = "staff";
-    /*Class* staffClass;*/
-    Course* staffCourse;
-    /*string teacherCourse = "N/A";
-    string teacherClass = "N/A";*/
-    Staff* pNext;
-};
+    struct Staff {
+        string nameStaff;
+        string staffAccount, staffPassword = "staff";
+        /*Class* staffClass;*/
+        Course* staffCourse;
+        /*string teacherCourse = "N/A";
+        string teacherClass = "N/A";*/
+        Staff* pNext;
+    };
 
 struct Class {
     string className;
@@ -84,6 +85,7 @@ void getDataSemester(SchoolYear*& schoolyear);
 void getDataStudentinClass(SchoolYear*& schoolyear);
 void getDataCoursesInSemester(SchoolYear*& schoolyear);
 void getDataStudentInCourse(Student*& studentincourse);
+void getDataCourseOfStudent(Student*& student);
 void getDataScore(SchoolYear*& schoolyear, string path);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
@@ -137,4 +139,5 @@ string add0(string date);
 int date_cmp(const char* d1, const char* d2);
 void sortedList(struct Semester** head_ref, struct Semester* new_node);
 void editCourse(SchoolYear*& schoolyear, string path, int choice);
+void deleteCourse(SchoolYear*& schoolyear);
 

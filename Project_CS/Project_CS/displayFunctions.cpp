@@ -730,17 +730,29 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
             cout << "\n\n\t\t\t\tEntering semester " << no << "...";
             Sleep(2000);
             system("cls");
-            if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
+            /*if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
                 && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0)
                 displayCourseInSemester(schoolyear);
             else {
                 system("cls");
                 displayCourseWhenDayExceed(schoolyear);
+            }*/
+            // Trong khoang thoi gian dau hoc ky toi 5 ngay truoc khi ket thuc ky thi 
+            // staff co the them course, delete cource, update course, ...
+
+            if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
+                && (add0(pCur->end_date)[0]*10 + add0(pCur->end_date)[1]
+                    - g_Time[0]*10 - g_Time[1] > 5))
+                displayCourseInSemester(schoolyear);
+            // Trong 5 ngay truoc khi ket thuc ky tro di, staff co the export hoc sinh, them diem, ...
+
+            else {
+                system("cls");
+                displayCourseWhenDayExceed(schoolyear);
             }
-            //displaySelectedYear(staff, student, schoolyear);
         }
         else {
-            cout << "\n\n\t\t\tSemester " << no << " doesn't exist.";
+            cout << "\n\n\t\t\t\tSemester " << no << " doesn't exist.";
             Sleep(2000);
             system("cls");
             displaySemester(staff, student, schoolyear);
@@ -767,7 +779,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     ifstream in;
     int y = 16, No = 0, check = 1;
   
-    string title = { "Course name,Course ID,credits,teacher name,credits,"
+    string title = { "Course name,Course ID,credits,teacher name,"
     "number of students,day,time" };
 
     string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
@@ -784,6 +796,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
         tempSemester = tempSemester->pNext;
 
     Course* pCurCase2 = schoolyear->semester->course;
+    Course* pCurCase3 = schoolyear->semester->course;
     Course* tempCourse = tempSemester->course; // Will be used to add course later;
 
     if (g_Time != "") {
@@ -945,10 +958,28 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
         break;
     case '3':
         // Delete course;
+        gotoXY(45, y + 11); cout << "Enter course ID: ";
+        getline(cin, courseID, '\n');
+        while (pCurCase2 && pCurCase2->courseID != courseID) {
+            pCurCase2 = pCurCase2->pNext;
+        }
+        if (!pCurCase2) {
+            gotoXY(45, y + 12); cout << "Course ID " << courseID
+                << " doesn't exist.";
+            
+        }
+        else {
+            g_selectCourse = courseID;
+            deleteCourse(schoolyear);
+            gotoXY(45, y + 13); cout << "Delete course " << courseID << " successfully!";
+        }
+        Sleep(2000);
+        system("cls");
+        displayCourseInSemester(schoolyear);
         break;
     case '4':
         importScoreboard(schoolyear);
-        viewScore(schoolyear);
+        break;
     case '5':
         system("cls");
         setConsoleWindow(800, 600);
@@ -967,7 +998,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     ifstream in;
     int y = 16, No = 0, check = 1;
 
-    string title = { "Course name,Course ID,credits,teacher name,credits,"
+    string title = { "Course name,Course ID,credits,teacher name,"
     "number of students,day,time" };
 
     string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
@@ -981,7 +1012,8 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     Semester* tempSemester = schoolyear->semester;
     while (tempSemester && tempSemester->no != g_selectSemester)
         tempSemester = tempSemester->pNext;
-
+    
+    Course* pCur4 = tempSemester->course;
     Course* tempCourse = tempSemester->course; // Will be used to add course later;
 
     if (g_Time != "") {
@@ -1049,7 +1081,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         break;
     case '2': // Mountain
         gotoXY(53, y + 5); cout << ": Enter course ID: ";
-        getline(cin, courseID, '\n');
+        getline(cin, courseID, '\n'); 
         g_selectCourse = courseID;
         importScoreboard(schoolyear);
         system("cls");
