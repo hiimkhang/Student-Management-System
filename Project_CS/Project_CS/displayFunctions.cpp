@@ -682,11 +682,25 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
     getDataSemester(schoolyear);
     Semester* temp = schoolyear->semester;
     bool check1 = false, check2 = false, check3 = false;
-    int sem = 1;
     while (temp) {
-        if (temp->no == 1) check1 = true;
-        else if (temp->no == 2) check2 = true;
-        else if (temp->no == 3) check3 = true;
+        if (temp->no == 1) {
+            check1 = true;
+            Textcolor(11);
+            gotoXY(62, 10); cout << "(" << add0(temp->start_date) << " -- " << add0(temp->end_date) << ")";
+            Textcolor(7);
+        }
+        else if (temp->no == 2) {
+            check2 = true;
+            Textcolor(11);
+            gotoXY(62, 11); cout << "(" << add0(temp->start_date) << " -- " << add0(temp->end_date) << ")";
+            Textcolor(7);
+        }
+        else if (temp->no == 3) {
+            check3 = true;
+            Textcolor(11);
+            gotoXY(62, 12); cout << "(" << add0(temp->start_date) << " -- " << add0(temp->end_date) << ")";
+            Textcolor(7);
+        }
         temp = temp->pNext;
     }
     if (g_Time != "") {
@@ -715,6 +729,7 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
     case '1':
         createSemester(schoolyear);
         system("cls");
+        setConsoleWindow(800, 600);
         displaySemester(staff, student, schoolyear);
         break;
     case '2':
@@ -741,8 +756,9 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
             // staff co the them course, delete cource, update course, ...
 
             if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
-                && (add0(pCur->end_date)[0]*10 + add0(pCur->end_date)[1]
-                    - g_Time[0]*10 - g_Time[1] > 5))
+                && ((add0(pCur->end_date)[0]*10 + add0(pCur->end_date)[1]
+                    - g_Time[0]*10 - g_Time[1] > 5) || (add0(pCur->end_date)[3] * 10 +
+                        add0(pCur->end_date)[4] > g_Time[3] * 10 - g_Time[4])))
                 displayCourseInSemester(schoolyear);
             // Trong 5 ngay truoc khi ket thuc ky tro di, staff co the export hoc sinh, them diem, ...
 
@@ -805,6 +821,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     gotoXY(26, 5); cout << "==========================================================================================";
     Textcolor(Blue);
     gotoXY(63, 8); cout << "SEMESTER " << g_selectSemester;
+    gotoXY(56, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
     Textcolor(7);
 
     gotoXY(05, 12); cout << "Course name";
@@ -864,6 +881,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
         gotoXY(26, 5); cout << "=======================================================";
         Textcolor(Blue);
         gotoXY(48, 8); cout << "SEMESTER " << g_selectSemester;
+        gotoXY(41, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
         gotoXY(46, 10); cout << "ADDING  COURSE";
         Textcolor(7);
 
@@ -1022,6 +1040,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     gotoXY(26, 5); cout << "==========================================================================================";
     Textcolor(Blue);
     gotoXY(63, 8); cout << "SEMESTER " << g_selectSemester;
+    gotoXY(56, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
     Textcolor(7);
 
     gotoXY(05, 12); cout << "Course name";
@@ -1066,7 +1085,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     gotoXY(45, y + 9); cout << "Enter your choice: ";
     char choice = getchar();
     string courseID;
-    int studentID;
+    //int studentID;
     cin.ignore(100, '\n'); 
     switch (choice) {
     case '1': // Sonw
@@ -1152,6 +1171,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     gotoXY(26, 5); cout << "==========================================================================================";
     Textcolor(Blue);
     gotoXY(63, 8); cout << "SEMESTER " << g_selectSemester;
+    gotoXY(56, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
     Textcolor(7);
 
     gotoXY(05, 12); cout << "Course name";
@@ -1196,7 +1216,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     gotoXY(45, y + 9); cout << "Enter your choice: ";
     char choice = getchar();
     string courseID;
-    int studentID;
+    //int studentID;
     cin.ignore(100, '\n');
     switch (choice) {
     case '1': // Sonw
@@ -1257,11 +1277,25 @@ void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoo
     getDataSemester(schoolyear);
     Semester* temp = schoolyear->semester;
     bool check1 = false, check2 = false, check3 = false;
-    int sem = 1;
     while (temp) {
-        if (temp->no == 1) check1 = true;
-        else if (temp->no == 2) check2 = true;
-        else if (temp->no == 3) check3 = true;
+        if (temp->no == 1) {
+            check1 = true;
+            Textcolor(11);
+            gotoXY(62, 10); cout << "(" << add0(temp->start_date) << " -- " << add0(temp->end_date) << ")";
+            Textcolor(7);
+        }
+        else if (temp->no == 2) {
+            check2 = true;
+            Textcolor(11);
+            gotoXY(62, 11); cout << "(" << add0(temp->start_date) << " -- " << add0(temp->end_date) << ")";
+            Textcolor(7);
+        }
+        else if (temp->no == 3) {
+            check3 = true;
+            Textcolor(11);
+            gotoXY(62, 12); cout << "(" << add0(temp->start_date) << " -- " << add0(temp->end_date) << ")";
+            Textcolor(7);
+        }
         temp = temp->pNext;
     }
     if (g_Time != "") {
@@ -1269,7 +1303,7 @@ void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoo
     }
     gotoXY(26, 5); cout << "=======================================================";
     Textcolor(Blue);
-    gotoXY(38, 8); cout << "SCHOOL YEAR: " << g_selectyear;
+    gotoXY(38, 8); cout << "SCHOOL YEAR: " << g_selectyear; 
     Textcolor(7);
     cout << "\n\n\t\t\t\tList of semester: Semester 1";
     if (!check1) cout << " (Not created)";
@@ -1295,18 +1329,26 @@ void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoo
             pCur = pCur->pNext;
         }
         if (pCur) {
-            g_selectSemester = no;
-            cout << "\n\n\t\t\t\tEntering semester " << no << "...";
-            Sleep(2000);
-            system("cls");
-            if (date_cmp(add0(pCur->register_start_date).c_str(), g_Time.c_str()) < 0
-                && date_cmp(add0(pCur->register_end_date).c_str(), g_Time.c_str()) > 0)
-                displayCourseForStudent(schoolyear);
-            else {
+            if (date_cmp(add0(pCur->register_start_date).c_str(), g_Time.c_str()) > 0) {
+                cout << "\n\n\t\t\t\tYou can not get access into semester " << no << "yet!";
+                cout << "\n\n\t\t\t\t(Access available for 7 days before a semester begins.)";
+                Sleep(2000);
                 system("cls");
-                
+                displaySemesterForStudent(staff, student, schoolyear);
             }
-            //displaySelectedYear(staff, student, schoolyear);
+            else {
+                g_selectSemester = no;
+                cout << "\n\n\t\t\t\tEntering semester " << no << "...";
+                Sleep(2000);
+                system("cls");
+                if (date_cmp(add0(pCur->register_start_date).c_str(), g_Time.c_str()) <= 0
+                    && date_cmp(add0(pCur->register_end_date).c_str(), g_Time.c_str()) >= 0)
+                    displayCourseForStudent(schoolyear);
+                else {
+                    system("cls");
+
+                }
+            }
         }
         else {
             cout << "\n\n\t\t\tSemester " << no << " doesn't exist.";
