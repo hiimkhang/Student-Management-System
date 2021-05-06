@@ -1208,12 +1208,11 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         }
     }
 
-    gotoXY(45, y + 4); cout << "1. Export list of student into a csv file";
-    gotoXY(45, y + 5); cout << "2. Import score board";
-    gotoXY(45, y + 6); cout << "3. View scoreboard";
-    gotoXY(45, y + 7); cout << "4. Update a student result";
-    gotoXY(45, y + 8); cout << "5. Exit";
-    gotoXY(45, y + 9); cout << "Enter your choice: ";
+    gotoXY(45, y + 4); cout << "1. Enroll the course";
+    gotoXY(45, y + 5); cout << "2. View List Course";
+    gotoXY(45, y + 6); cout << "3. Remove a Course";
+    gotoXY(45, y + 7); cout << "4. Exit";
+    gotoXY(45, y + 8); cout << "Enter your choice: ";
     char choice = getchar();
     string courseID;
     //int studentID;
@@ -1223,19 +1222,18 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         gotoXY(73, y + 4); cout << ": Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
-        exportListStudentInCourse(schoolyear);
+        enroll();
         cout << "bam nut bat ky de thoat \n";
         _getch();
         system("cls");
-        displayCourseWhenDayExceed(schoolyear);
+        displayCourseForStudent(schoolyear);
         break;
     case '2': // Mountain
-        gotoXY(53, y + 5); cout << ": Enter course ID: ";
-        getline(cin, courseID, '\n');
-        g_selectCourse = courseID;
-        importScoreboard(schoolyear);
         system("cls");
-        displayCourseWhenDayExceed(schoolyear);
+        viewCourseEnrolled();
+        cout << "bam nut bat ky de thoat \n";
+        _getch();
+        displayCourseForStudent(schoolyear);
         break;
     case '3': // Som
         gotoXY(50, y + 6); cout << ": Enter course ID: ";

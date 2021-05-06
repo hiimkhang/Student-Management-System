@@ -1297,15 +1297,184 @@ void updateStudentResult(SchoolYear* schoolyear) {
 	cout << "da update \n";
 	viewScore(schoolyear);
 }
-
-void enroll(SchoolYear* &schoolyear) {
-	ofstream out;
-	out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course" + g_selectCourse + ".csv");
-	out << g_ID << endl;
-	out.close();
-	getDataStudentinClass(schoolyear);
+bool checkEnroll() {
+	string str;
+	string day, time;
+	string Day[2], Time[2];
+	ifstream in;
+	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
+	getline(in, str);
+	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
+		getline(in, str, ',');
+		getline(in, str, ',');
+		if (str == g_selectCourse) {
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, day, ',');
+			getline(in, time, '\n');
+			break;
+		}
+		else {
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, '\n');
+		}
+	}
+	int temp = 0;
+	for (int i = 0; i < day.size(); i++) {
+		if (day[i] == ' ' || day[i] == '&') {
+			temp = 1;
+			while (day[i] == ' ' || day[i] == '&') {
+				i++;
+			}
+		}
+		if (temp == 0) Day[0].push_back(day[i]);
+		else Day[1].push_back(day[i]);
+	}
+	temp = 0;
+	for (int i = 0; i < time.size(); i++) {
+		if (time[i] == ' ' || time[i] == '&') {
+			temp = 1;
+			while (time[i] == ' ' || time[i] == '&') {
+				i++;
+			}
+		}
+		if (temp == 0) Time[0].push_back(time[i]);
+		else Time[1].push_back(time[i]);
+	}
+	in.close();
+	string Day1[2], Time1[2];
+	in.open(to_string(g_ID) + "_Course.csv");
+	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 6) return false;
+	getline(in, str);
+	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
+		getline(in, str, ',');
+		getline(in, str, ',');
+		getline(in, str, ',');
+		getline(in, str, ',');
+		getline(in, str, ',');
+		getline(in, str, ',');
+		temp = 0;
+		for (int i = 0; i < str.size(); i++) {
+			if (str[i] == ' ' || str[i] == '&') {
+				temp = 1;
+				while (str[i] == ' ' || str[i] == '&') {
+					i++;
+				}
+			}
+			if (temp == 0) Day1[0].push_back(str[i]);
+			else Day1[1].push_back(str[i]);
+		}
+		getline(in, str);
+		temp = 0;
+		for (int i = 0; i < str.size(); i++) {
+			if (str[i] == ' ' || str[i] == '&') {
+				temp = 1;
+				while (str[i] == ' ' || str[i] == '&') {
+					i++;
+				}
+			}
+			if (temp == 0) Time1[0].push_back(str[i]);
+			else Time1[1].push_back(str[i]);
+		}
+		if (Day1[0] == Day[0] || Day[1] == Day[1]) {
+			if (Day1[0] == Day[0] && Day1[1] != Day[0]) {
+				if (Time1[0] == Time[0]) return false;
+			}
+			else if (Day1[1] == Day[1] && Day1[0] != Day[0]) {
+				if (Time1[1] == Time[1]) return false;
+			}
+			else {
+				if (Time1[0] == Time[0]) return false;
+				if (Time1[1] == Time[1]) return false;
+			}
+		}
+		getline(in, str, '\n');
+	}
+	in.close();
+	return true;
 }
 
+void enroll() {
+	Student* student = nullptr;
+	ofstream out;
+	ifstream in;
+	out.open(to_string(g_ID) + "_Course.csv", ios::app);
+	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 0) {
+		out << "Course name, Course ID, credits, teacher name, number of students, day, time\n";
+	}
+	out.close();
+	if (checkEnroll() == true) {
+		out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + ".csv", ios::app);
+		getDataStudent(student, "Student.csv");
+		while (student != nullptr && student->StudentID != g_ID) {
+			student = student->pNext;
+		}
+		out << student->StudentID << ",";
+		out << student->Firstname << ",";
+		out << student->Lastname << ",";
+		out << student->Gender << ",";
+		out << student->DoB << ",";
+		out << student->studentClass << ",";
+		out << student->SocialID << ",";
+		out << student->studentPassword << "\n";
+		out.close();
+		string str;
+		out.open(to_string(g_ID) + "_Course.csv", ios::app);
+		in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
+		getline(in, str);
+		string q, w;
+		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
+			getline(in, str, ',');
+			q = str;
+			getline(in, str, ',');
+			w = str;
+			if (str == g_selectCourse) {
+				out << q << ",";
+				out << w << ",";
+				getline(in, str, ',');
+				out << str << ",";
+				getline(in, str, ',');
+				out << str << ",";
+				getline(in, str, ',');
+				out << str << ",";
+				getline(in, str, ',');
+				out << str << ",";
+				getline(in, str, '\n');
+				out << str << "\n";
+				break;
+			}
+		}
+		in.close();
+		out.close();
+		cout << "dang ki thanh cong \n";
+	}
+	else {
+		cout << "ko the dang ki\n";
+	}
+}
+
+void viewCourseEnrolled() {
+	ifstream in;
+	ofstream out;
+	out.open(to_string(g_ID) + "_Course.csv", ios::app);
+	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 0) {
+		out << "Course name, Course ID, credits, teacher name, number of students, day, time\n";
+	}
+	out.close();
+	in.open(to_string(g_ID) + "_Course.csv");
+	string str;
+	getline(in, str);
+	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
+		getline(in, str);
+		cout << str << endl;
+	}
+	in.close();
+
+}
 void getDataStudentInCourse(Student*& studentincourse) {
 	studentincourse = nullptr;
 	ifstream in;

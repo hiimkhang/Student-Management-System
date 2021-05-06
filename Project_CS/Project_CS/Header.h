@@ -100,7 +100,7 @@ void updateStudentResult(SchoolYear* schoolyear);
 //void updateCourse(SchoolYear); // Phat
 //void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear);
-void enroll(SchoolYear* &schoolyear);
+void enroll();
 void importScoreboard(SchoolYear*& schoolyear);
 void updateCourseInfo(SchoolYear*& schoolyear);
 
@@ -133,8 +133,9 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
 void displayCourseForStudent(SchoolYear*& schoolyear);
 
 void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
-void viewScore(SchoolYear* schoolyear); 
 void displayCoursesStudentsExceed(SchoolYear*& schoolyear);
+void viewScore(SchoolYear* schoolyear);
+void viewCourseEnrolled();
 
 
 
@@ -149,3 +150,4 @@ void deleteCourse(SchoolYear*& schoolyear);
 void DatePlusDays(struct tm* date, int days);
 string addDays(string date1, int days);
 
+bool checkEnroll();
