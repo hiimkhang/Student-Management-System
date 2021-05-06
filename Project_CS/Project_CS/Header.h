@@ -93,6 +93,7 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
+void updateStudentResult(SchoolYear* schoolyear);
 //void updateCourse(SchoolYear); // Phat
 //void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear);
@@ -125,6 +126,8 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
 void displayCourseInSemester(SchoolYear*& schoolyear); // Phat
 void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
+void displayCourseForStudent(SchoolYear*& schoolyear);
+void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void viewScore(SchoolYear* schoolyear);
 
 
