@@ -24,6 +24,7 @@ struct Student {
     string DoB;
     string studentClass;
     Student* pNext;
+    string* courseOfStudent;
     /*Course* courseOfStudent;*/
 };
 
@@ -41,15 +42,15 @@ struct Course {
 };
 
 
-    struct Staff {
-        string nameStaff;
-        string staffAccount, staffPassword = "staff";
-        /*Class* staffClass;*/
-        Course* staffCourse;
-        /*string teacherCourse = "N/A";
-        string teacherClass = "N/A";*/
-        Staff* pNext;
-    };
+struct Staff {
+    string nameStaff;
+    string staffAccount, staffPassword = "staff";
+    /*Class* staffClass;*/
+    Course* staffCourse;
+    /*string teacherCourse = "N/A";
+    string teacherClass = "N/A";*/
+    Staff* pNext;
+};
 
 struct Class {
     string className;
@@ -62,6 +63,7 @@ struct Semester {
     int no;
     string start_date, end_date, register_start_date, register_end_date, teacher_name;
     int max_NoS[50];
+    Class* classes;
     Course* course;
     Semester* pNext;
 };
@@ -125,11 +127,14 @@ string displaySelectedYearForStaff(Staff* staff, Student* student, SchoolYear* s
 string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
+
 void displayCourseInSemester(SchoolYear*& schoolyear); // Phat
 void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
 void displayCourseForStudent(SchoolYear*& schoolyear);
+
 void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
-void viewScore(SchoolYear* schoolyear);
+void viewScore(SchoolYear* schoolyear); 
+void displayCoursesStudentsExceed(SchoolYear*& schoolyear);
 
 
 
