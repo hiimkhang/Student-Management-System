@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <ctime>
 #include <iomanip>
 #include <Windows.h>
 #include <conio.h>
@@ -141,4 +142,7 @@ int date_cmp(const char* d1, const char* d2);
 void sortedList(struct Semester** head_ref, struct Semester* new_node);
 void editCourse(SchoolYear*& schoolyear, string path, int choice);
 void deleteCourse(SchoolYear*& schoolyear);
+void DatePlusDays(struct tm* date, int days);
+string addDays(string date1, int days);
+
 bool checkEnroll();

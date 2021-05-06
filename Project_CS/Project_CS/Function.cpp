@@ -555,6 +555,7 @@ void createClassForYear(SchoolYear*& Schoolyear){
 }
 
 void createSemester(SchoolYear*& Schoolyear) {
+	setConsoleWindow(800, 650);
 	getDataSemester(Schoolyear);
 	int no;
 	string start_date, end_date, register_start_date, register_end_date;
@@ -585,10 +586,13 @@ void createSemester(SchoolYear*& Schoolyear) {
 		getline(cin, start_date);
 		cout << "\n\t\t\t\tEnd date: ";
 		getline(cin, end_date);
-		cout << "\n\t\t\t\tCourses register start date: ";
-		getline(cin, register_start_date);
-		cout << "\n\t\t\t\tCourses register end date: ";
-		getline(cin, register_end_date, '\n');
+		register_start_date = addDays(start_date, -7);
+		register_end_date = addDays(start_date, -1);
+		cout << "\n\t\t\t\tCourses register is avaialable for 7 days before a semester begins.";
+		Sleep(1500);
+		cout << "\n\n\t\t\t\tRegister start date will be: " << register_start_date;
+		cout << "\n\n\t\t\t\tRegister end date will be:  " << register_end_date;
+		AnTroChuot();
 		pcur = new Semester;
 		pcur->no = no;
 		pcur->pNext = nullptr;
@@ -603,8 +607,10 @@ void createSemester(SchoolYear*& Schoolyear) {
 			out << register_end_date << "\n";
 			out.close();
 		}
-		cout << "\n\t\t\t\tAdd semester " << no << " successfully!";
-		Sleep(2000);
+		Sleep(3000);
+		cout << "\n\n\t\t\t\tAdd semester " << no << " successfully!";
+		cout << "\n\n\t\t\t\tPress any key to return...";
+		_getch();
 	}
 	else {
 		cout << "\n\t\t\t\tSemester " << no << " has already existed!";
@@ -923,6 +929,44 @@ int date_cmp(const char* d1, const char* d2)
 	// compare days
 	return strncmp(d1, d2, 2);
 }
+
+void DatePlusDays(struct tm* date, int days)
+{
+	const time_t ONE_DAY = 24 * 60 * 60;
+
+	// Seconds since start of epoch
+	time_t date_seconds = mktime(date) + (days * ONE_DAY);
+
+	// Update caller's date
+	// Use localtime because mktime converts to UTC so may change date
+	*date = *localtime(&date_seconds); ;
+}
+
+string addDays(string date1, int days) {
+	string realDate = add0(date1);
+	int day = (realDate[0] - '0') * 10 + (realDate[1] - '0');
+	int month = (realDate[3] - '0') * 10 + (realDate[4] - '0');
+	int year = (realDate[6] - '0') * 1000 + (realDate[7] - '0') * 100 + (realDate[8] - '0') * 10 + (realDate[9] - '0');
+	struct tm date = { 0, 0, 12 };
+	date.tm_mday = day;
+	date.tm_mon = month - 1;
+	date.tm_year = year - 1900;
+	DatePlusDays(&date, days);
+	string time = asctime(&date);
+	string dd = "10";
+	if (time[8] != ' ') {
+		dd[0] = time[8];
+		dd[1] = time[9];
+		dd[2] = '\0';
+	}
+	else {
+		dd[0] = time[9];
+		dd[1] = '\0';
+	}
+	string res = dd + "/" + to_string(date.tm_mon + 1) + "/" + to_string(date.tm_year + 1900);
+	return add0(res);
+}
+
 void exportListStudentInCourse(SchoolYear* schoolyear) {
 	
 	while (schoolyear->year != g_selectyear) {
@@ -1484,7 +1528,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 	}
 	gotoXY(26, 5); cout << "=======================================================";
 	Textcolor(Blue);
-	gotoXY(48, 8); cout << "UPDATE COURSE " << g_selectCourse;
+	gotoXY(42, 8); cout << "UPDATE COURSE " << g_selectCourse;
 	Textcolor(7);
 	getDataCoursesInSemester(schoolyear);
 
