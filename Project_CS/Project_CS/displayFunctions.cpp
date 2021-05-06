@@ -1202,19 +1202,18 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         gotoXY(73, y + 4); cout << ": Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
-        enroll(schoolyear);
+        enroll();
         cout << "bam nut bat ky de thoat \n";
         _getch();
         system("cls");
-        displayCourseWhenDayExceed(schoolyear);
+        displayCourseForStudent(schoolyear);
         break;
     case '2': // Mountain
-        gotoXY(53, y + 5); cout << ": Enter course ID: ";
-        getline(cin, courseID, '\n');
-        g_selectCourse = courseID;
-        importScoreboard(schoolyear);
         system("cls");
-        displayCourseWhenDayExceed(schoolyear);
+        viewCourseEnrolled();
+        cout << "bam nut bat ky de thoat \n";
+        _getch();
+        displayCourseForStudent(schoolyear);
         break;
     case '3': // Som
         gotoXY(50, y + 6); cout << ": Enter course ID: ";

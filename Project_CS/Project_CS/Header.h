@@ -97,7 +97,7 @@ void updateStudentResult(SchoolYear* schoolyear);
 //void updateCourse(SchoolYear); // Phat
 //void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear);
-void enroll(SchoolYear* &schoolyear);
+void enroll();
 void importScoreboard(SchoolYear*& schoolyear);
 void updateCourseInfo(SchoolYear*& schoolyear);
 
@@ -129,6 +129,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
 void displayCourseForStudent(SchoolYear*& schoolyear);
 void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void viewScore(SchoolYear* schoolyear);
+void viewCourseEnrolled();
 
 
 
@@ -140,4 +141,4 @@ int date_cmp(const char* d1, const char* d2);
 void sortedList(struct Semester** head_ref, struct Semester* new_node);
 void editCourse(SchoolYear*& schoolyear, string path, int choice);
 void deleteCourse(SchoolYear*& schoolyear);
-
+bool checkEnroll();
