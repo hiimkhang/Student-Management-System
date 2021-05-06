@@ -195,6 +195,60 @@ void deleteList(Staff*& pHead) {
 		pCur = pHead;
 	}
 }
+
+void deleteCourse(SchoolYear*& schoolyear) {
+	getDataCoursesInSemester(schoolyear);
+	Course* temp = schoolyear->semester->course, * cur = temp, * cur2 = temp;
+	while (temp && temp->courseID != g_selectCourse) {
+		cur = temp;
+		temp = temp->pNext;
+	}
+
+	if (temp) {
+		cur->pNext = temp->pNext;
+		delete temp;
+	}
+
+	string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
+	string courseName, courseID, teacherName, DoW, session1, session2, title;
+	char comma;
+	int credit, NoS;
+	ifstream in;
+	ofstream out;
+	in.open(path);
+	if (in) {
+		out.open("tempSemester.csv");
+		getline(in, title, '\n');
+		out << title << endl;
+		while (cur2) {
+			getline(in, courseName, ',');
+			out << cur2->courseName << ",";
+			getline(in, courseID, ',');
+			out << cur2->courseID << ",";
+			in >> credit;
+			in >> comma;
+			out << cur2->creditNum << ",";
+			getline(in, teacherName, ',');
+			out << cur2->teacherName << ",";
+			//Course name,Course ID,credits,teacher name,number of students,day,time
+			in >> NoS;
+			in >> comma;
+			out << cur2->numOfStudents << ",";
+			getline(in, DoW, ',');
+			out << cur2->courseDate << ",";
+			getline(in, session1, '\n');
+			out << cur2->courseSession << "\n";
+			cur2 = cur2->pNext;
+		}
+		out.close();
+		in.close();
+		remove(path.c_str());
+		rename("tempSemester.csv", path.c_str());
+	}
+	else {
+		cout << "Can not open file directory.";
+	}
+}
 ; bool loginStaff(Staff* staff) {
 	if (g_Time != "") {
 		gotoXY(26, 4); cout << "Date: " << g_Time;
@@ -924,9 +978,10 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 //	else cout << "ERROR";
 //}
 void importScoreboard(SchoolYear*& schoolyear){
-	cout << "\n\t\t\t\tPlease input the link of your file csv: ";
+	cout << "\n\t\t\t\t             Please input the link of your file csv: ";
+	cout << "\n\t\t\t\t";
 	string s;
-	getline(cin, s);
+	getline(cin, s, '\n');
 	ifstream in;
 	ofstream out;
 	string title;
@@ -942,9 +997,15 @@ void importScoreboard(SchoolYear*& schoolyear){
 		out.close();
 		in.close();
 		getDataScore(schoolyear, filename);
+		Sleep(2000);
+		system("cls");
+		viewScore(schoolyear);
 	}
 	else {
-		cout << "\n\n\t\t\t\tCan not open " << s;
+		cout << "\n\t\t\t\t              Can not open " << s;
+		Sleep(2000);
+		system("cls");
+		displayCourseInSemester(schoolyear);
 	}
 }
 
