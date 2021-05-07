@@ -1,5 +1,4 @@
 #include "Header.h"
-//extern string z;
 
 extern string g_account;
 extern int g_ID;
@@ -566,17 +565,6 @@ void createSemester(SchoolYear*& Schoolyear) {
 		cout << "\n\t\t\t\tInvalid input\n\t\t\t" << char(26) << " Enter semester (1/2/3): ";
 		cin >> no; cin.ignore();
 	}
-	/*cout << "\n\t\t\t\tStart date: ";
-	getline(cin, start_date);
-	cout << "\n\t\t\t\tEnd date: ";
-	getline(cin, end_date);
-
-	cout << "\n\t\t\t\tRegister start date: ";
-	getline(cin, register_start_date);
-
-	cout << "\n\t\t\t\tRegister end date: ";
-	getline(cin, register_end_date, '\n');
-	*/
 
 	Semester* pcur = Schoolyear->semester;
 	while (pcur != nullptr && pcur->no != no) {
@@ -865,11 +853,6 @@ void getDataCoursesInSemester(SchoolYear*& schoolyear) {
 				pCur->pNext = new Course;
 				pCur = pCur->pNext;
 			}
-			/*in >> a;
-			in >> c;
-			pCur->StudentID = a;
-			string title = { "Course name,Course ID,credits,teacher name,"
-			"number of students,day,time " };*/
 			getline(in, pCur->courseName, ',');
 			getline(in, pCur->courseID, ',');
 			in >> credits;
@@ -881,10 +864,6 @@ void getDataCoursesInSemester(SchoolYear*& schoolyear) {
 			in >> c;
 			getline(in, pCur->courseDate, ',');
 			getline(in, pCur->courseSession, '\n');
-			/*in >> a;
-			pCur->SocialID = a;
-			getline(in, str, '\n');
-			pCur->studentClass = g_selectClass;*/
 			pCur->pNext = nullptr;
 		}
 		in.close();
@@ -1024,13 +1003,7 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 	}
 	else cout << "\n\t\t\t\tERROR. Can't open file...";
 }
-//void createTemplateScoreboard(string path) {
-//	ofstream out;
-//	out.open(path);
-//	if (out) {
-//		out << "No" << "," << "student ID" << "," << "Student full name" << "," << "Total mark" << "," << "Final mark" << "," << "Midterm mark" << "," << "Other mark" << endl;
-//	else cout << "ERROR";
-//}
+
 void importScoreboard(SchoolYear*& schoolyear) {
 	system("cls");
 	string choice;
@@ -1106,25 +1079,6 @@ void importScoreboard(SchoolYear*& schoolyear) {
 			Sleep(1000);
 		}
 	} while (choice != "3");
-	//ifstream in;
-	//string title;
-	//cout << "\t\t\tVui long nhap diem vai file moi tao: va bam f khi nhap xong ";
-	//string filename = g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv";
-	//in.open(s);
-	//if (in) {
-	//	getline(in, title);
-	//	out.open(filename, ios::app);
-	//	for (int i = 1; i <= numberOfLine(s) - 1; i++) {
-	//		getline(in, title);
-	//		out << title << endl;
-	//	}
-	//	out.close();
-	//	in.close();
-	//	getDataScore(schoolyear, filename);
-	//}
-	//else {
-	//	cout << "\n\n\t\t\t\tCan not open " << s;
-	//}
 }
 
 void getDataScore(SchoolYear*& schoolyear, string path) {
@@ -1228,7 +1182,6 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 				getline(in, str, ',');
 				getline(in, str, '\n');
 			}
-			/*cout << CourseIDdata[i] << " :" << totalMark[i] << endl;*/
 			in.close();
 		}
 		else cout << "\n\n\t\t\t\tCan not open directory file";
@@ -1329,43 +1282,7 @@ void viewScore(SchoolYear* schoolyear) {
 		}
 		in.close();
 	}
-	else cout << "\n\n\t\t\t\tFailed to open directory file.";
-	/*while (schoolyear && schoolyear->year != g_selectyear)
-		schoolyear = schoolyear->pNext;
-	if (schoolyear == nullptr) {
-		cout << "There is no schoolyear match your search";
-		return;
-	}
-	while (schoolyear->semester && schoolyear->semester->no != g_selectSemester)
-		schoolyear->semester = schoolyear->semester->pNext;
-	if (schoolyear->semester == nullptr) {
-		cout << "There is no semester match your search";
-		return;
-	}
-	while (schoolyear->semester->course->courseID != g_selectCourse)
-		schoolyear->semester->course = schoolyear->semester->course->pNext;
-	if (schoolyear->semester->course == nullptr) {
-		cout << "There is no course match your search";
-		return;
-	}
-	Student* pCur = schoolyear->semester->course->studentInCourse;
-		if (pCur == nullptr) cout << "\n \n\t\tThere are currently no student in the course";
-		else{
-			while (pCur != nullptr) {
-				cout << pCur->Firstname << " ";
-				cout << pCur->Lastname << "\t";
-				cout << pCur->StudentID << "\t";
-				cout << pCur->Gender << "\t";
-				cout << pCur->totalMark << "\t";
-				cout << pCur->finalMark << "\t";
-				cout << pCur->midtermMark << "\t";
-				cout << pCur->otherMark << "\n";
-				pCur = pCur->pNext;
-			}
-		}
-		cout << "\t\t\t\t\nPress any key to continue";
-		char z;
-		cin >> z;*/
+	else cout << "\n\n\t\t\t\tFailed to open directory file(No imported board).";
 }
 
 void updateStudentResult(SchoolYear* schoolyear) {
@@ -1645,14 +1562,6 @@ void viewCourseEnrolled() {
 		}
 		in.close();
 	}
-	/*in.open(path);
-	string str;
-	getline(in, str);
-	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
-		getline(in, str);
-		cout << str << endl;
-	}
-	in.close();*/
 }
 void removeEnrolled() {
 	ifstream in;
@@ -2155,51 +2064,3 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 	}
 	else cout << "\n\t\t\t      Unable to open file " << path;
 }
-
-
-//void getDataCourse(Course* course, string path) {
-//	ifstream in;
-//	string t;
-//	in.open(path);
-//	if (in.is_open()) {
-//		Course* pCur = pHead;
-//		while (!in.eof()) {
-//			if (pHead == nullptr) {
-//				pHead = new SchoolYear;
-//				pCur = pHead;
-//			}
-//			else {
-//				pCur->pNext = new SchoolYear;
-//				pCur = pCur->pNext;
-//			}
-//			getline(in, year, '\n');
-//			pCur->year = year;
-//			pCur->pNext = nullptr;
-//		}
-//		in.close();
-//	}
-//	else cout << "\n";
-//}
-//
-//void displayStudent(string path) {
-//	ifstream in;
-//	in.open(path);
-//	string a;
-//	if (in) {
-//		for (int i = 0; i < numberOfLine(path); i++) {
-//			getline(in, a);
-//			cout << a;
-//		}
-//	}
-//}
-// void displayCourse(string path) {
-//	fstream fin;
-//	string a;
-//	fin.open();
-//	if (fin) {
-//		for (int i = 0; i < numberOfLine(path); i++) {
-//			getline(fin, a);
-//			cout << a;
-//		}
-//	}
-//}

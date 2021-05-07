@@ -312,34 +312,6 @@ void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& sc
         displaySchoolYearForStudent(staff, student, schoolyear);
         break;
     }
-
-
-
-
-    /*if (choice == "1") {
-        system("cls");
-        displayLoginStudent(staff, student, schoolyear);
-    }
-    else {
-        while (pCur && pCur->year != g_selectyear) {
-            pCur = pCur->pNext;
-        }
-        if (pCur != nullptr) {
-            system("cls");
-            displaySelectedYearForStudent(staff, student, schoolyear);
-        }
-        else {
-            gotoXY(31, 22); cout << "Invalid input.";
-            gotoXY(31, 23); cout << "Try again in 3...";
-            Sleep(1000);
-            gotoXY(31, 23); cout << "Try again in 2...";
-            Sleep(1000);
-            gotoXY(31, 23); cout << "Try again in 1...";
-            Sleep(1000);
-            system("cls");
-            displaySchoolYearForStudent(staff, student, schoolyear);
-        }
-    }*/
 }
 
 void displayStaffProfile(Staff* staff) {
@@ -363,21 +335,6 @@ void displayStaffProfile(Staff* staff) {
     else {
         gotoXY(31, 12); cout << "Staff not found!";
     }
-
-    /*if (staff->teacherCourse == "N/A") {
-        cout << "\nWhat courses are you incharge of? ";
-        getline(cin, staff->teacherCourse, '\n');
-    }
-    else if (staff->teacherCourse != "N/A")
-        cout << "\nCourse incharge: " << staff->teacherCourse;
-
-    if (staff->teacherClass == "N/A") {
-        cout << "\nWhat classes are you incharge of? ";
-        getline(cin, staff->teacherClass, '\n');
-    }
-    else if (staff->teacherClass != "N/A")
-        cout << "\nClass incharge: " << staff->teacherClass;*/
-
 }
 
 void displayStudentProfile(Student*& student, string path) {
@@ -550,29 +507,6 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
-        /*system("cls");
-        gotoXY(26, 5); cout << "=======================================================";
-        Textcolor(Blue);
-        gotoXY(38, 8); cout << "CLASS: " << g_selectClass;
-        Textcolor(7);
-        gotoXY(31, 14); cout << "Lecturer's name";
-        gotoXY(61, 14); cout << "Course incharge";
-        int y = 16;
-        if (!tempClass->staff) {
-            gotoXY(31, 16); cout << "Not available.";
-            gotoXY(61, 16); cout << "Not available.";
-        }
-        while (tempClass->staff && tempClass->staff->nameStaff == g_selectClass) {
-            gotoXY(31, y); cout << tempClass->staff->nameStaff;
-            gotoXY(61, y); cout << tempClass->staff->staffCourse->courseName;
-            y += 2;
-            tempClass->staff = tempClass->staff->pNext;
-        }
-        gotoXY(31, y); cout << "Press any key to return...";
-        _getch();
-        gotoXY(31, y += 2); cout << "Loading..";
-        system("cls");
-        displayStudentInClass(schoolyear, student);*/
     case '1':
         system("cls");
         if (g_Time != "") {
@@ -731,22 +665,6 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
             cout << "\n\n\t\t\t\tEntering semester " << no << "...";
             Sleep(2000);
             system("cls");
-            /*if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
-                && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0)
-                displayCourseInSemester(schoolyear);
-            else {
-                system("cls");
-                displayCourseWhenDayExceed(schoolyear);
-            }*/
-            // Trong khoang thoi gian dau hoc ky toi 5 ngay truoc khi ket thuc ky thi 
-            // staff co the them course, delete cource, update course, ...
-
-            /*if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
-                && ((add0(pCur->end_date)[0]*10 + add0(pCur->end_date)[1]
-                    - g_Time[0]*10 - g_Time[1] > 5) || (add0(pCur->end_date)[3] * 10 +
-                        add0(pCur->end_date)[4] > g_Time[3] * 10 - g_Time[4])))
-                displayCourseInSemester(schoolyear);*/
-                // Trong 5 ngay truoc khi ket thuc ky tro di, staff co the export hoc sinh, them diem, ...
             if ((date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
                 && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0 ) || date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) > 0)
                 displayCourseInSemester(schoolyear);
