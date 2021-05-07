@@ -1493,12 +1493,19 @@ void removeEnrolled() {
 	string str;
 	getline(in, str);
 	out << str << endl;
+	string s;
 	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
-
+		getline(in, str, ',');
+		s = str;
+		getline(in, str, ',');
+		if (str != g_selectCourse) {
+			out << s << ",";
+		}
 	}
 	out.close();
 	in.close();
 }
+
 void getDataStudentInCourse(Student*& studentincourse) {
 	studentincourse = nullptr;
 	ifstream in;

@@ -231,6 +231,8 @@ void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& scho
     string year;
     char choice = getchar();
     cin.ignore(100, '\n');
+    schoolyear = nullptr;
+    getDataSchoolYear(schoolyear, "school_year.txt");
     SchoolYear* pCur = schoolyear;
     switch (choice) {
     case '1':
