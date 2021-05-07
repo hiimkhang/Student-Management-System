@@ -74,7 +74,7 @@ void displayLogin(Staff* staff, Student* student, SchoolYear* schoolYear) {
         Textcolor(rand() % 15 + 1);
         gotoXY(48, 9); cout << "SET DATE";
         Textcolor(7);
-        gotoXY(29, 13); cout << "This date will be consider as the time at present.";
+        gotoXY(29, 13); cout << "This date will be considered as the time at the present.";
         gotoXY(7, 15); cout << "Which will determine whether the student can be able to get access into a semester or not.";
         gotoXY(29, 19); cout << "Enter date (dd/mm/yyyy): ";
         getline(cin, date, '\n');
@@ -113,7 +113,7 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
     gotoXY(31, 14); cout << "2. View and edit profile";
     gotoXY(31, 16); cout << "3. Change password";
     gotoXY(31, 18); cout << "4. Log out";
-    gotoXY(31, 20); cout << "Enter your choice: ";
+    gotoXY(31, 20); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -167,7 +167,7 @@ void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear)
 }
 void loadingSuccess() {
     system("cls");
-    gotoXY(40, 15); cout << "Login successfully!!";
+    gotoXY(40, 15); cout << "Login successfully!! " << char(1) <<endl;
     gotoXY(44, 18); cout << "Loading...";
     Sleep(3000);
 }
@@ -244,7 +244,7 @@ void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& scho
         displaySchoolYearForStaff(staff, student, schoolyear);
         break;
     case '2':
-        cout << "\n\t\t\t\t" << char(26) << "Enter the schoolyear (ex: 2020_2021): ";
+        cout << "\n\t\t\t\t" << char(26) << " Enter the schoolyear (ex: 2020_2021): ";
         getline(cin, year, '\n');
         while (pCur && pCur->year != year) {
             pCur = pCur->pNext;
@@ -277,14 +277,14 @@ void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& sc
     displayYear(schoolyear);
     cout << "\n\t\t\t\t1. Access into a school year\n";
     cout << "\n\t\t\t\t2. Exit\n";
-    cout << "\n\n\t\t\t\tEnter your choice: ";
+    cout << "\n\n\t\t\t\t" << char(26) << " Enter your choice: ";
     string year;
     char choice = getchar();
     cin.ignore(100, '\n');
     SchoolYear* pCur = schoolyear;
     switch (choice) {
     case '1':
-        cout << "\n\t\t\t\tEnter the schoolyear (ex: 2020_2021): ";
+        cout << "\n\t\t\t\tEnter schoolyear (ex: 2020_2021): ";
         getline(cin, year, '\n');
         while (pCur && pCur->year != year) {
             pCur = pCur->pNext;
@@ -295,7 +295,7 @@ void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& sc
             displaySelectedYearForStudent(staff, student, schoolyear);
         }
         else {
-            cout << "\n\t\t\t\tSchool year " << year << " doesn't exist";
+            cout << "\n\t\t\t\tSchool year " << year << " doesn't exist.";
             system("cls");
             displaySchoolYearForStudent(staff, student, schoolyear);
         }
@@ -404,7 +404,7 @@ void displayStudentProfile(Student*& student, string path) {
         gotoXY(31, 27); cout << "ESC: Exit";
     }
     else {
-        gotoXY(31, 12); cout << "Student not found";
+        gotoXY(31, 12); cout << "Student not found!";
     }
     string title;
     string Firstname, Lastname, Gender, studentPassword, DoB, studentClass, tempDoB;
@@ -461,7 +461,7 @@ void displayStudentProfile(Student*& student, string path) {
                     remove("Student.csv");
                     rename("tempStudent.csv", "Student.csv");
                     system("cls");
-                    gotoXY(31, 16); cout << "Date of birth updated successfully!";
+                    gotoXY(31, 16); cout << "Date of birth is updated successfully!";
                     gotoXY(31, 18); cout << "Return in 2 ...";
                     Sleep(1000);
                     gotoXY(31, 18); cout << "Return in 1 ...";
@@ -496,7 +496,7 @@ string displaySelectedYearForStaff(Staff* staff, Student* student, SchoolYear* s
     gotoXY(31, 14); cout << "1. Semester";
     gotoXY(31, 16); cout << "2. Class";
     gotoXY(31, 18); cout << "3. Exit";
-    gotoXY(31, 20); cout << "Enter your choice: ";
+    gotoXY(31, 20); cout << char(26) << " Enter your choice: ";
 
     while (schoolyear && schoolyear->year != g_selectyear)
         schoolyear = schoolyear->pNext;
@@ -542,7 +542,7 @@ string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear*
     Textcolor(7);
     gotoXY(31, 16); cout << "1. Semester";
     gotoXY(31, 18); cout << "2. Exit";
-    gotoXY(31, 20); cout << "Enter your choice: ";
+    gotoXY(31, 20); cout << char(26) << " Enter your choice: ";
 
     while (schoolyear && schoolyear->year != g_selectyear)
         schoolyear = schoolyear->pNext;
@@ -600,7 +600,7 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
     gotoXY(31, 14); cout << "1. View lecturer";
     gotoXY(31, 16); cout << "2. View student";
     gotoXY(31, 18); cout << "3. Exit";
-    gotoXY(31, 20); cout << "Enter your choice: ";
+    gotoXY(31, 20); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -673,7 +673,7 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
         }
 
         gotoXY(31, y += 2); cout << "T: Add student by typing";
-        gotoXY(31, ++y); cout << "F: Add student using csv file";
+        gotoXY(31, ++y); cout << "F: Add student by using csv file";
         gotoXY(31, ++y); cout << "ESC: Exit";
 
         AnTroChuot();
@@ -760,7 +760,7 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
     cout << "\n\n\n\t\t\t\t1. Create semester (maximum 3) \n";
     cout << "\n\n\t\t\t\t2. Get access in semester \n";
     cout << "\n\n\t\t\t\t3. Exit \n";
-    cout << "\n\n\t\t\t\tEnter your choice: ";
+    cout << "\n\n\t\t\t\t" << char(26) << " Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -771,7 +771,7 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
         displaySemester(staff, student, schoolyear);
         break;
     case '2':
-        cout << "\n\n\t\t\t\tEnter the semester you want to get access into (number): ";
+        cout << "\n\n\t\t\t\t" << char(26) << " Enter the semester you want to get access into (number): ";
         cin >> no; cin.ignore();
         getDataSemester(schoolyear);
         pCur = schoolyear->semester;
@@ -907,7 +907,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     gotoXY(45, y + 6); cout << "3. Delete course";
     gotoXY(45, y + 7); cout << "4. Import scoreboard";
     gotoXY(45, y + 8); cout << "5. Exit";
-    gotoXY(45, y + 9); cout << "Enter your choice: ";
+    gotoXY(45, y + 9); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -937,7 +937,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
             tempCourse = tempCourse->pNext;
 
         if (tempCourse) {
-            gotoXY(30, 16); cout << "This course already exists!";
+            gotoXY(30, 16); cout << "This course has already existed!";
             Sleep(2000);
             system("cls");
             displayCourseInSemester(schoolyear);
@@ -1001,8 +1001,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
             pCurCase2 = pCurCase2->pNext;
         }
         if (!pCurCase2) {
-            gotoXY(45, y + 12); cout << "Course ID " << courseID
-                << " doesn't exist.";
+            gotoXY(45, y + 12); cout << "Course ID " << courseID << " doesn't exist.";
             Sleep(2000);
             system("cls");
             displayCourseInSemester(schoolyear);
@@ -1022,9 +1021,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
             pCurCase2 = pCurCase2->pNext;
         }
         if (!pCurCase2) {
-            gotoXY(45, y + 12); cout << "Course ID " << courseID
-                << " doesn't exist.";
-
+            gotoXY(45, y + 12); cout << "Course ID " << courseID << " doesn't exist.";
         }
         else {
             g_selectCourse = courseID;
@@ -1122,24 +1119,24 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     gotoXY(45, y + 6); cout << "3. View scoreboard";
     gotoXY(45, y + 7); cout << "4. Update a student result";
     gotoXY(45, y + 8); cout << "5. Exit";
-    gotoXY(45, y + 9); cout << "Enter your choice: ";
+    gotoXY(45, y + 9); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     string courseID;
     //int studentID;
     cin.ignore(100, '\n');
     switch (choice) {
     case '1': // Sonw
-        gotoXY(73, y + 4); cout << ": Enter course ID: ";
+        gotoXY(95, y + 4); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         exportListStudentInCourse(schoolyear);
-        cout << "bam nut bat ky de thoat \n";
+        cout << "\n\n\t\t\t\tPress any key to exit \n";
         _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
         break;
     case '2': // Mountain
-        gotoXY(53, y + 5); cout << ": Enter course ID: ";
+        gotoXY(70, y + 5); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         importScoreboard(schoolyear);
@@ -1147,21 +1144,21 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         displayCourseWhenDayExceed(schoolyear);
         break;
     case '3': // Som
-        gotoXY(50, y + 6); cout << ": Enter course ID: ";
+        gotoXY(70, y + 6); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         viewScore(schoolyear);
-        cout << "press any ket to exit \n";
+        cout << "\n\n\t\t\t\t\t\tPress any key to exit \n";
         _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
         break;
     case '4': // Khang
-        gotoXY(73, y + 4); cout << ": Enter course ID: ";
+        gotoXY(80, y + 4); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID);
         g_selectCourse = courseID;
         updateStudentResult(schoolyear);
-        cout << "press any ket to exit \n";
+        cout << "\n\n\t\t\t\tPress any key to exit \n";
         _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
@@ -1249,21 +1246,21 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     }
 
     gotoXY(45, y + 4); cout << "1. Enroll the course";
-    gotoXY(45, y + 5); cout << "2. View List Course";
-    gotoXY(45, y + 6); cout << "3. Remove a Course";
+    gotoXY(45, y + 5); cout << "2. View list course";
+    gotoXY(45, y + 6); cout << "3. Remove a course";
     gotoXY(45, y + 7); cout << "4. Exit";
-    gotoXY(45, y + 8); cout << "Enter your choice: ";
+    gotoXY(45, y + 8); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     string courseID;
     //int studentID;
     cin.ignore(100, '\n');
     switch (choice) {
     case '1': // Sonw
-        gotoXY(73, y + 4); cout << ": Enter course ID: ";
+        gotoXY(75, y + 4); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         enroll();
-        cout << "bam nut bat ky de thoat \n";
+        cout << "\n\n\t\t\t\tPress any key to exit";
         _getch();
         system("cls");
         displayCourseForStudent(schoolyear);
@@ -1271,18 +1268,18 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     case '2': // Mountain
         system("cls");
         viewCourseEnrolled();
-        cout << "bam nut bat ky de thoat \n";
+        cout << "\n\n\t\t\t\tPress any key to exit";
         _getch();
         displayCourseForStudent(schoolyear);
         break;
     case '3': // Som
         system("cls");
         viewCourseEnrolled();
-        gotoXY(50, y + 6); cout << ": Enter course IDyou want remove: ";
+        gotoXY(70, y + 6); cout << char(26) << " Enter course ID you want remove: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         removeEnrolled();
-        cout << "press any ket to exit \n";
+        cout << "\n\n\t\t\t\tPress any key to exit";
         _getch();
         system("cls");
         displayCourseForStudent(schoolyear);
@@ -1345,9 +1342,9 @@ void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoo
 
     int no;
     Semester* pCur;
-    cout << "\n\n\t\t\t\t1. Get access in semester \n";
+    cout << "\n\n\t\t\t\t1. Get access into semester \n";
     cout << "\n\n\t\t\t\t2. Exit \n";
-    cout << "\n\n\t\t\t\tEnter your choice: ";
+    cout << "\n\n\t\t\t\t" << char(26) << " Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -1488,7 +1485,7 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
     gotoXY(45, y + 4); cout << "1. Your courses and marks";
     gotoXY(45, y + 5); cout << "2. View students in a certain course";
     gotoXY(45, y + 6); cout << "3. Exit";
-    gotoXY(45, y + 7); cout << "Enter your choice: ";
+    gotoXY(45, y + 7); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     string courseID;
     cin.ignore(100, '\n');
@@ -1504,8 +1501,7 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
             tempCourse2 = tempCourse2->pNext;
 
         if (!tempCourse2) {
-            gotoXY(45, y + 10); cout << "Course ID " << courseID
-                << " doesn't exist.";
+            gotoXY(45, y + 10); cout << "Course ID " << courseID << " doesn't exist.";
             Sleep(2000);
             system("cls");
             displayCoursesStudentsExceed(schoolyear);
@@ -1593,7 +1589,7 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
                         y++; No++;
                     }
                 }
-                else cout << "Can not open file directory.";
+                else cout << "\n\n\t\t\t\tCan not open file directory.";
             }
             gotoXY(35, y + 4);  cout << "Press any key to exit...";
             _getch();
