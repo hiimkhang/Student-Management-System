@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <ctime>
 #include <iomanip>
 #include <Windows.h>
 #include <conio.h>
@@ -23,6 +24,8 @@ struct Student {
     string DoB;
     string studentClass;
     Student* pNext;
+    string* courseOfStudent;
+    /*Course* courseOfStudent;*/
 };
 
 
@@ -60,6 +63,7 @@ struct Semester {
     int no;
     string start_date, end_date, register_start_date, register_end_date, teacher_name;
     int max_NoS[50];
+    Class* classes;
     Course* course;
     Semester* pNext;
 };
@@ -84,6 +88,7 @@ void getDataSemester(SchoolYear*& schoolyear);
 void getDataStudentinClass(SchoolYear*& schoolyear);
 void getDataCoursesInSemester(SchoolYear*& schoolyear);
 void getDataStudentInCourse(Student*& studentincourse);
+void getDataCourseOfStudent(Student*& student);
 void getDataScore(SchoolYear*& schoolyear, string path);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
@@ -91,12 +96,14 @@ void deleteList(Staff*& pHead);
 void createNewYear(SchoolYear*& school_year);
 void inputStudent();
 void AddStudentIntoClass(SchoolYear*& schoolyear, Student*& student, string path);
+void updateStudentResult(SchoolYear* schoolyear);
 //void updateCourse(SchoolYear); // Phat
 //void deleteACourse(SchoolYear); // Phat
 void exportListStudentInCourse(SchoolYear* schoolyear);
-void enroll(SchoolYear* &schoolyear);
+void enroll();
 void importScoreboard(SchoolYear*& schoolyear);
 void updateCourseInfo(SchoolYear*& schoolyear);
+void removeEnrolled();
 
 
 // Login Functions
@@ -121,9 +128,15 @@ string displaySelectedYearForStaff(Staff* staff, Student* student, SchoolYear* s
 string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student);
 void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear);// Phat
+
 void displayCourseInSemester(SchoolYear*& schoolyear); // Phat
 void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
+void displayCourseForStudent(SchoolYear*& schoolyear);
+
+void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
+void displayCoursesStudentsExceed(SchoolYear*& schoolyear);
 void viewScore(SchoolYear* schoolyear);
+void viewCourseEnrolled();
 
 
 
@@ -134,4 +147,8 @@ string add0(string date);
 int date_cmp(const char* d1, const char* d2);
 void sortedList(struct Semester** head_ref, struct Semester* new_node);
 void editCourse(SchoolYear*& schoolyear, string path, int choice);
+void deleteCourse(SchoolYear*& schoolyear);
+void DatePlusDays(struct tm* date, int days);
+string addDays(string date1, int days);
 
+bool checkEnroll();
