@@ -1,21 +1,3 @@
-Firstname student,Lastname student,gender,student ID,student PassWord, Date of Birth
-A,Nguyen,F,20125000,student,N/A
-B,Nguyen,F,20125001,son map dit,01/12/2002
-C,Nguyen,F,20125002,student,N/A
-D,Nguyen,F,20125003,student,N/A
-E,Nguyen,F,20125004,student,N/A
-A,Nguyen,F,20125000,student,N/A
-B,Nguyen,F,20125001,son map dit,01/12/2002
-C,Nguyen,F,20125002,student,N/A
-D,Nguyen,F,20125003,student,N/A
-E,Nguyen,F,20125004,student,N/A
-A,Nguyen,F,20125000,student,N/A
-B,Nguyen,F,20125001,son map dit,01/12/2002
-C,Nguyen,F,20125002,student,N/A
-D,Nguyen,F,20125003,student,N/A
-E,Nguyen,F,20125004,student,N/A
-A,Nguyen,F,20125000,student,N/A
-B,Nguyen,F,20125001,son map dit,01/12/2002
-C,Nguyen,F,20125002,student,N/A
-D,Nguyen,F,20125003,student,N/A
-E,Nguyen,F,20125004,student,N/A
+studentID,First Name,Last Name,Gender,Dob,studentClass,SocialID,studentPassword
+20125112,Nguyen,Son,Male,1/12/2002,20CTT2,1,123
+20125096,Phan,Khang,Male,22/12/2002,20CTT2,2,111

@@ -3,7 +3,10 @@
 string g_account;
 int g_ID;
 string g_selectyear;
-string g_class;
+string g_selectClass;
+string g_selectCourse;
+int g_selectSemester;
+string g_Time = "24/04/2021";
 
 int main() {
 	// load data
@@ -21,7 +24,6 @@ int main() {
 	//createSemester(schoolYear)
 	
 	displayLogin(staff, student, schoolYear); 
-
 	return 0;
 }
 
