@@ -1561,30 +1561,65 @@ void enroll() {
 		}
 		in.close();
 		out.close();
-		cout << "dang ki thanh cong \n";
+		cout << "\n\n\t\t\t\t             Enroll successfully!";
 	}
 	else {
-		cout << "ko the dang ki\n";
+		cout << "\n\n\t\t\t\t             Unable to enroll!";
 	}
 }
 
 void viewCourseEnrolled() {
 	ifstream in;
 	ofstream out;
-	out.open(to_string(g_ID) + "_Course.csv", ios::app);
-	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 0) {
+	string path = to_string(g_ID) + "_Course.csv";
+	out.open(path, ios::app);
+	if (numberOfLine(path) == 0) {
 		out << "Course name, Course ID, credits, teacher name, number of students, day, time\n";
 	}
 	out.close();
-	in.open(to_string(g_ID) + "_Course.csv");
+
+	int y = 16, No = 1;
+
+	if (numberOfLine(path) == 1) {
+		gotoXY(05, 16); cout << "N/A";
+		gotoXY(45, 16); cout << "N/A";
+		gotoXY(57, 16); cout << "N/A";
+		gotoXY(67, 16); cout << "N/A";
+		gotoXY(85, 16); cout << "N/A";
+		gotoXY(91, 16); cout << "N/A";
+		gotoXY(103, 16); cout << "N/A";
+	}
+	else {
+		in.open(path);
+		string str;
+		getline(in, str);
+		for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
+			getline(in, str, ',');
+			gotoXY(05, y); cout << str; //name;
+			getline(in, str, ',');
+			gotoXY(45, y); cout << str; //id
+			getline(in, str, ',');
+			gotoXY(57, y); cout << str; //credit
+			getline(in, str, ',');
+			gotoXY(67, y); cout << str; //teacher
+			getline(in, str, ',');
+			gotoXY(85, y); cout << str; //numStudent
+			getline(in, str, ',');
+			gotoXY(91, y); cout << str; //Date
+			getline(in, str, '\n');
+			gotoXY(103, y); cout << str; //Session
+			y++; No++;
+		}
+		in.close();
+	}
+	/*in.open(path);
 	string str;
 	getline(in, str);
 	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
 		getline(in, str);
 		cout << str << endl;
 	}
-	in.close();
-
+	in.close();*/
 }
 void removeEnrolled() {
 	ifstream in;
