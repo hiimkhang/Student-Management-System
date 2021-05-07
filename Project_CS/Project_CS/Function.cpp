@@ -777,6 +777,12 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear*& schoolyear) {
 			displayStudentInClass(schoolyear, student);
 			//displaySelectedYear(staff, student, schoolyear);
 		}
+		else {
+			cout << "\n\n\t\t\t\tClass " << class_name << " doesn't exist";
+			Sleep(2000);
+			system("cls");
+			displayMenuClass(staff, student, schoolyear);
+		}
 	}
 	else if (choice == "3") {
 		cout << "\n\n\t\t\t\tLoading...";
@@ -1397,7 +1403,7 @@ void updateStudentResult(SchoolYear* schoolyear) {
 			cin >> midterm;
 			out << midterm << ",";
 			cout << "\n\t\t\t\tOther mark: ";
-			cin >> other;
+			cin >> other; cin.ignore();
 			out << other << "\n";
 		}
 		else {

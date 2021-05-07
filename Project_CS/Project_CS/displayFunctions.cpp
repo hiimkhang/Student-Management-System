@@ -81,7 +81,7 @@ void displayLogin(Staff* staff, Student* student, SchoolYear* schoolYear) {
         getline(cin, date, '\n');
         g_Time = add0(date);
         gotoXY(29, 21); cout << "Set date successfully!";
-        gotoXY(35, 24); cout << "Press any key to return...";
+        gotoXY(29, 24); cout << "Press any key to return...";
         _getch();
         system("cls");
         displayLogin(staff, student, schoolYear);
@@ -350,7 +350,8 @@ void displayStaffProfile(Staff* staff) {
     Textcolor(rand() % 15 + 1);
     gotoXY(47, 9); cout << "PROFILE";
     Textcolor(7);
-
+    staff = nullptr;
+    getDataStaff(staff, "Staff.csv");
     while (staff && staff->staffAccount != g_account)
         staff = staff->pNext;
     if (staff) {
@@ -1012,7 +1013,8 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
         tempSemester = tempSemester->pNext;
 
     Course* pCur4 = tempSemester->course;
-    Course* tempCourse = tempSemester->course; // Will be used to add course later;
+    Course* tempCourse = tempSemester->course, *curCase1 = tempSemester->course; // Will be used to add course later;
+    Course* curCase2 = tempSemester->course, * curCase3 = tempSemester->course, * curCase4 = tempSemester->course;
 
     if (g_Time != "") {
         gotoXY(26, 4); cout << "Date: " << g_Time;
@@ -1065,14 +1067,27 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     gotoXY(45, y + 9); cout << char(26) << " Enter your choice: ";
     char choice = getchar();
     string courseID;
-    //int studentID;
     cin.ignore(100, '\n');
     switch (choice) {
     case '1': // Sonw
         gotoXY(95, y + 4); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
-        exportListStudentInCourse(schoolyear);
+        while (curCase1 && curCase1->courseID != courseID) {
+            curCase1 = curCase1->pNext;
+        }
+        if (!curCase1) {
+            gotoXY(95, y + 4); cout << "Course ID " << courseID << " doesn't exist.";
+            Sleep(2000);
+            system("cls");
+            displayCourseWhenDayExceed(schoolyear);
+        }
+        else {
+            g_selectCourse = courseID;
+            system("cls");
+            setConsoleWindow(800, 600);
+            exportListStudentInCourse(schoolyear);
+        }
         cout << "\n\n\t\t\t\tPress any key to exit \n";
         _getch();
         system("cls");
@@ -1081,26 +1096,65 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
     case '2': // Mountain
         gotoXY(70, y + 5); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID, '\n');
-        g_selectCourse = courseID;
-        importScoreboard(schoolyear);
+        while (curCase2 && curCase2->courseID != courseID) {
+            curCase2 = curCase2->pNext;
+        }
+        if (!curCase2) {
+            gotoXY(70, y + 5); cout << "Course ID " << courseID << " doesn't exist.";
+            Sleep(2000);
+            system("cls");
+            displayCourseWhenDayExceed(schoolyear);
+        }
+        else {
+            g_selectCourse = courseID;
+            system("cls");
+            setConsoleWindow(800, 600);
+            importScoreboard(schoolyear);
+        }
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
         break;
     case '3': // Som
         gotoXY(70, y + 6); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID, '\n');
-        g_selectCourse = courseID;
-        viewScore(schoolyear);
+        while (curCase3 && curCase3->courseID != courseID) {
+            curCase3 = curCase3->pNext;
+        }
+        if (!curCase3) {
+            gotoXY(70, y + 6); cout << "Course ID " << courseID << " doesn't exist.";
+            Sleep(2000);
+            system("cls");
+            displayCourseWhenDayExceed(schoolyear);
+        }
+        else {
+            g_selectCourse = courseID;
+            system("cls");
+            setConsoleWindow(800, 600);
+            viewScore(schoolyear);
+        }
         cout << "\n\n\t\t\t\t\t\tPress any key to exit \n";
         _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
         break;
     case '4': // Khang
-        gotoXY(80, y + 4); cout << char(26) << " Enter course ID: ";
+        gotoXY(80, y + 7); cout << char(26) << " Enter course ID: ";
         getline(cin, courseID);
-        g_selectCourse = courseID;
-        updateStudentResult(schoolyear);
+        while (curCase4 && curCase4->courseID != courseID) {
+            curCase4 = curCase4->pNext;
+        }
+        if (!curCase4) {
+            gotoXY(80, y + 4); cout << "Course ID " << courseID << " doesn't exist.";
+            Sleep(2000);
+            system("cls");
+            displayCourseWhenDayExceed(schoolyear);
+        }
+        else {
+            g_selectCourse = courseID;
+            system("cls");
+            setConsoleWindow(800, 600);
+            updateStudentResult(schoolyear);
+        }
         cout << "\n\n\t\t\t\tPress any key to exit \n";
         _getch();
         system("cls");
