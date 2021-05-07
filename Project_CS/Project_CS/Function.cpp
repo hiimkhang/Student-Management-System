@@ -409,10 +409,7 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 	Textcolor(7);
 	gotoXY(32, 14); cout << "Enter your old password: ";
 	string oldPass;
-	string title;
-	string Firstname, Lastname, Gender, studentPassword, DoB, studentClass;
-	int ID;
-	long SocialID;
+	string str;
 	getline(cin, oldPass, '\n');
 
 	Student* pCur = student;
@@ -437,33 +434,43 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 			in.open(path);
 			if (in) {
 				out.open("tempStudent.csv");
-				getline(in, title, '\n');
-				out << title << endl;
+				getline(in, str, '\n');
+				out << str << endl;
 				for (int i = 1; i <= numberOfLine(path) - 1; i++) {
-					in >> ID;
-					out << ID << ",";
-					char z;
-					in >> z;
-					getline(in, Firstname, ',');
-					out << Firstname << ",";
-					getline(in, Lastname, ',');
-					out << Lastname << ",";
-					getline(in, Gender, ',');
-					out << Gender << ",";
-					getline(in, DoB, ',');
-					out << DoB << ",";
-					getline(in, studentClass, ',');
-					out << studentClass << ",";
-					in >> SocialID;
-					out << SocialID << ",";
-					in >> z;
-					getline(in, studentPassword, '\n');
-					if (ID == pCur->StudentID) {
-						out << newPass << "\n";
-						pCur->studentPassword = newPass;
+					getline(in, str, ',');
+					if (str != to_string(g_ID)) {
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, '\n');
+						out << str << "\n";
 					}
 					else {
-						out << studentPassword << "\n";
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, '\n');
+						out << newPass << "\n";
 					}
 				}
 				out.close();
@@ -1475,7 +1482,8 @@ bool checkEnroll() {
 			if (temp == 0) Time1[0].push_back(str[i]);
 			else Time1[1].push_back(str[i]);
 		}
-		if (Day1[0] == Day[0] || Day[1] == Day[1]) {
+	
+		if (Day1[0] == Day[0] || Day1[1] == Day[1]) {
 			if (Day1[0] == Day[0] && Day1[1] != Day[0]) {
 				if (Time1[0] == Time[0]) return false;
 			}
@@ -1487,6 +1495,10 @@ bool checkEnroll() {
 				if (Time1[1] == Time[1]) return false;
 			}
 		}
+		Day1[0] = "";
+		Day1[1] = "";
+		Time1[0] = "";
+		Time1[1] = "";
 	}
 	in.close();
 	return true;
