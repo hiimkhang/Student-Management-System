@@ -1180,23 +1180,26 @@ void viewScore(SchoolYear *schoolyear){
 	string str;
 	ifstream in;
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv");
-	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv"); i++) {
-		getline(in, str, ',');
-		cout << str << "\t";
-		getline(in, str, ',');
-		cout << str << "\t";
-		getline(in, str, ',');
-		cout << str << "\t";
-		getline(in, str, ',');
-		cout << str << "\t";
-		getline(in, str, ',');
-		cout << str << "\t";
-		getline(in, str, ',');
-		cout << str << "\t";
-		getline(in, str, '\n');
-		cout << str << "\n";
+	if (in.is_open()) {
+		for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv"); i++) {
+			getline(in, str, ',');
+			cout << str << "\t";
+			getline(in, str, ',');
+			cout << str << "\t";
+			getline(in, str, ',');
+			cout << str << "\t";
+			getline(in, str, ',');
+			cout << str << "\t";
+			getline(in, str, ',');
+			cout << str << "\t";
+			getline(in, str, ',');
+			cout << str << "\t";
+			getline(in, str, '\n');
+			cout << str << "\n";
+		}
+		in.close();
 	}
-	in.close();
+	else cout << "Failed to open directory file.";
 	/*while (schoolyear && schoolyear->year != g_selectyear)
 		schoolyear = schoolyear->pNext;
 	if (schoolyear == nullptr) {
