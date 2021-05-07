@@ -80,7 +80,7 @@ struct SchoolYear {
 
 
 // Get Input
-void getDataStaff(Staff* &pHead, string filename);
+void getDataStaff(Staff*& pHead, string filename);
 void getDataSchoolYear(SchoolYear*& school_year, string path);
 void getDataStudent(Student*& pHead, string filename);
 void getDataClass(SchoolYear*& Schoolyear);
@@ -108,22 +108,22 @@ void removeEnrolled();
 
 
 // Login Functions
-void changePassStaff(Staff*& staff, Student* student,SchoolYear *schoolyear, string path);
+void changePassStaff(Staff*& staff, Student* student, SchoolYear* schoolyear, string path);
 void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, string path);
 bool loginStaff(Staff* staff);
 bool loginStudent(Student* student);
 
 // khi khoi tao student ko co hoc sinh nho xuong dong
 // Display menus function
-void displayLogin(Staff *staff, Student *student, SchoolYear *schoolyear);
+void displayLogin(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
-void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& schoolyear);
 void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& schoolyear);
 void displayStaffProfile(Staff* staff);
 void displayLoginStudent(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayStudentProfile(Student*& student, string path);
 void displayClass(SchoolYear* schoolyear);
-void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear);
+void displayMenuClass(Staff* staff, Student* student, SchoolYear*& schoolyear);
 void displayYear(SchoolYear* pHead);
 string displaySelectedYearForStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
 string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear* schoolyear);

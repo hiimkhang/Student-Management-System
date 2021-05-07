@@ -26,7 +26,7 @@ int numberOfLine(string filename) {
 }
 
 
-void getDataStaff(Staff* &pHead, string filename) {
+void getDataStaff(Staff*& pHead, string filename) {
 	ifstream in;
 	string t;
 	in.open(filename);
@@ -63,7 +63,7 @@ void getDataStudent(Student*& pHead, string filename) {
 	in.open(filename);
 	getline(in, t, '\n');
 	if (in.is_open()) {
-		string Firstname, Lastname, Gender ,studentPassword, studentClass, DoB;
+		string Firstname, Lastname, Gender, studentPassword, studentClass, DoB;
 		int StudentID;
 		long SocialID;
 		Student* pCur = pHead;
@@ -188,7 +188,7 @@ void displayYear(SchoolYear* pHead) {
 
 
 void deleteList(Staff*& pHead) {
-	Staff *pCur = pHead;
+	Staff* pCur = pHead;
 	while (pHead) {
 		pHead = pHead->pNext;
 		delete pCur;
@@ -303,7 +303,7 @@ bool loginStudent(Student* student) {
 }
 
 
-void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, string path) {
+void changePassStaff(Staff*& staff, Student* student, SchoolYear* schoolyear, string path) {
 	if (g_Time != "") {
 		gotoXY(26, 4); cout << "Date: " << g_Time;
 	}
@@ -319,12 +319,12 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 		pCur = pCur->pNext;
 	}
 	while (pCur && oldPass == pCur->staffPassword) {
-		cout << "\n\n\t\t\t\tEnter your new password: "; 
+		cout << "\n\n\t\t\t\tEnter your new password: ";
 		string tempPass, newPass;
 		getline(cin, tempPass, '\n');
 
 		cout << "\n\t\t\t\tEnter your new password again: ";
-		getline(cin, newPass, '\n'); 
+		getline(cin, newPass, '\n');
 
 		if (tempPass == newPass) {
 			cout << "\n\n\t\t\t\tLoading...";
@@ -339,7 +339,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 				out.open("temp.csv");
 				getline(in, title, '\n');
 				out << title << endl;
-				for (int i = 1; i <= numberOfLine(path) - 1 ; i++) {
+				for (int i = 1; i <= numberOfLine(path) - 1; i++) {
 					getline(in, nameStaff, ',');
 					out << nameStaff << ",";
 					getline(in, staffAccount, ',');
@@ -373,7 +373,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 			cout << "\n\n\t\t\t\tLoading...\n";
 			Sleep(2000);
 			system("cls");
-			displayLoginStaff(staff,student, schoolyear);
+			displayLoginStaff(staff, student, schoolyear);
 			return;
 		}
 		else {
@@ -400,7 +400,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear *schoolyear, st
 	}
 	else {
 		system("cls");
-		changePassStaff(staff,student, schoolyear, path);
+		changePassStaff(staff, student, schoolyear, path);
 	}
 }
 
@@ -525,9 +525,9 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 		changePassStudent(staff, student, schoolyear, path);
 	}
 }
-void createClassForYear(SchoolYear*& Schoolyear){
+void createClassForYear(SchoolYear*& Schoolyear) {
 	getDataClass(Schoolyear);
-    string class_name;
+	string class_name;
 	cout << "\n\t\t\t\tPlease input class name: ";
 	getline(cin, class_name);
 	Class* pcur = Schoolyear->classes;
@@ -572,7 +572,7 @@ void createSemester(SchoolYear*& Schoolyear) {
 
 	cout << "\n\t\t\t\tRegister start date: ";
 	getline(cin, register_start_date);
-	
+
 	cout << "\n\t\t\t\tRegister end date: ";
 	getline(cin, register_end_date, '\n');
 	*/
@@ -744,7 +744,7 @@ void inputStudent() {
 	}
 }
 
-void displayMenuClass(Staff* staff, Student* student, SchoolYear* &schoolyear) {
+void displayMenuClass(Staff* staff, Student* student, SchoolYear*& schoolyear) {
 
 	string choice;
 	getDataClass(schoolyear);
@@ -868,7 +868,7 @@ void getDataCoursesInSemester(SchoolYear*& schoolyear) {
 			in >> credits;
 			pCur->creditNum = credits;
 			in >> c;
-			getline(in, pCur->teacherName, ',');	
+			getline(in, pCur->teacherName, ',');
 			in >> numberOfStudents;
 			pCur->numOfStudents = numberOfStudents;
 			in >> c;
@@ -968,7 +968,7 @@ string addDays(string date1, int days) {
 }
 
 void exportListStudentInCourse(SchoolYear* schoolyear) {
-	
+
 	while (schoolyear->year != g_selectyear) {
 		schoolyear = schoolyear->pNext;
 	}
@@ -1010,7 +1010,7 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 			cout << pCur->Gender << ",";
 			cout << pCur->DoB << ",";
 			cout << pCur->studentClass << ",";
-			cout << pCur->SocialID << "\n";		
+			cout << pCur->SocialID << "\n";
 			pCur = pCur->pNext;
 		}
 		out.close();
@@ -1024,7 +1024,7 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 //		out << "No" << "," << "student ID" << "," << "Student full name" << "," << "Total mark" << "," << "Final mark" << "," << "Midterm mark" << "," << "Other mark" << endl;
 //	else cout << "ERROR";
 //}
-void importScoreboard(SchoolYear*& schoolyear){
+void importScoreboard(SchoolYear*& schoolyear) {
 	system("cls");
 	string choice;
 	do {
@@ -1121,7 +1121,7 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 	ifstream in;
 	SchoolYear* pCur = new SchoolYear;
 	in.open(path);
-	if(in){
+	if (in) {
 		for (int i = 1; i <= numberOfLine(path) - 1; i++) {
 			if (schoolyear == nullptr) {
 				schoolyear = new SchoolYear;
@@ -1170,7 +1170,7 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 				pCur->pNext = nullptr;
 			}
 		}
-	in.close();
+		in.close();
 	}
 	else cout << "\t\t\t\t\nERROR \n";
 }
@@ -1205,7 +1205,7 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 		in.open(path2);
 		if (in.is_open()) {
 			string str, strID = "1";
-			getline(in, str, '\n');  
+			getline(in, str, '\n');
 			while (strID != to_string(g_ID)) {
 				getline(in, str, ',');
 				getline(in, strID, ',');
@@ -1224,7 +1224,7 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 	setConsoleWindow(800, 600);
 	getDataSemester(schoolyear);
 	getDataCoursesInSemester(schoolyear);
-	
+
 	Semester* tempSemester = schoolyear->semester;
 	while (tempSemester && tempSemester->no != g_selectSemester)
 		tempSemester = tempSemester->pNext;
@@ -1276,7 +1276,7 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 }
 
 
-void viewScore(SchoolYear *schoolyear){
+void viewScore(SchoolYear* schoolyear) {
 	system("cls");
 	gotoXY(26, 5); cout << "\n\n\t\t\t\tVIEW SCOREBOARD \n";
 	string str;
@@ -1739,7 +1739,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 		out << title << endl;
 	}
 	out.close();
-	
+
 	gotoXY(30, 12); cout << "1. Course name: " << pCur->courseName;
 	gotoXY(30, 14); cout << "2. Course ID: " << pCur->courseID;
 	gotoXY(30, 16); cout << "3. Number of credits: " << pCur->creditNum;
