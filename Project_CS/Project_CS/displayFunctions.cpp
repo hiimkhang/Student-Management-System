@@ -1296,12 +1296,31 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         break;
     case '3': // Som
         system("cls");
+        if (g_Time != "") {
+            gotoXY(26, 4); cout << "Date: " << g_Time;
+        }
+        gotoXY(26, 5); cout << "==========================================================================================";
+        Textcolor(Blue);
+        gotoXY(63, 8); cout << "SEMESTER " << g_selectSemester;
+        gotoXY(56, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
+        Textcolor(7);
+
+        gotoXY(05, 12); cout << "Course name";
+        gotoXY(45, 12); cout << "Course ID"; //25
+        gotoXY(57, 12); cout << "Credits";  // 12
+        gotoXY(67, 12); cout << "Teacher"; // 10
+        gotoXY(85, 12); cout << "NoS"; // 18
+        gotoXY(91, 12); cout << "Day"; // 6
+        gotoXY(103, 12); cout << "Session"; // 12
+
+        gotoXY(02, 14); cout << "===================================================="
+            "=========================================================================";
         viewCourseEnrolled();
-        gotoXY(50, y + 6); cout << ": Enter course IDyou want remove: ";
+        cout << "\n\n\t\t\t\t             Enter course ID:";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         removeEnrolled();
-        cout << "press any ket to exit \n";
+        cout << "\n\n\t\t\t\t             Press any key to return...";
         _getch();
         system("cls");
         displayCourseForStudent(schoolyear);
