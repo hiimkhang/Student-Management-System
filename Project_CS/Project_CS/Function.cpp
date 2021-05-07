@@ -135,6 +135,8 @@ void createNewYear(SchoolYear*& year_school) {
 	cout << "\n\t\t\t\tEnter school year (2xxx_2xxx): ";
 	string y;
 	getline(cin, y, '\n');
+	year_school = nullptr;
+	getDataSchoolYear(year_school, "shool_year.txt");
 	SchoolYear* pCur1 = year_school;
 	while (pCur1 != nullptr) {
 		if (pCur1->year == y) {
@@ -149,16 +151,7 @@ void createNewYear(SchoolYear*& year_school) {
 	cout << "\n\t\t\t\tAdded.\n";
 	cout << "\n\t\t\t\tPress any key to return to previous page...";
 	_getch();
-	out << endl;
-	out << y;
-	SchoolYear* pCur = year_school;
-	while (pCur && pCur->pNext != nullptr) {
-		pCur = pCur->pNext;
-	}
-	pCur->pNext = new SchoolYear;
-	pCur->pNext->year = y;
-	pCur->pNext->pNext = nullptr;
-	out.close();
+	out << y << endl;
 }
 
 void displayYear(SchoolYear* pHead) {
