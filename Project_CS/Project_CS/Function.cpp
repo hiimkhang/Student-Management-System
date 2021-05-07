@@ -149,15 +149,7 @@ void createNewYear(SchoolYear*& year_school) {
 	cout << "\n\t\t\t\tAdded.\n";
 	cout << "\n\t\t\t\tPress any key to return to previous page...";
 	_getch();
-	out << endl;
-	out << y;
-	SchoolYear* pCur = year_school;
-	while (pCur && pCur->pNext != nullptr) {
-		pCur = pCur->pNext;
-	}
-	pCur->pNext = new SchoolYear;
-	pCur->pNext->year = y;
-	pCur->pNext->pNext = nullptr;
+	out << y << endl;
 	out.close();
 }
 
