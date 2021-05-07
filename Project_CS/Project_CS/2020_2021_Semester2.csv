@@ -1,4 +1,2 @@
-Course name,Course ID,credits,teacher name,credits,number of students,day,time
-Introduction to Computer Science II,CS162,3,Dinh Ba Tien,6,TUE & SAT,7:30 & 7:30
-Calculus II,MTH252,4,Gia Loi,47,FRI,13:30 & 15:30
-Marxist - Leninist II,BA100101,3,Dr. Quang Huy,47,WED,7:30 & 9:30
+Course name,Course ID,credits,teacher name,number of students,day,time
+Introduction to Computer Science,CS161,4,Dinh Ba Tien,50,TUE & SAT,7:30 & 9:30
