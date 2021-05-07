@@ -1449,10 +1449,10 @@ bool checkEnroll() {
 	}
 	in.close();
 	string Day1[2], Time1[2];
-	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
+	in.open(to_string(g_ID) + "_Course.csv");
 	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 6) return false;
 	getline(in, str);
-	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
+	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
 		getline(in, str, ',');
 		getline(in, str, ',');
 		getline(in, str, ',');
@@ -1511,7 +1511,7 @@ void enroll() {
 	if (checkEnroll() == true) {
 		out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv", ios::app);
 		if (numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") == 0) {
-			out << "studentID, Frist Name, Last Name, Gender, Dob, studentClass, SocialID, studentPassword\n";
+			out << "studentID, First Name, Last Name, Gender, Dob, studentClass, SocialID, studentPassword\n";
 		}
 		getDataStudent(student, "Student.csv");
 		while (student != nullptr && student->StudentID != g_ID) {

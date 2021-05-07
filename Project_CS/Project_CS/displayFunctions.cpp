@@ -799,8 +799,8 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
                         add0(pCur->end_date)[4] > g_Time[3] * 10 - g_Time[4])))
                 displayCourseInSemester(schoolyear);*/
                 // Trong 5 ngay truoc khi ket thuc ky tro di, staff co the export hoc sinh, them diem, ...
-            if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
-                && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0)
+            if ((date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
+                && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0 ) || date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) > 0)
                 displayCourseInSemester(schoolyear);
             else {
                 system("cls");
@@ -1188,7 +1188,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     ifstream in;
     int y = 16, No = 0, check = 1;
 
-    string title = { "Course name,Course ID,credits,teacher name,credits,"
+    string title = { "Course name,Course ID,credits,teacher name,"
     "number of students,day,time" };
 
     string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
@@ -1409,7 +1409,7 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
     ifstream in;
     int y = 16, No = 0, check = 1;
 
-    string title = { "Course name,Course ID,credits,teacher name,credits,"
+    string title = { "Course name,Course ID,credits,teacher name,"
     "number of students,day,time" };
 
     string path = g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv";
