@@ -1632,6 +1632,7 @@ void removeEnrolled() {
 	in.open(to_string(g_ID) + "_Course.csv");
 	out.open("tempenr.csv");
 	string str;
+	bool checkCourse = false;
 	getline(in, str);
 	out << str << endl;
 	string s;
@@ -1659,12 +1660,19 @@ void removeEnrolled() {
 			getline(in, str, ',');
 			getline(in, str, ',');
 			getline(in, str, '\n');
+			checkCourse = true;
 		}
 	}
+	
 	out.close();
 	in.close();
 	remove((to_string(g_ID) + "_Course.csv").c_str());
 	rename("tempenr.csv", (to_string(g_ID) + "_Course.csv").c_str());
+
+	if (!checkCourse) {
+		cout << "\n\n\t\t\t\t             Course " << g_selectCourse << " is not enrolled yet..";
+		return;
+	}
 
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv");
 	out.open("tempenr.csv");

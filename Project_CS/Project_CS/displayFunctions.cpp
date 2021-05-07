@@ -1188,7 +1188,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     setConsoleWindow(1000, 600);
     ofstream out;
     ifstream in;
-    int y = 16, No = 0, check = 1;
+    int y = 18, No = 0, check = 1;
 
     string title = { "Course name,Course ID,credits,teacher name,"
     "number of students,day,time" };
@@ -1205,7 +1205,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     while (tempSemester && tempSemester->no != g_selectSemester)
         tempSemester = tempSemester->pNext;
 
-    Course* tempCourse = tempSemester->course; // Will be used to add course later;
+    Course* tempCourse = tempSemester->course, *courseCase2 = tempSemester->course; // Will be used to add course later;
 
     if (g_Time != "") {
         gotoXY(26, 4); cout << "Date: " << g_Time;
@@ -1216,25 +1216,27 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
     gotoXY(56, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
     Textcolor(7);
 
-    gotoXY(05, 12); cout << "Course name";
-    gotoXY(45, 12); cout << "Course ID"; //25
-    gotoXY(57, 12); cout << "Credits";  // 12
-    gotoXY(67, 12); cout << "Teacher"; // 10
-    gotoXY(85, 12); cout << "NoS"; // 18
-    gotoXY(91, 12); cout << "Day"; // 6
-    gotoXY(103, 12); cout << "Session"; // 12
+    gotoXY(05, 12); cout << "ALL COURSE AVAILABLE IN SEMESTER " << g_selectSemester << ":";
 
-    gotoXY(02, 14); cout << "===================================================="
+    gotoXY(05, 14); cout << "Course name";
+    gotoXY(45, 14); cout << "Course ID"; //25
+    gotoXY(57, 14); cout << "Credits";  // 12
+    gotoXY(67, 14); cout << "Teacher"; // 10
+    gotoXY(85, 14); cout << "NoS"; // 18
+    gotoXY(91, 14); cout << "Day"; // 6
+    gotoXY(103, 14); cout << "Session"; // 12
+
+    gotoXY(02, 16); cout << "===================================================="
         "=========================================================================";
 
     if (numberOfLine(path) == 1) {
-        gotoXY(05, 16); cout << "N/A";
-        gotoXY(45, 16); cout << "N/A";
-        gotoXY(57, 16); cout << "N/A";
-        gotoXY(67, 16); cout << "N/A";
-        gotoXY(85, 16); cout << "N/A";
-        gotoXY(91, 16); cout << "N/A";
-        gotoXY(103, 16); cout << "N/A";
+        gotoXY(05, 18); cout << "N/A";
+        gotoXY(45, 18); cout << "N/A";
+        gotoXY(57, 18); cout << "N/A";
+        gotoXY(67, 18); cout << "N/A";
+        gotoXY(85, 18); cout << "N/A";
+        gotoXY(91, 18); cout << "N/A";
+        gotoXY(103, 18); cout << "N/A";
     }
     else {
         while (tempSemester->course) {
@@ -1320,7 +1322,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         gotoXY(02, 14); cout << "===================================================="
             "=========================================================================";
         viewCourseEnrolled();
-        cout << "\n\n\t\t\t\t             Enter course ID:";
+        cout << "\n\n\n\n\n\n\t\t\t\t             Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         removeEnrolled();
