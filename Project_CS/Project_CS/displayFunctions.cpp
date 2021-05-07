@@ -10,6 +10,7 @@ extern string g_Time;
 
 
 void displayLogin(Staff* staff, Student* student, SchoolYear* schoolYear) {
+    setConsoleWindow(800, 600);
     if (g_Time != "") {
         gotoXY(26, 4); cout << "Date: " << g_Time;
     }
