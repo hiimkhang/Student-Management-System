@@ -1344,7 +1344,7 @@ bool checkEnroll() {
 	}
 	in.close();
 	string Day1[2], Time1[2];
-	in.open(to_string(g_ID) + "_Course.csv");
+	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
 	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 6) return false;
 	getline(in, str);
 	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
@@ -1389,7 +1389,6 @@ bool checkEnroll() {
 				if (Time1[1] == Time[1]) return false;
 			}
 		}
-		getline(in, str, '\n');
 	}
 	in.close();
 	return true;
@@ -1405,7 +1404,10 @@ void enroll() {
 	}
 	out.close();
 	if (checkEnroll() == true) {
-		out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + ".csv", ios::app);
+		out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv", ios::app);
+		if (numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") == 0) {
+			out << "studentID, Frist Name, Last Name, Gender, Dob, studentClass, SocialID, studentPassword\n";
+		}
 		getDataStudent(student, "Student.csv");
 		while (student != nullptr && student->StudentID != g_ID) {
 			student = student->pNext;
@@ -1444,6 +1446,13 @@ void enroll() {
 				out << str << "\n";
 				break;
 			}
+			else {
+				getline(in, str, ',');
+				getline(in, str, ',');
+				getline(in, str, ',');
+				getline(in, str, ',');
+				getline(in, str, '\n');
+			}
 		}
 		in.close();
 		out.close();
@@ -1471,6 +1480,20 @@ void viewCourseEnrolled() {
 	}
 	in.close();
 
+}
+void removeEnrolled() {
+	ifstream in;
+	ofstream out;
+	in.open(to_string(g_ID) + "_Course.csv");
+	out.open("temp.csv");
+	string str;
+	getline(in, str);
+	out << str << endl;
+	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
+
+	}
+	out.close();
+	in.close();
 }
 void getDataStudentInCourse(Student*& studentincourse) {
 	studentincourse = nullptr;

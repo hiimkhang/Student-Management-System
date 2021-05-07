@@ -1239,11 +1239,11 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         gotoXY(50, y + 6); cout << ": Enter course ID: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
-        viewScore(schoolyear);
+        removeEnrolled();
         cout << "press any ket to exit \n";
         _getch();
         system("cls");
-        displayCourseWhenDayExceed(schoolyear);
+        displayCourseForStudent(schoolyear);
         break;
     case '4': // Khang
         gotoXY(73, y + 4); cout << ": Enter course ID: ";

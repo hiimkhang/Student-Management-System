@@ -101,6 +101,7 @@ void exportListStudentInCourse(SchoolYear* schoolyear);
 void enroll();
 void importScoreboard(SchoolYear*& schoolyear);
 void updateCourseInfo(SchoolYear*& schoolyear);
+void removeEnrolled();
 
 
 // Login Functions
