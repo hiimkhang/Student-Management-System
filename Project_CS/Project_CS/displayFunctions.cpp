@@ -1238,7 +1238,9 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         displayCourseForStudent(schoolyear);
         break;
     case '3': // Som
-        gotoXY(50, y + 6); cout << ": Enter course ID: ";
+        system("cls");
+        viewCourseEnrolled();
+        gotoXY(50, y + 6); cout << ": Enter course IDyou want remove: ";
         getline(cin, courseID, '\n');
         g_selectCourse = courseID;
         removeEnrolled();
@@ -1247,17 +1249,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
         system("cls");
         displayCourseForStudent(schoolyear);
         break;
-    case '4': // Khang
-        gotoXY(73, y + 4); cout << ": Enter course ID: ";
-        getline(cin, courseID);
-        g_selectCourse = courseID;
-        updateStudentResult(schoolyear);
-        cout << "press any ket to exit \n";
-        _getch();
-        system("cls");
-        displayCourseWhenDayExceed(schoolyear);
-        break;
-    case '5':
+    case '4':
         system("cls");
         displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
         break;

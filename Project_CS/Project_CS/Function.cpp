@@ -1489,7 +1489,7 @@ void removeEnrolled() {
 	ifstream in;
 	ofstream out;
 	in.open(to_string(g_ID) + "_Course.csv");
-	out.open("temp.csv");
+	out.open("tempenr.csv");
 	string str;
 	getline(in, str);
 	out << str << endl;
@@ -1500,10 +1500,68 @@ void removeEnrolled() {
 		getline(in, str, ',');
 		if (str != g_selectCourse) {
 			out << s << ",";
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, '\n');
+			out << str << "\n";
+		}
+		else {
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, '\n');
 		}
 	}
 	out.close();
 	in.close();
+	remove((to_string(g_ID) + "_Course.csv").c_str());
+	rename("tempenr.csv", (to_string(g_ID) + "_Course.csv").c_str());
+
+	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv");
+	out.open("tempenr.csv");
+	getline(in, str);
+	out << str << endl;
+	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") - 1; i++) {
+		getline(in, str, ',');
+		if (str != to_string(g_ID)) {
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, '\n');
+			out << str << "\n";
+		}
+		else {
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, '\n');
+		}
+	}
+	out.close();
+	in.close();
+	remove((g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv").c_str());
+	rename("tempenr.csv", (g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv").c_str());
 }
 
 void getDataStudentInCourse(Student*& studentincourse) {
