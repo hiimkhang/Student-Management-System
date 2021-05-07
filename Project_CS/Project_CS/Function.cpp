@@ -1566,10 +1566,10 @@ void enroll() {
 		}
 		in.close();
 		out.close();
-		cout << "\n\n\t\t\t\t             Enroll successfully!";
+		cout << "\n\t\t\t\t             Enroll successfully!";
 	}
 	else {
-		cout << "\n\n\t\t\t\t             Unable to enroll!";
+		cout << "\n\t\t\t\t             Unable to enroll!";
 	}
 }
 

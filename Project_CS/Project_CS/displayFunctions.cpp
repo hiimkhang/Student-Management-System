@@ -575,7 +575,7 @@ string displaySelectedYearForStudent(Staff* staff, Student* student, SchoolYear*
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
     ofstream out;
     ifstream in;
-    int y = 16, No = 0, check = 1;
+    int y = 14, No = 0, check = 1;
     in.open("student.csv");
     string str;
     getline(in, str);
@@ -598,14 +598,12 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
     Textcolor(Blue);
     gotoXY(38, 8); cout << "CLASS: " << g_selectClass;
     Textcolor(7);
-    gotoXY(31, 14); cout << "1. View lecturer";
-    gotoXY(31, 16); cout << "2. View student";
-    gotoXY(31, 18); cout << "3. Exit";
-    gotoXY(31, 20); cout << "Enter your choice: ";
+    gotoXY(31, 14); cout << "1. View student";
+    gotoXY(31, 16); cout << "2. Exit";
+    gotoXY(31, 18); cout << "Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
-    case '1':
         /*system("cls");
         gotoXY(26, 5); cout << "=======================================================";
         Textcolor(Blue);
@@ -629,8 +627,7 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
         gotoXY(31, y += 2); cout << "Loading..";
         system("cls");
         displayStudentInClass(schoolyear, student);*/
-        break;
-    case '2':
+    case '1':
         system("cls");
         if (g_Time != "") {
             gotoXY(26, 4); cout << "Date: " << g_Time;
@@ -640,40 +637,39 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
         gotoXY(46, 8); cout << "CLASS: " << g_selectClass;
         Textcolor(7);
 
-        gotoXY(05, 14); cout << "No";
-        gotoXY(10, 14); cout << "Student ID";
-        gotoXY(24, 14); cout << "First name";
-        gotoXY(38, 14); cout << "Last name";
-        gotoXY(51, 14); cout << "Gender";
-        gotoXY(61, 14); cout << "Date of birth";
-        gotoXY(78, 14); cout << "Social ID";
+        gotoXY(5 + 5, y-2); cout << "No";
+        gotoXY(10 + 5, y - 2); cout << "Student ID";
+        gotoXY(24 + 5, y - 2); cout << "First name";
+        gotoXY(38 + 5, y - 2); cout << "Last name";
+        gotoXY(51 + 5, y - 2); cout << "Gender";
+        gotoXY(61 + 5, y - 2); cout << "Date of birth";
+        gotoXY(78 + 5, y - 2); cout << "Social ID";
 
 
         if (numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") == 1) {
-            gotoXY(05, 16); cout << "N/A";
-            gotoXY(10, 16); cout << "N/A";
-            gotoXY(24, 16); cout << "N/A";
-            gotoXY(38, 16); cout << "N/A";
-            gotoXY(51, 16); cout << "N/A";
-            gotoXY(61, 16); cout << "N/A";
-            gotoXY(78, 16); cout << "N/A";
+            gotoXY(05 + 5, y ); cout << "N/A";
+            gotoXY(10 + 5, y); cout << "N/A";
+            gotoXY(24 + 5, y); cout << "N/A";
+            gotoXY(38 + 5, y); cout << "N/A";
+            gotoXY(51 + 5, y); cout << "N/A";
+            gotoXY(61 + 5, y); cout << "N/A";
+            gotoXY(78 + 5, y); cout << "N/A";
 
         }
         else {
             while (tempClass && tempClass->student && tempClass->student->studentClass == g_selectClass) {
-                gotoXY(05, y); cout << No;
-                gotoXY(10, y); cout << tempClass->student->StudentID;
-                gotoXY(24, y); cout << tempClass->student->Firstname;
-                gotoXY(38, y); cout << tempClass->student->Lastname;
-                gotoXY(51, y); cout << tempClass->student->Gender;
-                gotoXY(61, y); cout << tempClass->student->DoB;
-                gotoXY(78, y); cout << tempClass->student->SocialID;
+                gotoXY(05 + 5, y); cout << No;
+                gotoXY(10 + 5, y); cout << tempClass->student->StudentID;
+                gotoXY(24 + 5, y); cout << tempClass->student->Firstname;
+                gotoXY(38 + 5, y); cout << tempClass->student->Lastname;
+                gotoXY(51 + 5, y); cout << tempClass->student->Gender;
+                gotoXY(61 + 5, y); cout << tempClass->student->DoB;
+                gotoXY(78 + 5, y); cout << tempClass->student->SocialID;
                 y++; No++;
                 tempClass->student = tempClass->student->pNext;
             }
         }
 
-        gotoXY(31, y += 2); cout << "T: Add student by typing";
         gotoXY(31, ++y); cout << "F: Add student using csv file";
         gotoXY(31, ++y); cout << "ESC: Exit";
 
@@ -683,10 +679,6 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
             if (_kbhit())
             {
                 switch (_getch()) {
-                case 't':
-                    system("cls");
-                    AddStudentIntoClass(schoolyear, student, g_selectyear + "_" + g_selectClass + ".csv");
-                    break;
                 case 'f':
                     inputStudent();
                     system("cls");
@@ -701,12 +693,20 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
             }
         }
         break;
-    case '3':
+    case '2':
         system("cls");
         gotoXY(40, 16); cout << "Loading...";
         Sleep(2000);
         system("cls");
         displayMenuClass(schoolyear->staff, student, schoolyear);
+        break;
+    default:
+        gotoXY(31, 20); cout << "Try again in 2...";
+        Sleep(1000);
+        gotoXY(31, 20); cout << "Try again in 1...";
+        Sleep(1000);
+        system("cls");
+        displayStudentInClass(schoolyear, student);
         break;
     }
 }
@@ -907,9 +907,8 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
     gotoXY(45, y + 4); cout << "1. Add course";
     gotoXY(45, y + 5); cout << "2. Update course information";
     gotoXY(45, y + 6); cout << "3. Delete course";
-    gotoXY(45, y + 7); cout << "4. Import scoreboard";
-    gotoXY(45, y + 8); cout << "5. Exit";
-    gotoXY(45, y + 9); cout << "Enter your choice: ";
+    gotoXY(45, y + 7); cout << "4. Exit";
+    gotoXY(45, y + 8); cout << "Enter your choice: ";
     char choice = getchar();
     cin.ignore(100, '\n');
     switch (choice) {
@@ -1038,9 +1037,6 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
         displayCourseInSemester(schoolyear);
         break;
     case '4':
-        importScoreboard(schoolyear);
-        break;
-    case '5':
         system("cls");
         setConsoleWindow(800, 600);
         displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
