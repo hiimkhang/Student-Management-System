@@ -793,13 +793,15 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
             // Trong khoang thoi gian dau hoc ky toi 5 ngay truoc khi ket thuc ky thi 
             // staff co the them course, delete cource, update course, ...
 
-            if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
+            /*if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
                 && ((add0(pCur->end_date)[0]*10 + add0(pCur->end_date)[1]
                     - g_Time[0]*10 - g_Time[1] > 5) || (add0(pCur->end_date)[3] * 10 +
                         add0(pCur->end_date)[4] > g_Time[3] * 10 - g_Time[4])))
-                displayCourseInSemester(schoolyear);
+                displayCourseInSemester(schoolyear);*/
             // Trong 5 ngay truoc khi ket thuc ky tro di, staff co the export hoc sinh, them diem, ...
-
+            if (date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
+                && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0)
+                displayCourseInSemester(schoolyear);
             else {
                 system("cls");
                 displayCourseWhenDayExceed(schoolyear);
@@ -1427,7 +1429,8 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
     while (tempSemester && tempSemester->no != g_selectSemester)
         tempSemester = tempSemester->pNext;
 
-    Course* tempCourse = tempSemester->course; // Will be used to add course later;
+    Course* tempCourse = tempSemester->course, * tempCourse2 = tempSemester->course; // Will be used to add course later;
+    string pathCase2, str;
 
     if (g_Time != "") {
         gotoXY(26, 4); cout << "Date: " << g_Time;
@@ -1490,19 +1493,113 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
     string courseID;
     cin.ignore(100, '\n');
     switch (choice) {
-    case '1': 
+    case '1':
         getDataCourseScore(schoolyear, schoolyear->student);
         displayCoursesStudentsExceed(schoolyear);
         break;
     case '2': // Khang
-        gotoXY(73, y + 4); cout << ": Enter course ID: ";
-        getline(cin, courseID);
-        g_selectCourse = courseID;
-        updateStudentResult(schoolyear);
-        cout << "press any ket to exit \n";
-        _getch();
-        system("cls");
-        displayCourseWhenDayExceed(schoolyear);
+        gotoXY(45, y + 9); cout << "Enter course ID: ";
+        getline(cin, courseID, '\n');
+        while (tempCourse2 && tempCourse2->courseID != courseID)
+            tempCourse2 = tempCourse2->pNext;
+
+        if (!tempCourse2) {
+            gotoXY(45, y + 10); cout << "Course ID " << courseID
+                << " doesn't exist.";
+            Sleep(2000);
+            system("cls");
+            displayCoursesStudentsExceed(schoolyear);
+        }
+        else {
+            g_selectCourse = courseID;
+            pathCase2 = g_selectyear + "_Semester" + to_string(g_selectSemester) +
+                "_Course_" + courseID + "_student.csv";
+            gotoXY(45, y + 10); cout << "Entering " << courseID << "...";
+            Sleep(2000);
+            system("cls");
+            setConsoleWindow(800, 600);
+
+            if (g_Time != "") {
+                gotoXY(21, 4); cout << "Date: " << g_Time;
+            }
+            gotoXY(21, 5); cout << "==================================================================";
+            Textcolor(Blue);
+            gotoXY(47, 8); cout << "SEMESTER " << g_selectSemester;
+            gotoXY(40, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
+            if (tempCourse2) {
+                gotoXY(33, 10); cout << "COURSE: " << tempCourse2->courseName;
+            }
+            Textcolor(7);
+
+            gotoXY(8, 14); cout << "No";
+            gotoXY(13, 14); cout << "Student ID";
+            gotoXY(27, 14); cout << "First name";
+            gotoXY(41, 14); cout << "Last name";
+            gotoXY(54, 14); cout << "Gender";
+            gotoXY(64, 14); cout << "Date of birth";
+            gotoXY(81, 14); cout << "Class";
+
+            gotoXY(05, 16); cout << "============================================================="
+                "=============================";
+
+            y = 18, No = 1;
+
+            in.open(pathCase2);
+            if (!in.is_open()) {
+                gotoXY(8, y); cout << "N/A";
+                gotoXY(13, y); cout << "N/A";
+                gotoXY(27, y); cout << "N/A";
+                gotoXY(41, y); cout << "N/A";
+                gotoXY(54, y); cout << "N/A";
+                gotoXY(64, y); cout << "N/A";
+                gotoXY(81, y); cout << "N/A";
+                gotoXY(35, y + 4);  cout << "Press any key to exit...";
+                _getch();
+                system("cls");
+                displayCoursesStudentsExceed(schoolyear);
+                break;
+            }
+            else in.close();
+
+            if (numberOfLine(pathCase2) < 2) {
+                gotoXY(8, y); cout << "N/A";
+                gotoXY(13, y); cout << "N/A";
+                gotoXY(27, y); cout << "N/A";
+                gotoXY(41, y); cout << "N/A";
+                gotoXY(54, y); cout << "N/A";
+                gotoXY(64, y); cout << "N/A";
+                gotoXY(81, y); cout << "N/A";
+            }
+            else {
+                in.open(pathCase2);
+                if (in.is_open()) {
+                    getline(in, str, '\n');
+                    for (int i = 0; i < numberOfLine(pathCase2) - 1; ++i) {
+                        getline(in, str, ',');
+                        gotoXY(8, y); cout << No;
+                        gotoXY(13, y); cout << str; //id
+                        getline(in, str, ',');
+                        gotoXY(27, y); cout << str; //first name
+                        getline(in, str, ',');
+                        gotoXY(41, y); cout << str; //last name
+                        getline(in, str, ',');
+                        gotoXY(54, y); cout << str; //gender
+                        getline(in, str, ',');
+                        gotoXY(64, y); cout << str; //dob
+                        getline(in, str, ',');
+                        gotoXY(81, y); cout << str; //class
+                        getline(in, str, ',');
+                        getline(in, str, '\n');
+                        y++; No++;
+                    }
+                }
+                else cout << "Can not open file directory.";
+            }
+            gotoXY(35, y + 4);  cout << "Press any key to exit...";
+            _getch();
+            system("cls");
+            displayCoursesStudentsExceed(schoolyear);
+        }
         break;
     case '3':
         system("cls");
@@ -1517,5 +1614,4 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
         displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
         break;
     }
-
 }

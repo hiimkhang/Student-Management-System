@@ -1230,13 +1230,13 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 		tempSemester = tempSemester->pNext;
 
 	if (g_Time != "") {
-		gotoXY(26, 4); cout << "Date: " << g_Time;
+		gotoXY(21, 4); cout << "Date: " << g_Time;
 	}
-	gotoXY(26, 5); cout << "=============================================================";
+	gotoXY(21, 5); cout << "==================================================================";
 	Textcolor(Blue);
-	gotoXY(50, 8); cout << "SEMESTER " << g_selectSemester;
-	gotoXY(43, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
-	gotoXY(47, 10); cout << "STUDENT " << g_ID;
+	gotoXY(47, 8); cout << "SEMESTER " << g_selectSemester;
+	gotoXY(40, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
+	gotoXY(44, 10); cout << "STUDENT " << g_ID;
 	Textcolor(7);
 
 	gotoXY(15, 14); cout << "Course name";
