@@ -90,6 +90,7 @@ void getDataCoursesInSemester(SchoolYear*& schoolyear);
 void getDataStudentInCourse(Student*& studentincourse);
 void getDataCourseOfStudent(Student*& student);
 void getDataScore(SchoolYear*& schoolyear, string path);
+void getDataCourseScore(SchoolYear*& schoolyear, Student* student);
 void createClassForYear(SchoolYear*& Schoolyear);
 void createSemester(SchoolYear*& Schoolyear);
 void deleteList(Staff*& pHead);
