@@ -649,7 +649,7 @@ void getDataSemester(SchoolYear*& Schoolyear) {
 			in.close();
 			out.close();
 		}
-		else cout << "ERROR\n";
+		else cout << "\n\t\t\t\tERROR\n";
 	}
 }
 
@@ -983,7 +983,7 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 	ofstream out;
 	ifstream in;
 	system("cls");
-	cout << "\n\n\t\tPlease input the link of your csv.file (Ex:C:\\DocumentsClass\\20CTT1.csv):\n\t\t";
+	cout << "\n\n\t\tPlease input the link of your .csv file (Ex:C:\\DocumentsClass\\20CTT1.csv):\n\t\t";
 	string s;
 	getline(cin, s);
 	out.open(s);
@@ -1028,14 +1028,14 @@ void importScoreboard(SchoolYear*& schoolyear){
 	system("cls");
 	string choice;
 	do {
-		cout << "1. Tao mau de nhap diem \n";
-		cout << "2. Nhap diem vao he thong \n";
-		cout << "3. Exit \n";
-		cout << "Please input: ";
+		cout << "\n\t\t\t\t1. Create template to import scoreboard \n";
+		cout << "\n\t\t\t\t2. Import scoreboard \n";
+		cout << "\n\t\t\t\t3. Exit \n";
+		cout << "\n\n\t\t\t\tPlease input your option: ";
 		cin >> choice;
 		cin.ignore();
 		if (choice == "1") {
-			cout << "\n\t\t\t chon duong link de xuat ra file dung de nhap diem: \n";
+			cout << "\n\t\t\t Input link's location (in your computer) to export scoreboard template: \n";
 			string s;
 			getline(cin, s);
 			ofstream out;
@@ -1066,10 +1066,10 @@ void importScoreboard(SchoolYear*& schoolyear){
 			}
 			in.close();
 			out.close();
-			cout << "Da tao mau \n";
+			cout << "\n\t\t\t\tCreated! \n";
 		}
 		else if (choice == "2") {
-			cout << "Nhap duong link chua mau da tao: \n";
+			cout << "\n\t\t\t\tImport link contents template: \n";
 			string s;
 			getline(cin, s);
 			ifstream in;
@@ -1083,13 +1083,14 @@ void importScoreboard(SchoolYear*& schoolyear){
 			}
 			out.close();
 			in.close();
-			cout << "Hoan thanh \n";
+			cout << "Completed! \n";
 		}
 		else if (choice == "3") {
 			break;
 		}
 		else {
-			cout << "Vui long nhap lai\n";
+			cout << "\n\t\t\t\tInvalid input. Please enter your option again.\n";
+			Sleep(1000);
 		}
 	} while (choice != "3");
 	//ifstream in;
@@ -1133,19 +1134,19 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 			while (pCur && pCur->year != g_selectyear)
 				pCur = pCur->pNext;
 			if (pCur == nullptr) {
-				cout << "There is no schoolyear match your search";
+				cout << "\n\t\t\t\tThere is no schoolyear match your search";
 				return;
 			}
 			while (pCur->semester && pCur->semester->no != g_selectSemester)
 				pCur->semester = pCur->semester->pNext;
 			if (pCur->semester == nullptr) {
-				cout << "There is no semester match your search";
+				cout << "\n\t\t\t\tThere is no semester match your search";
 				return;
 			}
 			while (pCur->semester->course->courseID != g_selectCourse)
 				pCur->semester->course = pCur->semester->course->pNext;
 			if (pCur->semester->course == nullptr) {
-				cout << "There is no course match your search";
+				cout << "\n\t\t\t\tThere is no course match your search";
 				return;
 			}
 			in >> no;
@@ -1448,7 +1449,7 @@ bool checkEnroll() {
 	}
 	in.close();
 	string Day1[2], Time1[2];
-	in.open(to_string(g_ID) + "_Course.csv");
+	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
 	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 6) return false;
 	getline(in, str);
 	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv") - 1; i++) {
@@ -1493,7 +1494,6 @@ bool checkEnroll() {
 				if (Time1[1] == Time[1]) return false;
 			}
 		}
-		getline(in, str, '\n');
 	}
 	in.close();
 	return true;
@@ -1509,7 +1509,10 @@ void enroll() {
 	}
 	out.close();
 	if (checkEnroll() == true) {
-		out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + ".csv", ios::app);
+		out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv", ios::app);
+		if (numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") == 0) {
+			out << "studentID, Frist Name, Last Name, Gender, Dob, studentClass, SocialID, studentPassword\n";
+		}
 		getDataStudent(student, "Student.csv");
 		while (student != nullptr && student->StudentID != g_ID) {
 			student = student->pNext;
@@ -1548,6 +1551,13 @@ void enroll() {
 				out << str << "\n";
 				break;
 			}
+			else {
+				getline(in, str, ',');
+				getline(in, str, ',');
+				getline(in, str, ',');
+				getline(in, str, ',');
+				getline(in, str, '\n');
+			}
 		}
 		in.close();
 		out.close();
@@ -1576,6 +1586,85 @@ void viewCourseEnrolled() {
 	in.close();
 
 }
+void removeEnrolled() {
+	ifstream in;
+	ofstream out;
+	in.open(to_string(g_ID) + "_Course.csv");
+	out.open("tempenr.csv");
+	string str;
+	getline(in, str);
+	out << str << endl;
+	string s;
+	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
+		getline(in, str, ',');
+		s = str;
+		getline(in, str, ',');
+		if (str != g_selectCourse) {
+			out << s << ",";
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, '\n');
+			out << str << "\n";
+		}
+		else {
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, '\n');
+		}
+	}
+	out.close();
+	in.close();
+	remove((to_string(g_ID) + "_Course.csv").c_str());
+	rename("tempenr.csv", (to_string(g_ID) + "_Course.csv").c_str());
+
+	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv");
+	out.open("tempenr.csv");
+	getline(in, str);
+	out << str << endl;
+	for (int i = 1; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv") - 1; i++) {
+		getline(in, str, ',');
+		if (str != to_string(g_ID)) {
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, ',');
+			out << str << ",";
+			getline(in, str, '\n');
+			out << str << "\n";
+		}
+		else {
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, ',');
+			getline(in, str, '\n');
+		}
+	}
+	out.close();
+	in.close();
+	remove((g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv").c_str());
+	rename("tempenr.csv", (g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv").c_str());
+}
+
 void getDataStudentInCourse(Student*& studentincourse) {
 	studentincourse = nullptr;
 	ifstream in;
@@ -1653,9 +1742,9 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 	
 	gotoXY(30, 12); cout << "1. Course name: " << pCur->courseName;
 	gotoXY(30, 14); cout << "2. Course ID: " << pCur->courseID;
-	gotoXY(30, 16); cout << "3. Number of credit: " << pCur->creditNum;
+	gotoXY(30, 16); cout << "3. Number of credits: " << pCur->creditNum;
 	gotoXY(30, 18); cout << "4. Teacher in charge: " << pCur->teacherName;
-	gotoXY(30, 20); cout << "5. Number of student: " << pCur->numOfStudents;
+	gotoXY(30, 20); cout << "5. Number of students: " << pCur->numOfStudents;
 	gotoXY(30, 22); cout << "6. Day of the week: " << pCur->courseDate;
 	gotoXY(30, 24); cout << "7. Session: " << pCur->courseSession;
 	gotoXY(30, 26); cout << "8. Exit";
@@ -1747,7 +1836,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 		updateCourseInfo(schoolyear);
 		break;
 	case '3':
-		gotoXY(30, 30); cout << "Enter new number of credit: ";
+		gotoXY(30, 30); cout << "Enter new number of credits: ";
 		cin >> credit1; cin.ignore();
 		in.open(path);
 		if (in) {
@@ -1782,7 +1871,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 		else {
 			cout << "Can not open file directory.";
 		}
-		cout << "\n\t\t\t\t      Number of credit has been changed successfully!\n";
+		cout << "\n\t\t\t\t      Number of credits has been changed successfully!\n";
 		Sleep(2000);
 		system("cls");
 		updateCourseInfo(schoolyear);
@@ -1824,7 +1913,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 		else {
 			cout << "Can not open file directory.";
 		}
-		cout << "\n\t\t\t\t      Teacher in charged has been changed successfully!\n";
+		cout << "\n\t\t\t\t      Teacher in charged's has been changed successfully!\n";
 		Sleep(2000);
 		system("cls");
 		updateCourseInfo(schoolyear);
@@ -1872,8 +1961,8 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 		updateCourseInfo(schoolyear);
 		break;
 	case '6':
-		gotoXY(30, 31); cout << "(If there is more than one day, separate with &, ex: TUE & WED)";
-		gotoXY(30, 30); cout << "Enter new day of the week the course takes part in: ";
+		gotoXY(30, 31); cout << "(If there are more than one day, separate with &, ex: TUE & WED)";
+		gotoXY(30, 30); cout << "Enter new day of the week that the course will take place: ";
 		getline(cin, DoW1, '\n');
 		in.open(path);
 		if (in) {
@@ -1986,7 +2075,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 		out << DoW << ",";
 		out << session1 + " & " + session2 << "\n";
 		out.close();
-		cout << "\n\t\t\t      Course has been add successfully!";
+		cout << "\n\t\t\t      Course has been added successfully!";
 	}
 	else cout << "\n\t\t\t      Unable to open file " << path;
 }
