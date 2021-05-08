@@ -9,6 +9,7 @@ int g_selectSemester;
 string g_Time = "28/08/2021";
 
 int main() {
+	welcome();
 	fixConsoleWindow();
 	setConsoleWindow(800, 600);
 	Staff* staff = nullptr;

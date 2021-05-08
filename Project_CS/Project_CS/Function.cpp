@@ -975,9 +975,13 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 	out.open(s);
 	if (numberOfLine(s) == 0) {
 		in.open("Student.csv");
-		getline(in, s);
-		out << s << endl;
-		cout << s << endl;
+		for (int i = 0; i < 7; i++) {
+			getline(in, s, ',');
+			out << s << ",";
+			cout << s << "\t";
+		}
+		out << endl;
+		cout << endl;
 	}
 	in.close();
 	Student* pCur = schoolyear->semester->course->studentInCourse;
@@ -990,12 +994,12 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 			out << pCur->DoB << ",";
 			out << pCur->studentClass << ",";
 			out << pCur->SocialID << "\n";
-			cout << pCur->StudentID << ",";
-			cout << pCur->Firstname << ",";
-			cout << pCur->Lastname << ",";
-			cout << pCur->Gender << ",";
-			cout << pCur->DoB << ",";
-			cout << pCur->studentClass << ",";
+			cout << pCur->StudentID << "\t";
+			cout << pCur->Firstname << "\t";
+			cout << pCur->Lastname << "\t";
+			cout << pCur->Gender << "\t";
+			cout << pCur->DoB << "\t";
+			cout << pCur->studentClass << "\t\t";
 			cout << pCur->SocialID << "\n";
 			pCur = pCur->pNext;
 		}
@@ -1008,7 +1012,10 @@ void importScoreboard(SchoolYear*& schoolyear) {
 	system("cls");
 	string choice;
 	do {
-		cout << "\n\t\t\t\t1. Create template to import scoreboard \n";
+		Textcolor(Blue);
+		cout << "\n\n\t\t\t\tSCOREBOARD IMPORTING \n";
+		Textcolor(7);
+		cout << "\n\n\t\t\t\t1. Create template to import scoreboard \n";
 		cout << "\n\t\t\t\t2. Import scoreboard \n";
 		cout << "\n\t\t\t\t3. Exit \n";
 		cout << "\n\n\t\t\t\t" << char(26) << " Please input your option: ";
@@ -1047,7 +1054,7 @@ void importScoreboard(SchoolYear*& schoolyear) {
 			in.close();
 			out.close();
 			cout << "\n\t\t\t\tCreated!";
-			cout << "\n\n\t\t\t\tPress any key to continue";
+			cout << "\n\n\t\t\t\tPress any key to continue...";
 			_getch();
 			system("cls");
 		}
@@ -1067,7 +1074,7 @@ void importScoreboard(SchoolYear*& schoolyear) {
 			out.close();
 			in.close();
 			cout << "\n\t\t\t\tCompleted! \n";
-			cout << "\n\n\t\t\t\tPress any key to continue";
+			cout << "\n\n\t\t\t\tPress any key to continue...";
 			_getch();
 			system("cls");
 		}
@@ -1164,7 +1171,7 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 		}
 		in.close();
 	}
-	else cout << "\n\n\t\t\t\tCan not open file directory";
+	else cout << "\n\n\t\t\t\tCan not open file directory...";
 
 	for (int i = 0; i < numberOfLine(path) - 1; ++i) {
 		string path2 = g_selectyear + "_Semester" + to_string(g_selectSemester) +
@@ -1184,7 +1191,7 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 			}
 			in.close();
 		}
-		else cout << "\n\n\t\t\t\tCan not open directory file";
+		else cout << "\n\n\t\t\t\tCan not open directory file...";
 	}
 	system("cls");
 	setConsoleWindow(800, 600);
@@ -1244,7 +1251,9 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 
 void viewScore(SchoolYear* schoolyear) {
 	system("cls");
-	gotoXY(18, 5); cout << "\t\t\t\t" << char(3) << " VIEW SCOREBOARD " << char(3) << endl;
+	Textcolor(Blue);
+	gotoXY(18, 5); cout << "\t\t\t" << char(3) << " VIEW SCOREBOARD " << char(3) << endl;
+	Textcolor(7);
 	gotoXY(8, 7); cout << "===========================================================================================" << endl;
 	string str;
 	ifstream in;
@@ -1282,7 +1291,7 @@ void viewScore(SchoolYear* schoolyear) {
 		}
 		in.close();
 	}
-	else cout << "\n\n\t\t\t\tFailed to open directory file(No imported board).";
+	else cout << "\n\n\t\t\t\tFailed to open directory file (No imported board).";
 }
 
 void updateStudentResult(SchoolYear* schoolyear) {
@@ -1341,7 +1350,7 @@ void updateStudentResult(SchoolYear* schoolyear) {
 	in.close();
 	remove((g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv").c_str());
 	rename("scoretemp.csv", (g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv").c_str());
-	cout << "da update \n";
+	cout << "Updated \n";
 	viewScore(schoolyear);
 }
 bool checkEnroll() {
@@ -1772,7 +1781,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 			rename("tempSemester.csv", path.c_str());
 		}
 		else {
-			cout << "\n\n\t\t\t\tCan not open file directory.";
+			cout << "\n\n\t\t\t\tCan not open file directory...";
 		}
 		cout << "\n\t\t\t\t      Course name has been changed successfully!\n";
 		Sleep(2000);
@@ -1813,7 +1822,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 			rename("tempSemester.csv", path.c_str());
 		}
 		else {
-			cout << "\n\n\t\t\t\tCan not open file directory.";
+			cout << "\n\n\t\t\t\tCan not open file directory...";
 		}
 		cout << "\n\t\t\t\t      Course ID has been changed successfully!\n";
 		Sleep(2000);
@@ -1854,7 +1863,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 			rename("tempSemester.csv", path.c_str());
 		}
 		else {
-			cout << "\n\n\t\t\t\tCan not open file directory.";
+			cout << "\n\n\t\t\t\tCan not open file directory...";
 		}
 		cout << "\n\t\t\t\t      Number of credits has been changed successfully!\n";
 		Sleep(2000);
@@ -1896,7 +1905,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 			rename("tempSemester.csv", path.c_str());
 		}
 		else {
-			cout << "\n\n\t\t\t\tCan not open file directory.";
+			cout << "\n\n\t\t\t\tCan not open file directory...";
 		}
 		cout << "\n\t\t\t\t      Teacher in charged's has been changed successfully!\n";
 		Sleep(2000);
@@ -1938,7 +1947,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 			rename("tempSemester.csv", path.c_str());
 		}
 		else {
-			cout << "\n\n\t\t\t\tCan not open file directory.";
+			cout << "\n\n\t\t\t\tCan not open file directory...";
 		}
 		cout << "\n\t\t\t      Number of students has been changed successfully!\n";
 		Sleep(2000);
@@ -1980,7 +1989,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 			rename("tempSemester.csv", path.c_str());
 		}
 		else {
-			cout << "\n\n\t\t\t\tCan not open file directory.";
+			cout << "\n\n\t\t\t\tCan not open file directory...";
 		}
 		cout << "\n\t\t\t\t      New schedule has been changed successfully!\n";
 		Sleep(2000);
@@ -2026,7 +2035,7 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 			rename("tempSemester.csv", path.c_str());
 		}
 		else {
-			cout << "\n\n\t\t\t\tCan not open file directory.";
+			cout << "\n\n\t\t\t\tCan not open file directory...";
 		}
 		cout << "\n\t\t\t\t      New session has been changed successfully!\n";
 		Sleep(2000);
@@ -2062,5 +2071,5 @@ void updateCourseInfo(SchoolYear*& schoolyear) {
 		out.close();
 		cout << "\n\t\t\t      Course has been added successfully!";
 	}
-	else cout << "\n\t\t\t      Unable to open file " << path;
+	else cout << "\n\t\t\t      Unable to open file..." << path;
 }

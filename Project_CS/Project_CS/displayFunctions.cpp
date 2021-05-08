@@ -1006,7 +1006,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
             setConsoleWindow(800, 600);
             exportListStudentInCourse(schoolyear);
         }
-        cout << "\n\n\t\t\t\tPress any key to exit \n";
+        cout << "\n\n\t\t\t\tPress any key to exit";
         _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
@@ -1050,7 +1050,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
             setConsoleWindow(800, 600);
             viewScore(schoolyear);
         }
-        cout << "\n\n\t\t\t\t\t\tPress any key to exit \n";
+        cout << "\n\t\t\t\t\tPress any key to exit";
         _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
@@ -1073,7 +1073,7 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
             setConsoleWindow(800, 600);
             updateStudentResult(schoolyear);
         }
-        cout << "\n\n\t\t\t\tPress any key to exit \n";
+        cout << "\n\n\t\t\t\tPress any key to exit";
         _getch();
         system("cls");
         displayCourseWhenDayExceed(schoolyear);
@@ -1567,4 +1567,19 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
         displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
         break;
     }
+}
+
+void welcome() {
+    Textcolor(Blue);
+    gotoXY(45, 14); 
+    cout << char(3) << " WELCOME TO OUR MOODLES " << char(3);
+    Sleep(1000);
+    Textcolor(Red);
+    gotoXY(45, 14); cout << char(3) << " WELCOME TO OUR MOODLES " << char(3);
+    Sleep(1000);
+    Textcolor(Yellow);
+    gotoXY(45, 14); cout << char(3) << " WELCOME TO OUR MOODLES " << char(3);
+    Textcolor(7);
+    Sleep(1500);
+    system("cls");
 }

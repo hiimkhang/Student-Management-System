@@ -115,6 +115,7 @@ bool loginStudent(Student* student);
 
 // khi khoi tao student ko co hoc sinh nho xuong dong
 // Display menus function
+void welcome();
 void displayLogin(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear);
 void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& schoolyear);
