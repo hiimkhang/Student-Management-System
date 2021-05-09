@@ -19,14 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Class.cpp" />
     <ClCompile Include="Console.cpp" />
-    <ClCompile Include="displayFunctions.cpp" />
-    <ClCompile Include="function.cpp" />
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Others.cpp" />
+    <ClCompile Include="SchoolYear.cpp" />
+    <ClCompile Include="Semester.cpp" />
+    <ClCompile Include="Staff.cpp" />
+    <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="_Class.h" />
+    <ClInclude Include="_Course.h" />
+    <ClInclude Include="_SchoolYear.h" />
+    <ClInclude Include="_Semester.h" />
+    <ClInclude Include="_Staff.h" />
+    <ClInclude Include="_Student.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Course.csv" />
