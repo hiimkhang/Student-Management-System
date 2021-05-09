@@ -162,7 +162,7 @@ void updateStudentResult(SchoolYear* schoolyear) {
 
 bool checkEnroll() {
 	string str;
-	string day, time;
+	string day = "", time = "";
 	string Day[2], Time[2];
 	ifstream in;
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
@@ -186,6 +186,7 @@ bool checkEnroll() {
 			getline(in, str, '\n');
 		}
 	}
+	if (day == "" && time == "") return false;
 	int temp = 0;
 	for (unsigned int i = 0; i < day.size(); i++) {
 		if (day[i] == ' ' || day[i] == '&') {
