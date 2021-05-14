@@ -868,7 +868,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
 	}
 
 	string courseName, courseID, teacherName, DoW, session1, session2;
-	int credit, NoS;
+	string credit, NoS;
 
 
 	gotoXY(45, y + 4); cout << "1. Add course";
@@ -913,11 +913,11 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
 		}
 
 		gotoXY(30, 16); cout << "Number of credits: ";
-		cin >> credit; cin.ignore();
+		getline(cin, credit, '\n');
 		gotoXY(30, 18); cout << "Teacher in charge: ";
 		getline(cin, teacherName, '\n');
 		gotoXY(30, 20); cout << "Number of students: ";
-		cin >> NoS; cin.ignore();
+		getline(cin, NoS, '\n');
 		gotoXY(30, 23); cout << "(If there is more than one day, separate with &, ex: TUE & WED)";
 		gotoXY(30, 22); cout << "Day of the week: ";
 		getline(cin, DoW, '\n');
@@ -947,9 +947,9 @@ void displayCourseInSemester(SchoolYear*& schoolyear) {
 		if (out) {
 			out << courseName << ",";
 			out << courseID << ",";
-			out << credit << ",";
+			out << stoi(credit) << ",";
 			out << teacherName << ",";
-			out << NoS << ",";
+			out << stoi(NoS) << ",";
 			out << DoW << ",";
 			out << session1 + " & " + session2 << "\n";
 			out.close();

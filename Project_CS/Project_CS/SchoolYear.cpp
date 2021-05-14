@@ -41,6 +41,17 @@ void createNewYear(SchoolYear*& year_school) {
     cout << "\n\t\t\t\tEnter school year (2xxx_2xxx): ";
     string y;
     getline(cin, y, '\n');
+
+    bool checkYear = false;
+    for (int i = 0; i < y.size(); ++i) {
+        if (y[i] == '_') checkYear = true;
+    }
+    while (!checkYear) {
+        cout << "\n\t\t\t\tInvalid, please enter school year again (2xxx_2xxx): ";
+        getline(cin, y, '\n');
+        for (int i = 0; i < y.size(); ++i) 
+            if (y[i] == '_') checkYear = true;
+    }
     year_school = nullptr;
     getDataSchoolYear(year_school, "shool_year.txt");
     SchoolYear* pCur1 = year_school;
@@ -86,6 +97,7 @@ void displayYear(SchoolYear* pHead) {
 }
 
 void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& schoolyear) {
+    setConsoleWindow(800, 700);
     displayYear(schoolyear);
     cout << "\n\n\n\n\n\t\t\t\t1. Create new school year\n";
     cout << "\n\t\t\t\t2. Access into a school year\n";
@@ -117,6 +129,7 @@ void displaySchoolYearForStaff(Staff* staff, Student* student, SchoolYear*& scho
         }
         else {
             cout << "\n\t\t\t\tSchool year " << year << " doesn't exist";
+            Sleep(2000);
             system("cls");
             displaySchoolYearForStaff(staff, student, schoolyear);
         }
@@ -176,6 +189,7 @@ void displaySchoolYearForStudent(Staff* staff, Student* student, SchoolYear*& sc
 }
 
 string displaySelectedYearForStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
+    setConsoleWindow(800, 600);
     string choice1;
     if (g_Time != "") {
         gotoXY(26, 4); cout << "Date: " << g_Time;
