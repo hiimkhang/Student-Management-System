@@ -220,3 +220,18 @@ string addDays(string date1, int days) {
     string res = dd + "/" + to_string(date.tm_mon + 1) + "/" + to_string(date.tm_year + 1900);
     return add0(res);
 }
+
+void welcome() {
+    Textcolor(Blue);
+    gotoXY(45, 14);
+    cout << char(3) << " WELCOME TO OUR MOODLES " << char(3);
+    Sleep(1000);
+    Textcolor(Red);
+    gotoXY(45, 14); cout << char(3) << " WELCOME TO OUR MOODLES " << char(3);
+    Sleep(1000);
+    Textcolor(Yellow);
+    gotoXY(45, 14); cout << char(3) << " WELCOME TO OUR MOODLES " << char(3);
+    Textcolor(7);
+    Sleep(1500);
+    system("cls");
+}

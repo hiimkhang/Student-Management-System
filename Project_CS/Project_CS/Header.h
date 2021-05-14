@@ -42,4 +42,6 @@ void DatePlusDays(struct tm* date, int days);
 // Function to add number of day into a given date.
 string addDays(string date1, int days);
 
+void welcome();
+
 #endif
