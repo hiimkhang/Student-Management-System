@@ -7,7 +7,7 @@ string g_selectyear;
 string g_selectClass;
 string g_selectCourse;
 int g_selectSemester;
-string g_Time = "28/08/2021";
+string g_Time = "15/05/2021";
 
 int main() {
 	welcome();

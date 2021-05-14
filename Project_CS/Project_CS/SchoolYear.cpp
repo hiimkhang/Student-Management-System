@@ -53,11 +53,11 @@ void createNewYear(SchoolYear*& year_school) {
             if (y[i] == '_') checkYear = true;
     }
     year_school = nullptr;
-    getDataSchoolYear(year_school, "shool_year.txt");
+    getDataSchoolYear(year_school, "school_year.txt");
     SchoolYear* pCur1 = year_school;
     while (pCur1 != nullptr) {
         if (pCur1->year == y) {
-            cout << "\n\t\t\t\tThis year is already exsisted.";
+            cout << "\n\t\t\t\tThis year already exists.";
             Sleep(2000);
             return;
         }

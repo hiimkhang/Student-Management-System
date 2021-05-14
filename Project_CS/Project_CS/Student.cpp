@@ -60,7 +60,7 @@ void getDataStudent(Student*& pHead, string filename) {
 }
 
 void inputStudent() {
-	cout << "\n\n\t\tPlease input the link of your csv.file (Ex:C:\\Documents\\Class\\20CTT1.csv):\n\t";
+	cout << "\n\n\t\tPlease input the link of your csv.file (Ex:C:\\Documents\\Class\\20CTT1.csv):\n\t\t";
 	string s;
 	getline(cin, s);
 	ifstream in;
@@ -99,6 +99,38 @@ void inputStudent() {
 				/*getline(in, t);
 				out << t << endl;*/
 				getline(in, t, ',');
+				if (checkAdd(t) == true) {
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << g_selectClass << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, '\n');
+					out << t << "\n";
+				}
+				else {
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, '\n');
+				}
+			}
+		else for (int i = 1; i + numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") < 52; i++) {
+			/*getline(in, t);
+			out << t << endl;*/
+			getline(in, t, ',');
+			if (checkAdd(t) == true) {
 				out << t << ",";
 				getline(in, t, ',');
 				out << t << ",";
@@ -115,34 +147,99 @@ void inputStudent() {
 				getline(in, t, '\n');
 				out << t << "\n";
 			}
-		else for (int i = 1; i + numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") < 52; i++) {
-			/*getline(in, t);
-			out << t << endl;*/
-			getline(in, t, ',');
-			out << t << ",";
-			getline(in, t, ',');
-			out << t << ",";
-			getline(in, t, ',');
-			out << t << ",";
-			getline(in, t, ',');
-			out << t << ",";
-			getline(in, t, ',');
-			out << t << ",";
-			getline(in, t, ',');
-			out << g_selectClass << ",";
-			getline(in, t, ',');
-			out << t << ",";
-			getline(in, t, '\n');
-			out << t << "\n";
+			else {
+				getline(in, t, ',');
+				getline(in, t, ',');
+				getline(in, t, ',');
+				getline(in, t, ',');
+				getline(in, t, ',');
+				getline(in, t, ',');
+				getline(in, t, '\n');
+			}
 		}
 		out.close();
 		in.close();
-		cout << "\n\n\t\tUpdate students from csv file successfully!";
-		Sleep(2000);
-	}
-	else {
-		cout << "\n\n\t\tCan not find any " << s << " file";
-		Sleep(2000);
+
+		t = "";
+		in.open(s);
+		if (in) {
+			if (numberOfLine(s) > 50) {
+				checkSlot = false;
+			}
+			getline(in, t);
+			out.open("Student.csv", ios::app);
+			if (checkSlot)
+				for (int i = 1; i <= numberOfLine(s) - 1; i++) {
+					/*getline(in, t);
+					out << t << endl;*/
+					getline(in, t, ',');
+					if (checkAdd(t) == true) {
+						out << t << ",";
+						getline(in, t, ',');
+						out << t << ",";
+						getline(in, t, ',');
+						out << t << ",";
+						getline(in, t, ',');
+						out << t << ",";
+						getline(in, t, ',');
+						out << t << ",";
+						getline(in, t, ',');
+						out << g_selectClass << ",";
+						getline(in, t, ',');
+						out << t << ",";
+						getline(in, t, '\n');
+						out << t << "\n";
+					}
+					else {
+						getline(in, t, ',');
+						getline(in, t, ',');
+						getline(in, t, ',');
+						getline(in, t, ',');
+						getline(in, t, ',');
+						getline(in, t, ',');
+						getline(in, t, '\n');
+					}
+				}
+			else for (int i = 1; i + numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") < 52; i++) {
+				/*getline(in, t);
+				out << t << endl;*/
+				getline(in, t, ',');
+				if (checkAdd(t) == true) {
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, ',');
+					out << g_selectClass << ",";
+					getline(in, t, ',');
+					out << t << ",";
+					getline(in, t, '\n');
+					out << t << "\n";
+				}
+				else {
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, ',');
+					getline(in, t, '\n');
+				}
+			}
+			out.close();
+			in.close();
+			cout << "\n\n\t\tUpdate students from csv file successfully!";
+			Sleep(2000);
+		}
+		else {
+			cout << "\n\n\t\tCan not find any " << s << " file";
+			Sleep(2000);
+		}
 	}
 }
 
@@ -213,6 +310,18 @@ void addStudent(SchoolYear*& schoolyear) {
 		out << "student\n";
 		out.close();
 		cout << "\n\t\t\t      Student has been added successfully!";
+	}
+	out.open("Student.csv", ios::app);
+	if (out) {
+		out << stoi(studentID) << ",";
+		out << lastName << ",";
+		out << firstName << ",";
+		out << gender << ",";
+		out << dob << ",";
+		out << g_selectClass << ",";
+		out << stoi(socialID) << ",";
+		out << "student\n";
+		out.close();
 	}
 	else cout << "\n\t\t\t      Unable to open file " << path;
 	Sleep(2500);
@@ -383,6 +492,28 @@ bool checkEnroll() {
 	}
 	in.close();
 	return true;
+}
+
+bool checkAdd(string id) {
+	ifstream in;
+	in.open("Student.csv");
+	if (in) {
+		string t;
+		getline(in, t);
+		for (int i = 1; i <= numberOfLine("Student.csv") - 1; i++) {
+			getline(in, t, ',');
+			if (id == t) return false;
+			getline(in, t, ',');
+			getline(in, t, ',');
+			getline(in, t, ',');
+			getline(in, t, ',');
+			getline(in, t, ',');
+			getline(in, t, ',');
+			getline(in, t, '\n');
+		}
+		in.close();
+		return true;
+	}
 }
 
 void enroll() {

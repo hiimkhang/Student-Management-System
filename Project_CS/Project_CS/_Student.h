@@ -21,6 +21,8 @@ void inputStudent();
 // Function to add a student by typing.
 void addStudent(SchoolYear*& schoolyear);
 
+bool checkAdd(string t);
+
 // Function to update a student grade.
 void updateStudentResult(SchoolYear* schoolyear);
 

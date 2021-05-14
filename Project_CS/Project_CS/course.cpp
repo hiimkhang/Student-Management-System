@@ -47,15 +47,17 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 			out << pCur->DoB << ",";
 			out << pCur->studentClass << ",";
 			out << pCur->SocialID << "\n";
-			cout << pCur->StudentID << ",";
+			/*cout << pCur->StudentID << ",";
 			cout << pCur->Firstname << ",";
 			cout << pCur->Lastname << ",";
 			cout << pCur->Gender << ",";
 			cout << pCur->DoB << ",";
 			cout << pCur->studentClass << ",";
-			cout << pCur->SocialID << "\n";
+			cout << pCur->SocialID << "\n";*/
 			pCur = pCur->pNext;
 		}
+		cout << "\n\n\t\t\t\tExport students learning " << g_selectCourse <<
+			" successfully!";
 		out.close();
 	}
 	else cout << "\n\t\t\t\tERROR. Can't open file...";
@@ -63,16 +65,24 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 
 void importScoreboard(SchoolYear*& schoolyear) {
 	system("cls");
+	
 	string choice;
 	do {
-		cout << "\n\t\t\t\t1. Create template to import scoreboard \n";
+		if (g_Time != "") {
+			gotoXY(21, 4); cout << "Date: " << g_Time;
+		}
+		gotoXY(21, 5); cout << "==================================================================";
+		Textcolor(Blue);
+		gotoXY(47, 8); cout << "SEMESTER " << g_selectSemester;
+		Textcolor(7);
+		cout << "\n\n\n\t\t\t\t1. Create template to import scoreboard \n";
 		cout << "\n\t\t\t\t2. Import scoreboard \n";
 		cout << "\n\t\t\t\t3. Exit \n";
 		cout << "\n\n\t\t\t\t" << char(26) << " Please input your option: ";
 		cin >> choice;
 		cin.ignore();
 		if (choice == "1") {
-			cout << "\n\t\t\t Input link's location (in your computer) to export scoreboard template: ";
+			cout << "\n\t\t\t Input link's location (in your computer) to export scoreboard template: \n\t\t\t";
 			string s;
 			getline(cin, s);
 			ofstream out;
@@ -114,17 +124,25 @@ void importScoreboard(SchoolYear*& schoolyear) {
 			getline(cin, s);
 			ifstream in;
 			in.open(s);
-			ofstream out;
-			out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv");
-			string str;
-			for (int i = 1; i <= numberOfLine(s); i++) {
-				getline(in, str);
-				out << str << endl;
+			if (in) {
+				ofstream out;
+				out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv");
+				string str;
+				if (out) {
+					for (int i = 1; i <= numberOfLine(s); i++) {
+						getline(in, str);
+						out << str << endl;
+					}
+					out.close();
+					cout << "\n\t\t\t\tCompleted! \n";
+					cout << "\n\n\t\t\t\tPress any key to continue";
+				}
+				in.close();
 			}
-			out.close();
-			in.close();
-			cout << "\n\t\t\t\tCompleted! \n";
-			cout << "\n\n\t\t\t\tPress any key to continue";
+			else {
+				cout << "\n\t\t\t\tFailed! \n";
+				cout << "\n\n\t\t\t\tPress any key to continue";
+			}
 			_getch();
 			system("cls");
 		}
@@ -300,41 +318,45 @@ void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 
 void viewScore(SchoolYear* schoolyear) {
 	system("cls");
+	setConsoleWindow(900, 700);
 	gotoXY(18, 5); cout << "\t\t\t\t" << char(3) << " VIEW SCOREBOARD " << char(3) << endl;
-	gotoXY(8, 7); cout << "===========================================================================================" << endl;
+	gotoXY(8, 7); cout << "===========================================================================================================" << endl;
 	string str;
 	ifstream in;
+	int y = 10;
 	in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv");
 	if (in.is_open()) {
 		getline(in, str, ',');
-		cout << str << "\t";
+		gotoXY(2, y); cout << str;
 		getline(in, str, ',');
-		cout << str << "\t";
+		gotoXY(7, y); cout << str;
 		getline(in, str, ',');
-		cout << str << "\t";
+		gotoXY(23, y); cout << str;
 		getline(in, str, ',');
-		cout << str << "\t";
+		gotoXY(58, y); cout << str;
 		getline(in, str, ',');
-		cout << str << "\t";
+		gotoXY(73, y); cout << str;
 		getline(in, str, ',');
-		cout << str << "\t";
+		gotoXY(88, y); cout << str;
 		getline(in, str, '\n');
-		cout << str << "\n";
+		gotoXY(103, y); cout << str;
+		y += 2;
 		for (int i = 2; i <= numberOfLine(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv"); i++) {
 			getline(in, str, ',');
-			cout << str << "\t";
+			gotoXY(2, y); cout << str;
 			getline(in, str, ',');
-			cout << str << "\t";
+			gotoXY(7, y); cout << str;
 			getline(in, str, ',');
-			cout << str << "\t\t";
+			gotoXY(23, y); cout << str;
 			getline(in, str, ',');
-			cout << str << "\t\t";
+			gotoXY(58, y); cout << str;
 			getline(in, str, ',');
-			cout << str << "\t\t";
+			gotoXY(73, y); cout << str;
 			getline(in, str, ',');
-			cout << str << "\t\t";
+			gotoXY(88, y); cout << str;
 			getline(in, str, '\n');
-			cout << str << "\n";
+			gotoXY(103, y); cout << str;
+			y++;
 		}
 		in.close();
 	}
@@ -1150,12 +1172,12 @@ void displayCourseWhenDayExceed(SchoolYear*& schoolyear) {
 		else {
 			g_selectCourse = courseID;
 			system("cls");
-			setConsoleWindow(800, 600);
 			viewScore(schoolyear);
 		}
 		cout << "\n\n\t\t\t\t\t\tPress any key to exit \n";
 		_getch();
 		system("cls");
+		setConsoleWindow(800, 600);
 		displayCourseWhenDayExceed(schoolyear);
 		break;
 	case '4': // Khang
