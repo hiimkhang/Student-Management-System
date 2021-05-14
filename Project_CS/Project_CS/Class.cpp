@@ -148,7 +148,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear*& schoolyear) {
 		displayMenuClass(staff, student, schoolyear);
 	}
 	else if (choice == "2") {
-		cout << "\n\n\t\t\t\t" << char(26) << "Enter the class you want to get access into: ";
+		cout << "\n\n\t\t\t\t" << char(26) << " Enter the class you want to get access into: ";
 		string class_name;
 		getline(cin, class_name, '\n');
 		getDataClass(schoolyear);
@@ -188,7 +188,7 @@ void displayMenuClass(Staff* staff, Student* student, SchoolYear*& schoolyear) {
 void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
 	ofstream out;
 	ifstream in;
-	int y = 14, No = 0, check = 1;
+	int y = 14, No = 1, check = 1;
 	in.open("student.csv");
 	string str;
 	getline(in, str);
@@ -229,12 +229,15 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
 
 		gotoXY(5 + 5, y - 2); cout << "No";
 		gotoXY(10 + 5, y - 2); cout << "Student ID";
-		gotoXY(24 + 5, y - 2); cout << "First name";
-		gotoXY(38 + 5, y - 2); cout << "Last name";
+		gotoXY(24 + 5, y - 2); cout << "Last name";
+		gotoXY(38 + 5, y - 2); cout << "First name";
 		gotoXY(51 + 5, y - 2); cout << "Gender";
 		gotoXY(61 + 5, y - 2); cout << "Date of birth";
 		gotoXY(78 + 5, y - 2); cout << "Social ID";
 
+		gotoXY(02, y); cout << "===================================================="
+			"===============================================";
+		y += 2;
 
 		if (numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") == 1) {
 			gotoXY(05 + 5, y); cout << "N/A";
@@ -260,8 +263,9 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
 			}
 		}
 
-		gotoXY(31, ++y); cout << "F: Add student using csv file";
-		gotoXY(31, ++y); cout << "ESC: Exit";
+		gotoXY(31, y + 4); cout << "T: Add a student by typing";
+		gotoXY(31, y + 5); cout << "F: Add student/Change student list using csv file";
+		gotoXY(31, y + 6); cout << "ESC: Exit";
 
 		AnTroChuot();
 
@@ -269,6 +273,15 @@ void displayStudentInClass(SchoolYear*& schoolyear, Student* student) {
 			if (_kbhit())
 			{
 				switch (_getch()) {
+				case 't':
+					if (No > 49) {
+						gotoXY(31, y + 8); cout << "Number of student in " << g_selectClass << " has exceed the limit!!";
+					}
+					else {
+						addStudent(schoolyear);
+						displayStudentInClass(schoolyear, student);
+					}
+					break;
 				case 'f':
 					inputStudent();
 					system("cls");

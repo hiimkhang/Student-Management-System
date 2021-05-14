@@ -60,44 +60,163 @@ void getDataStudent(Student*& pHead, string filename) {
 }
 
 void inputStudent() {
-	cout << "\n\n\t\tPlease input the link of your csv.file (Ex:C:\\DocumentsClass\\20CTT1.csv):\n\t\t";
+	cout << "\n\n\t\tPlease input the link of your csv.file (Ex:C:\\Documents\\Class\\20CTT1.csv):\n\t";
 	string s;
 	getline(cin, s);
 	ifstream in;
 	ofstream out;
 	string t;
+	bool checkSlot = true;
+	/*in.open(s);*/
+	//if (in) {
+	//	getline(in, t);
+	//	/*out.open("Student.csv", ios::app);*/
+	//	
+	//	for (int i = 1; i <= numberOfLine(s) - 1; i++) {
+	//		getline(in, t);
+	//		out << t << endl;
+	//	}
+	//	out.close();
+	//	in.close();
+	//}
+	//else {
+	//	cout << "\n\n\t\tCan not find any " << s << " file";
+	//	Sleep(2000);
+	//}
 	in.open(s);
 	if (in) {
-		getline(in, t);
-		out.open("Student.csv", ios::app);
-		for (int i = 1; i <= numberOfLine(s) - 1; i++) {
-			getline(in, t);
-			out << t << endl;
+		if (numberOfLine(s) > 50) {
+			cout << "\n\n\t\tIt seems like there is more than 50 students in the file";
+			Sleep(2000);
+			cout << "\n\t\tWe will take the first 50 students to add in " << g_selectClass;
+			Sleep(2000);
+			checkSlot = false;
 		}
-		out.close();
-		in.close();
-	}
-	else {
-		cout << "\n\n\t\tCan not open " << s;
-		Sleep(2000);
-	}
-	in.open(s);
-	if (in) {
 		getline(in, t);
 		out.open(g_selectyear + "_" + g_selectClass + ".csv", ios::app);
-		for (int i = 1; i <= numberOfLine(s) - 1; i++) {
-			getline(in, t);
-			out << t << endl;
+		if (checkSlot)
+			for (int i = 1; i <= numberOfLine(s) - 1; i++) {
+				/*getline(in, t);
+				out << t << endl;*/
+				getline(in, t, ',');
+				out << t << ",";
+				getline(in, t, ',');
+				out << t << ",";
+				getline(in, t, ',');
+				out << t << ",";
+				getline(in, t, ',');
+				out << t << ",";
+				getline(in, t, ',');
+				out << t << ",";
+				getline(in, t, ',');
+				out << g_selectClass << ",";
+				getline(in, t, ',');
+				out << t << ",";
+				getline(in, t, '\n');
+				out << t << "\n";
+			}
+		else for (int i = 1; i + numberOfLine(g_selectyear + "_" + g_selectClass + ".csv") < 52; i++) {
+			/*getline(in, t);
+			out << t << endl;*/
+			getline(in, t, ',');
+			out << t << ",";
+			getline(in, t, ',');
+			out << t << ",";
+			getline(in, t, ',');
+			out << t << ",";
+			getline(in, t, ',');
+			out << t << ",";
+			getline(in, t, ',');
+			out << t << ",";
+			getline(in, t, ',');
+			out << g_selectClass << ",";
+			getline(in, t, ',');
+			out << t << ",";
+			getline(in, t, '\n');
+			out << t << "\n";
 		}
 		out.close();
 		in.close();
-		cout << "\t\tUpdate students from csv file successfully!";
+		cout << "\n\n\t\tUpdate students from csv file successfully!";
 		Sleep(2000);
 	}
 	else {
-		cout << "\n\n\t\tCan not open " << s;
+		cout << "\n\n\t\tCan not find any " << s << " file";
 		Sleep(2000);
 	}
+}
+
+void addStudent(SchoolYear*& schoolyear) {
+	system("cls");
+	setConsoleWindow(800, 600);
+
+	getDataStudentinClass(schoolyear);
+	Class* tempClass = schoolyear->classes;
+	while (tempClass && tempClass->className != g_selectClass)
+		tempClass = tempClass->pNext;
+
+
+	if (g_Time != "") {
+		gotoXY(26, 4); cout << "Date: " << g_Time;
+	}
+	gotoXY(26, 5); cout << "=======================================================";
+	Textcolor(Blue);
+	gotoXY(38, 8); cout << "CLASS: " << g_selectClass;
+
+	string studentID, firstName, lastName, gender, dob, studentClass, socialID;
+	string path = g_selectyear + "_" + g_selectClass + ".csv";
+	ifstream in;
+	ofstream out;
+
+
+	Student* tempStudent = tempClass->student;
+	tempClass->student = new Student;
+
+	Textcolor(7);
+	gotoXY(30, 12); cout << "Last name (Ho va ten dem): ";
+	getline(cin, lastName, '\n');
+	gotoXY(30, 14); cout << "First name (Ten): ";
+	getline(cin, firstName, '\n');
+	gotoXY(30, 16); cout << "Student ID: ";
+	getline(cin, studentID, '\n');
+
+	string fullName = lastName + firstName;
+
+	while (tempStudent && tempStudent->StudentID != stoi(studentID))
+		tempStudent = tempStudent->pNext;
+
+	if (tempStudent) {
+		gotoXY(30, 18); cout << "This student already exists";
+		Sleep(2000);
+		system("cls");
+		displayStudentInClass(schoolyear, schoolyear->student);
+		return;
+	}
+
+	gotoXY(30, 18); cout << "Gender: ";
+	getline(cin, gender, '\n');
+	gotoXY(30, 20); cout << "Date of birth: ";
+	getline(cin, dob, '\n');
+	gotoXY(30, 22); cout << "Social ID: ";
+	getline(cin, socialID, '\n');
+	
+
+	out.open(path, ios::app);
+	if (out) {
+		out << stoi(studentID) << ",";
+		out << lastName << ",";
+		out << firstName << ",";
+		out << gender << ",";
+		out << dob << ",";
+		out << g_selectClass << ",";
+		out << stoi(socialID) << ",";
+		out << "student\n";
+		out.close();
+		cout << "\n\t\t\t      Student has been added successfully!";
+	}
+	else cout << "\n\t\t\t      Unable to open file " << path;
+	Sleep(2500);
+	system("cls");
 }
 
 void updateStudentResult(SchoolYear* schoolyear) {
@@ -470,7 +589,10 @@ bool loginStudent(Student* student) {
 	Textcolor(11);
 	gotoXY(50, 9); cout << "LOGIN";
 	Textcolor(7);
-	gotoXY(31, 12); cout << "Student ID: ";
+	gotoXY(35, 20); cout << "Default account of students:";
+	gotoXY(35, 22); cout << "Account: Student ID (Ex: 20125001)";
+	gotoXY(35, 24); cout << "Password: student";
+	gotoXY(35, 12); cout << "Student ID: ";
 	int y = 14;
 	string password;
 	string StudentID;
@@ -491,7 +613,7 @@ bool loginStudent(Student* student) {
 			}
 		}
 	}
-	gotoXY(31, 14); cout << "Password: ";
+	gotoXY(35, 14); cout << "Password: ";
 	/*cin.ignore();*/
 	getline(cin, password);
 	while (student && to_string(student->StudentID) != StudentID) {

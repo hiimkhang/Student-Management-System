@@ -18,6 +18,9 @@ void getDataStudent(Student*& pHead, string filename);
 // Function to let the user input list of student from a text file.
 void inputStudent();
 
+// Function to add a student by typing.
+void addStudent(SchoolYear*& schoolyear);
+
 // Function to update a student grade.
 void updateStudentResult(SchoolYear* schoolyear);
 

@@ -50,12 +50,15 @@ bool loginStaff(Staff* staff) {
 	Textcolor(11);
 	gotoXY(50, 9); cout << "LOGIN";
 	Textcolor(7);
-	gotoXY(31, 12); cout << "Account: ";
+	gotoXY(35, 20); cout << "Default account of staffs:";
+	gotoXY(35, 22); cout << "Account:  staffNVA (or staffNVB/C/D)";
+	gotoXY(35, 24); cout << "Password: staff";
+	gotoXY(35, 12); cout << "Account: ";
 	string acc;
 	string password;
 	fflush(stdin);
 	getline(cin, acc);
-	gotoXY(31, 14); cout << "Password: ";
+	gotoXY(35, 14); cout << "Password: ";
 	fflush(stdin);
 	getline(cin, password);
 
@@ -172,6 +175,7 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear* schoolyear, st
 }
 
 void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
+	setConsoleWindow(800, 600);
 	if (g_Time != "") {
 		gotoXY(26, 4); cout << "Date: " << g_Time;
 	}
@@ -180,7 +184,7 @@ void displayLoginStaff(Staff* staff, Student* student, SchoolYear* schoolyear) {
 	gotoXY(39, 9); cout << "COURSE REGISTRATION SYSTEM";
 	Textcolor(7);
 	gotoXY(31, 12); cout << "1. School year";
-	gotoXY(31, 14); cout << "2. View and edit profile";
+	gotoXY(31, 14); cout << "2. View profile";
 	gotoXY(31, 16); cout << "3. Change password";
 	gotoXY(31, 18); cout << "4. Log out";
 	gotoXY(31, 20); cout << char(26) << " Enter your choice: ";
