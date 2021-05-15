@@ -264,7 +264,7 @@ void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoo
             pCur = pCur->pNext;
         }
         if (pCur) {
-            if (date_cmp(add0(pCur->register_start_date).c_str(), g_Time.c_str()) > 0) {
+            if (date_cmp(add0(pCur->register_start_date).c_str(), add0(g_Time).c_str()) > 0) {
                 cout << "\n\n\t\t\t\tYou can not get access into semester " << no << "yet!";
                 cout << "\n\n\t\t\t\t(Access available for 7 days before a semester begins.)";
                 Sleep(2000);
@@ -276,8 +276,8 @@ void displaySemesterForStudent(Staff* staff, Student* student, SchoolYear* schoo
                 cout << "\n\n\t\t\t\tEntering semester " << no << "...";
                 Sleep(2000);
                 system("cls");
-                if (date_cmp(add0(pCur->register_start_date).c_str(), g_Time.c_str()) <= 0
-                    && date_cmp(add0(pCur->register_end_date).c_str(), g_Time.c_str()) >= 0)
+                if (date_cmp(add0(pCur->register_start_date).c_str(), add0(g_Time).c_str()) <= 0
+                    && date_cmp(add0(pCur->register_end_date).c_str(), add0(g_Time).c_str()) >= 0)
                     displayCourseForStudent(schoolyear);
                 else {
                     system("cls");

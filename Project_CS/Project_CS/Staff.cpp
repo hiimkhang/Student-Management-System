@@ -61,7 +61,8 @@ bool loginStaff(Staff* staff) {
 	gotoXY(35, 14); cout << "Password: ";
 	fflush(stdin);
 	getline(cin, password);
-
+	staff = nullptr;
+	getDataStaff(staff, "Staff.csv");
 	while (staff && staff->staffAccount != acc) {
 		staff = staff->pNext;
 	}
@@ -84,6 +85,8 @@ void changePassStaff(Staff*& staff, Student* student, SchoolYear* schoolyear, st
 	gotoXY(32, 14); cout << "Enter your old password: ";
 	string oldPass;
 	getline(cin, oldPass, '\n');
+	staff = nullptr;
+	getDataStaff(staff, "Staff.csv");
 	Staff* pCur = staff;
 	while (pCur && pCur->staffAccount != g_account) {
 		pCur = pCur->pNext;
