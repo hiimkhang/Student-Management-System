@@ -347,7 +347,7 @@ void updateStudentResult(SchoolYear* schoolyear) {
 			out << str << ',';
 			getline(in, str, ',');
 			out << str << ",";
-			cout << str << ": \n";
+			cout << "\n\n\t\t\t\t" << str << ": \n";
 			getline(in, str, ',');
 			getline(in, str, ',');
 			getline(in, str, ',');
@@ -355,15 +355,23 @@ void updateStudentResult(SchoolYear* schoolyear) {
 			string total, final, midterm, other;
 			cout << "\n\t\t\t\tTotal mark: ";
 			cin >> total;
+			if (stoi(total) > 10) total = "10";
+			if (stoi(total) < 0) total = "0";
 			out << total << ",";
 			cout << "\n\t\t\t\tFinal mark: ";
 			cin >> final;
+			if (stoi(final) > 10) final = "10";
+			if (stoi(final) < 0) final = "0";
 			out << final << ",";
 			cout << "\n\t\t\t\tMidterm mark: ";
 			cin >> midterm;
+			if (stoi(midterm) > 10) midterm = "10";
+			if (stoi(midterm) < 0) midterm = "0";
 			out << midterm << ",";
 			cout << "\n\t\t\t\tOther mark: ";
 			cin >> other; cin.ignore();
+			if (stoi(other) > 10) other = "10";
+			if (stoi(other) < 0) other = "0";
 			out << other << "\n";
 		}
 		else {
@@ -439,10 +447,10 @@ bool checkEnroll() {
 	}
 	in.close();
 	string Day1[2], Time1[2];
-	in.open(to_string(g_ID) + "_Course.csv");
-	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 6) return false;
+	in.open(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv");
+	if (numberOfLine(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv") == 6) return false;
 	getline(in, str);
-	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
+	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv") - 1; i++) {
 		getline(in, str, ',');
 		getline(in, str, ',');
 		getline(in, str, ',');
@@ -520,8 +528,8 @@ void enroll() {
 	Student* student = nullptr;
 	ofstream out;
 	ifstream in;
-	out.open(to_string(g_ID) + "_Course.csv", ios::app);
-	if (numberOfLine(to_string(g_ID) + "_Course.csv") == 0) {
+	out.open(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv", ios::app);
+	if (numberOfLine(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv") == 0) {
 		out << "Course name, Course ID, credits, teacher name, number of students, day, time\n";
 	}
 	out.close();
@@ -544,7 +552,7 @@ void enroll() {
 		out << student->studentPassword << "\n";
 		out.close();
 		string str;
-		out.open(to_string(g_ID) + "_Course.csv", ios::app);
+		out.open(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv", ios::app);
 		in.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + ".csv");
 		getline(in, str);
 		string q, w;
@@ -597,7 +605,8 @@ void changePassStudent(Staff* staff, Student*& student, SchoolYear* schoolyear, 
 	string oldPass;
 	string str;
 	getline(cin, oldPass, '\n');
-
+	student = nullptr;
+	getDataStudent(student, "Student.csv");
 	Student* pCur = student;
 	while (pCur && pCur->StudentID != g_ID) {
 		pCur = pCur->pNext;
@@ -747,6 +756,8 @@ bool loginStudent(Student* student) {
 	gotoXY(35, 14); cout << "Password: ";
 	/*cin.ignore();*/
 	getline(cin, password);
+	student = nullptr;
+	getDataStudent(student, "Student.csv");
 	while (student && to_string(student->StudentID) != StudentID) {
 		student = student->pNext;
 	}

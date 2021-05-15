@@ -34,7 +34,6 @@ void exportListStudentInCourse(SchoolYear* schoolyear) {
 		in.open("Student.csv");
 		getline(in, s);
 		out << s << endl;
-		cout << s << endl;
 	}
 	in.close();
 	Student* pCur = schoolyear->semester->course->studentInCourse;
@@ -129,9 +128,35 @@ void importScoreboard(SchoolYear*& schoolyear) {
 				out.open(g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_score.csv");
 				string str;
 				if (out) {
-					for (int i = 1; i <= numberOfLine(s); i++) {
-						getline(in, str);
-						out << str << endl;
+					getline(in, str);
+					out << str << endl;
+					for (int i = 1; i <= numberOfLine(s) - 1; i++) {
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						out << str << ",";
+						getline(in, str, ',');
+						if (str == "") str = "0";
+						if (stoi(str) > 10) str = "10";
+						if (stoi(str) < 0) str = "0";
+						out << str << ",";
+						getline(in, str, ',');
+						if (str == "") str = "0";
+						if (stoi(str) > 10) str = "10";
+						if (stoi(str) < 0) str = "0";
+						out << str << ",";
+						getline(in, str, ',');
+						if (str == "") str = "0";
+						if (stoi(str) > 10) str = "10";
+						if (stoi(str) < 0) str = "0";
+						out << str << ",";
+						getline(in, str, '\n');
+						if (str == "") str = "0";
+						if (stoi(str) > 10) str = "10";
+						if (stoi(str) < 0) str = "0";
+						out << str << "\n";
 					}
 					out.close();
 					cout << "\n\t\t\t\tCompleted! \n";
@@ -220,7 +245,7 @@ void getDataScore(SchoolYear*& schoolyear, string path) {
 void getDataCourseScore(SchoolYear*& schoolyear, Student* student) {
 	ifstream in;
 	ofstream out;
-	string path = to_string(g_ID) + "_Course.csv";
+	string path = to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv";
 	string* CourseIDdata = new string[numberOfLine(path) - 1];
 	string* totalMark = new string[numberOfLine(path) - 1];
 	in.open(path);
@@ -353,9 +378,9 @@ void viewScore(SchoolYear* schoolyear) {
 			getline(in, str, ',');
 			gotoXY(73, y); cout << str;
 			getline(in, str, ',');
-			gotoXY(88, y); cout << str;
+			gotoXY(93, y); cout << str;
 			getline(in, str, '\n');
-			gotoXY(103, y); cout << str;
+			gotoXY(110, y); cout << str;
 			y++;
 		}
 		in.close();
@@ -1597,7 +1622,7 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
 void viewCourseEnrolled() {
 	ifstream in;
 	ofstream out;
-	string path = to_string(g_ID) + "_Course.csv";
+	string path = to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv";
 	out.open(path, ios::app);
 	if (numberOfLine(path) == 0) {
 		out << "Course name, Course ID, credits, teacher name, number of students, day, time\n";
@@ -1619,7 +1644,7 @@ void viewCourseEnrolled() {
 		in.open(path);
 		string str;
 		getline(in, str);
-		for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
+		for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv") - 1; i++) {
 			getline(in, str, ',');
 			gotoXY(05, y); cout << str; //name;
 			getline(in, str, ',');
@@ -1643,14 +1668,14 @@ void viewCourseEnrolled() {
 void removeEnrolled() {
 	ifstream in;
 	ofstream out;
-	in.open(to_string(g_ID) + "_Course.csv");
+	in.open(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv");
 	out.open("tempenr.csv");
 	string str;
 	bool checkCourse = false;
 	getline(in, str);
 	out << str << endl;
 	string s;
-	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Course.csv") - 1; i++) {
+	for (int i = 1; i <= numberOfLine(to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv") - 1; i++) {
 		getline(in, str, ',');
 		s = str;
 		getline(in, str, ',');
@@ -1680,8 +1705,8 @@ void removeEnrolled() {
 
 	out.close();
 	in.close();
-	remove((to_string(g_ID) + "_Course.csv").c_str());
-	rename("tempenr.csv", (to_string(g_ID) + "_Course.csv").c_str());
+	remove((to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv").c_str());
+	rename("tempenr.csv", (to_string(g_ID) + "_Semester" + to_string(g_selectSemester) + "_Course.csv").c_str());
 
 	if (!checkCourse) {
 		cout << "\n\n\t\t\t\t             Course " << g_selectCourse << " is not enrolled yet..";

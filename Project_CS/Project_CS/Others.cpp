@@ -38,12 +38,12 @@ void displayLogin(Staff* staff, Student* student, SchoolYear* schoolYear) {
             displayLoginStaff(staff, student, schoolYear);
         }
         else {
-            gotoXY(31, 16); cout << "Your account or password is incorrect.";
-            gotoXY(31, 18); cout << "Try again in 3...";
+            gotoXY(35, 16); cout << "Your account or password is incorrect.";
+            gotoXY(35, 18); cout << "Try again in 3...";
             Sleep(1000);
-            gotoXY(31, 18); cout << "Try again in 2...";
+            gotoXY(35, 18); cout << "Try again in 2...";
             Sleep(1000);
-            gotoXY(31, 18); cout << "Try again in 1...";
+            gotoXY(35, 18); cout << "Try again in 1...";
             Sleep(1000);
             system("cls");
             displayLogin(staff, student, schoolYear);
@@ -58,12 +58,12 @@ void displayLogin(Staff* staff, Student* student, SchoolYear* schoolYear) {
             displayLoginStudent(staff, student, schoolYear);
         }
         else {
-            gotoXY(31, 16); cout << "Your account or password is incorrect.";
-            gotoXY(31, 18); cout << "Try again in 3...";
+            gotoXY(35, 16); cout << "Your account or password is incorrect.";
+            gotoXY(35, 18); cout << "Try again in 3...";
             Sleep(1000);
-            gotoXY(31, 18); cout << "Try again in 2...";
+            gotoXY(35, 18); cout << "Try again in 2...";
             Sleep(1000);
-            gotoXY(31, 18); cout << "Try again in 1...";
+            gotoXY(35, 18); cout << "Try again in 1...";
             Sleep(1000);
             system("cls");
             displayLogin(staff, student, schoolYear);
@@ -211,13 +211,15 @@ string addDays(string date1, int days) {
     if (time[8] != ' ') {
         dd[0] = time[8];
         dd[1] = time[9];
-        dd[2] = '\0';
+        dd[2] = ' ';
     }
     else {
         dd[0] = time[9];
-        dd[1] = '\0';
+        dd[1] = ' ';
     }
     string res = dd + "/" + to_string(date.tm_mon + 1) + "/" + to_string(date.tm_year + 1900);
+    if (res[1] == ' ') res.erase(1, 1);
+    if (res[4] == ' ') res.erase(4, 1);
     return add0(res);
 }
 
