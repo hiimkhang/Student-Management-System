@@ -165,8 +165,9 @@ void displaySemester(Staff* staff, Student* student, SchoolYear* schoolyear) {
             cout << "\n\n\t\t\t\tEntering semester " << no << "...";
             Sleep(2000);
             system("cls");
-            if ((date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0
-                && date_cmp(add0(pCur->end_date).c_str(), g_Time.c_str()) > 0) || date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) > 0)
+            if ((date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) < 0 // hien tai > bat dau va
+                && date_cmp(addDays(add0(pCur->end_date), -5).c_str(), g_Time.c_str()) > 0) || //hien tai <= ket thuc -5
+                date_cmp(add0(pCur->start_date).c_str(), g_Time.c_str()) > 0) // hien tai < bat dau
                 displayCourseInSemester(schoolyear);
             else {
                 system("cls");

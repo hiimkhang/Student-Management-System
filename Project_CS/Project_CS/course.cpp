@@ -1302,7 +1302,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
 		getline(cin, courseID, '\n');
 		g_selectCourse = courseID;
 		enroll();
-		cout << "\n\n\n\n\n\t\t\t\t             Press any key to return...";
+		cout << "\n\n\t\t\t\t             Press any key to return...";
 		_getch();
 		system("cls");
 		displayCourseForStudent(schoolyear);
@@ -1317,8 +1317,9 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
 		Textcolor(Blue);
 		gotoXY(63, 8); cout << "SEMESTER " << g_selectSemester;
 		gotoXY(56, 9); cout << "(" << add0(tempSemester->start_date) << " -- " << add0(tempSemester->end_date) << ")";
-		Textcolor(7);
 
+		Textcolor(7);
+		gotoXY(05, 10); cout << "YOUR COURSES: ";
 		gotoXY(05, 12); cout << "Course name";
 		gotoXY(45, 12); cout << "Course ID"; //25
 		gotoXY(57, 12); cout << "Credits";  // 12
@@ -1357,7 +1358,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
 		gotoXY(02, 14); cout << "===================================================="
 			"=========================================================================";
 		viewCourseEnrolled();
-		gotoXY(70, y + 6); cout << char(26) << " Enter course ID you want remove: ";
+		gotoXY(45, y + 6); cout << char(26) << " Enter course ID you want to remove: ";
 		getline(cin, courseID, '\n');
 		g_selectCourse = courseID;
 		removeEnrolled();
@@ -1382,7 +1383,7 @@ void displayCourseForStudent(SchoolYear*& schoolyear) {
 
 }
 
-void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
+void displayCoursesStudentsExceed(SchoolYear* schoolyear) {
 	setConsoleWindow(1000, 600);
 	ofstream out;
 	ifstream in;
@@ -1589,7 +1590,7 @@ void displayCoursesStudentsExceed(SchoolYear*& schoolyear) {
 		gotoXY(31, y + 11); cout << "Try again in 1...";
 		Sleep(1000);
 		system("cls");
-		displaySemester(schoolyear->staff, schoolyear->student, schoolyear);
+		displayCoursesStudentsExceed(schoolyear);
 		break;
 	}
 }
@@ -1725,6 +1726,7 @@ void removeEnrolled() {
 	in.close();
 	remove((g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv").c_str());
 	rename("tempenr.csv", (g_selectyear + "_Semester" + to_string(g_selectSemester) + "_Course_" + g_selectCourse + "_student.csv").c_str());
+	cout << "\n\n\t\t\t\t             Unenroll " << g_selectCourse << " successfully!"; Sleep(2000);
 }
 
 void deleteCourse(SchoolYear*& schoolyear) {

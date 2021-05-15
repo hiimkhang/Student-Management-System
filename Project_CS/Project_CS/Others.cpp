@@ -218,6 +218,8 @@ string addDays(string date1, int days) {
         dd[1] = '\0';
     }
     string res = dd + "/" + to_string(date.tm_mon + 1) + "/" + to_string(date.tm_year + 1900);
+    if (res[1] == ' ') res.erase(1, 1);
+    if (res[4] == ' ') res.erase(4, 1);
     return add0(res);
 }
 

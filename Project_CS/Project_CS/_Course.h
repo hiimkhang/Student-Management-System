@@ -40,7 +40,7 @@ void displayCourseInSemester(SchoolYear*& schoolyear);
 void displayCourseWhenDayExceed(SchoolYear*& schoolyear);
 void displayCourseForStudent(SchoolYear*& schoolyear);
 
-void displayCoursesStudentsExceed(SchoolYear*& schoolyear);
+void displayCoursesStudentsExceed(SchoolYear* schoolyear);
 void viewScore(SchoolYear* schoolyear);
 void viewCourseEnrolled();
 
