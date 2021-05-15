@@ -434,6 +434,7 @@ bool checkEnroll() {
 		if (temp == 0) Day[0].push_back(day[i]);
 		else Day[1].push_back(day[i]);
 	}
+	if (Day[1] == "") Day[1] = Day[0];
 	temp = 0;
 	for (unsigned int i = 0; i < time.size(); i++) {
 		if (time[i] == ' ' || time[i] == '&') {
